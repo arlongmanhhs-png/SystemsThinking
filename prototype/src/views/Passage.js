@@ -27,36 +27,40 @@ export function sections(pageId) {
   return out;
 }
 
-function Block({ b }) {
-  if (b.p) return html`<p><${Rich} c=${b.p} /></p>`;
-  if (b.template) return html`<blockquote class="passage__template"><${Rich} c=${b.template} terms=${false} /></blockquote>`;
-  if (b.callout) return html`<div class="passage__callout"><${Rich} c=${b.callout} /></div>`;
+// A page reference in a passage names the Step and the Exercise, or the screen's
+// place, read for this passage (`at`): definitions/screen-refs.js.
+function Block({ b, at }) {
+  if (b.p) return html`<p><${Rich} c=${b.p} at=${at} /></p>`;
+  if (b.template) return html`<blockquote class="passage__template"><${Rich} c=${b.template} terms=${false} at=${at} /></blockquote>`;
+  if (b.callout) return html`<div class="passage__callout"><${Rich} c=${b.callout} at=${at} /></div>`;
   if (b.list) {
-    const items = b.list.map((li, i) => html`<li key=${i}><${Rich} c=${li} /></li>`);
+    const items = b.list.map((li, i) => html`<li key=${i}><${Rich} c=${li} at=${at} /></li>`);
     return b.ordered ? html`<ol>${items}</ol>` : html`<ul>${items}</ul>`;
   }
   if (b.table) {
     const t = b.table;
     return html`<div class="passage__tablewrap"><table class="passage__table">
-      ${t.head && html`<thead><tr>${t.head.map((c, i) => html`<th key=${i}><${Rich} c=${c} terms=${false} /></th>`)}</tr></thead>`}
-      <tbody>${t.rows.map((r, i) => html`<tr key=${i}>${r.map((c, j) => html`<td key=${j}><${Rich} c=${c} /></td>`)}</tr>`)}</tbody>
+      ${t.head && html`<thead><tr>${t.head.map((c, i) => html`<th key=${i}><${Rich} c=${c} terms=${false} at=${at} /></th>`)}</tr></thead>`}
+      <tbody>${t.rows.map((r, i) => html`<tr key=${i}>${r.map((c, j) => html`<td key=${j}><${Rich} c=${c} at=${at} /></td>`)}</tr>`)}</tbody>
     </table></div>`;
   }
   return null;
 }
 
-function Sections({ list }) {
+function Sections({ list, at }) {
   return list.map((s, i) => html`<section class="passage__section" key=${i}>
-    ${s.heading && html`<h3><${Rich} c=${s.heading} terms=${false} /></h3>`}
-    ${s.blocks.map((b, j) => html`<${Block} key=${j} b=${b} />`)}
+    ${s.heading && html`<h3><${Rich} c=${s.heading} terms=${false} at=${at} /></h3>`}
+    ${s.blocks.map((b, j) => html`<${Block} key=${j} b=${b} at=${at} />`)}
   </section>`);
 }
 
+// The printed overline and title. The printed page number is not shown: on screen
+// there are no pages (decided 2 October 2026).
 function Head({ p, compact, hideLead }) {
   return html`<header class="passage__head">
-    <div class="es-overline">${p.overline} <span class="passage__page">page ${p.page}</span></div>
+    <div class="es-overline">${p.overline}</div>
     <h2 class=${compact ? 'passage__title passage__title--sm' : 'passage__title'}>${p.title}</h2>
-    ${!compact && !hideLead && p.lead && html`<p class="passage__lead"><${Rich} c=${p.lead} /></p>`}
+    ${!compact && !hideLead && p.lead && html`<p class="passage__lead"><${Rich} c=${p.lead} at=${p.id} /></p>`}
   </header>`;
 }
 
@@ -69,7 +73,7 @@ export function PassageFull({ pageId, read, onRead, onOpenRail, railOpen, hideLe
     return html`<article class="passage passage--full" id=${`passage-${pageId}`}>
       <${TermScope}>
         <${Head} p=${p} hideLead=${hideLead} />
-        <${Sections} list=${sections(pageId)} />
+        <${Sections} list=${sections(pageId)} at=${pageId} />
       </${TermScope}>
       <div class="passage__foot">
         ${!read
@@ -81,7 +85,6 @@ export function PassageFull({ pageId, read, onRead, onOpenRail, railOpen, hideLe
   return html`<div class="passage passage--bar" id=${`passage-${pageId}`}>
     <span class="es-overline">${p.overline}</span>
     <span class="passage__bartitle">${p.title}</span>
-    <span class="passage__page">page ${p.page}</span>
     <button class="es-btn es-btn--quiet es-btn--sm" aria-pressed=${railOpen} onClick=${() => (railOpen ? onOpenRail(null) : setOpen(true))}><${Prov}>Open the instructions</${Prov}></button>
   </div>`;
 }
@@ -97,7 +100,7 @@ export function PassageRail({ pageId, onClose }) {
     </div>
     <${TermScope}>
       <${Head} p=${p} compact=${true} />
-      <${Sections} list=${sections(pageId)} />
+      <${Sections} list=${sections(pageId)} at=${pageId} />
     </${TermScope}>
   </aside>`;
 }

@@ -620,6 +620,30 @@ tier or the other in `prototype/tools/wording-tiers.json`, and the check fails o
 a screen string that is not sorted or that is listed and no longer found. Until a
 string is approved, the dotted underline that marks the string provisional stays.
 
+**Page references** (decided 2 October 2026). The workbook refers to its pages
+("Three other forms, and when each is needed, are on page 10"; page 25's "Decided
+on page 11"), and on screen there are no pages. On screen only, a page reference
+names the Step and the Exercise, or the screen's own name for the place, and the
+printed workbook keeps its page numbers. The whole phrase is replaced, not the
+number, so the sentence still reads as English: "on page 10" reads "in the Step 1
+instructions, under <the printed heading>", "on pages 13 and 17" reads "in Step 2,
+Exercises 3 and 6", "from page 13" reads "from Step 2, Exercise 3", "Step 1, page
+11" reads "Step 1, Exercise 6", and a page number in a heading ("Step 1 · page
+10") goes. Where the sentence is about one thing, the exact exercise that holds the
+thing is named, worked out from the step definitions' fields; where it is about a
+page as a whole, the page's range of exercises. The glossary's "p. 12" names the
+instructions by heading; a term set out on a page the screen does not show (the
+front matter) names nothing. Each place stays a link to where it is on screen. The
+mapping is one data table, `prototype/src/definitions/screen-refs.js`, keyed by the
+page and the place the reference occurs in, with a fallback to the page's exercise
+range so that a reference added to the workbook later never shows a bare page
+number; `workbook.js` stays generated from the printed pages and is not edited.
+Every wording shown in place of a printed one is the screen's own, marked
+provisional and listed in `prototype/tools/wording-tiers.json` under the method
+tier. A sentence whose only job is about paper ("the page each item was decided on
+is printed beside it") is not reworded by a build: it stays as printed, and the
+question of how it reads on screen is Ashley's (`core/open-questions.md`).
+
 ---
 
 ## 10. Technology

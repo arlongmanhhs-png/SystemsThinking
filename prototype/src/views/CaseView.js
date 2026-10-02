@@ -107,15 +107,18 @@ function WrittenZone({ z }) {
   </div>`;
 }
 
+// The printed "Decided on page 11" beside each zone names the exercise on screen,
+// read for the zone (definitions/screen-refs.js); the page number in the head is
+// not shown, since on screen there are no pages (decided 2 October 2026).
 function Panel() {
   const { go } = useRouter();
   const [wide, setWide] = useState(false);
   const p = WORKBOOK.pages.carries;
   return html`<section class="carry" aria-labelledby="carry-title">
     <header class="carry__head">
-      <div class="es-overline">${p.overline} <span class="passage__page">page ${p.page}</span></div>
+      <div class="es-overline">${p.overline}</div>
       <h2 id="carry-title">${p.title}</h2>
-      <p class="carry__lead"><${Rich} c=${p.lead} /></p>
+      <p class="carry__lead"><${Rich} c=${p.lead} at=${p.id} /></p>
     </header>
     ${PHASE_A.zones.map((z) => {
       const zone = p.zones.find((x) => String(x.number) === String(z.n));
@@ -123,13 +126,13 @@ function Panel() {
         <div class="carry__num es-sq-2a">${z.n}</div>
         <div class="carry__content">
           <h3 class="carry__title">${zone.title}</h3>
-          <p class="es-hint"><${Rich} c=${zone.hintsInline[0]} terms=${false} /></p>
+          <p class="es-hint"><${Rich} c=${zone.hintsInline[0]} terms=${false} at=${`carries:${z.n}`} /></p>
           ${z.written ? html`<${WrittenZone} z=${z} />` : html`<${CopyZone} z=${z} zone=${zone} />`}
         </div>
       </div>`;
     })}
     <div class="carry__also">
-      <button class="linkish" aria-expanded=${wide} onClick=${() => setWide(!wide)}><${Prov}>Also carried forward, by the step specifications, and not on page 25</${Prov}></button>
+      <button class="linkish" aria-expanded=${wide} onClick=${() => setWide(!wide)}><${Prov}>Also carried forward, by the step specifications, and not among the seven items above</${Prov}></button>
       ${wide && html`<ul>${PHASE_A.alsoCarried.map((a, i) => html`<li key=${i}>
         <a href="#" onClick=${(e) => { e.preventDefault(); go({ view: 'step', step: a.step, exercise: a.exercise }); }}>${a.what}</a>
         <span class="es-hint">Step ${a.step}, Exercise ${a.exercise}</span>

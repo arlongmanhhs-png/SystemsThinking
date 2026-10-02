@@ -70,7 +70,9 @@ export default {
   },
 
   // The commonest return in the whole process, shown on the Step 3 screen rather
-  // than buried (design/platform-phase-a.md, section 8). Wording from page 20.
+  // than buried (design/platform-phase-a.md, section 8). Wording from page 20, whose
+  // "Step 1, page 11" the screen shows as "Step 1, Exercise 6": `page` is the printed
+  // page, and the screen names the exercise (decided 2 October 2026).
   returnsOut: [
     { id: 'to1_not_quantity', when: 'The line cannot be drawn, because the quantity does not move',
       means: 'What was named is a condition or a judgement, not a quantity',
@@ -240,7 +242,7 @@ export default {
 
   // Workbook page 24. Each sendsTo is the return the specification gives beside the
   // criterion (decided 2 October 2026): page 24 prints its page, and the screen names
-  // the exercise and its page.
+  // the exercise, since on screen there are no pages (decided 2 October 2026).
   criticalCheck: [
     { id: 'c1', text: 'The quantity graphed measures the thing named in the agreed problem definition, and a line says which measure it is and why that one.',
       sendsTo: { exercise: 1 } },

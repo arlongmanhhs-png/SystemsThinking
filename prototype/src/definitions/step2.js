@@ -424,7 +424,8 @@ export default {
   // reason, and what changed (decided 2 October 2026; see engine/store.js).
   // Workbook page 24, which stands over the step description's wording. Each sendsTo
   // is the return the specification gives beside the criterion (decided 2 October
-  // 2026): page 24 prints its page, and the screen names the exercise and its page.
+  // 2026): page 24 prints its page, and the screen names the exercise, since on
+  // screen there are no pages (decided 2 October 2026).
   criticalCheck: [
     { id: 'c1', text: 'What is excluded is written down, with a reason and a mark of F, O, or I.', sendsTo: { exercise: 2 } },
     { id: 'c2', text: 'The actors include those affected by the system but not involved in it.', sendsTo: { exercise: 5 } },
@@ -471,6 +472,8 @@ export default {
 
   // process.yaml, trigger raised at Step 2. The step's own specification lists no
   // outward return (SPEC).
+  // `page` is the printed page the return names; the screen names the exercise
+  // (decided 2 October 2026).
   returnsHeading: { text: 'If this happens, go back', provisional: true },
   returnsOut: [
     { id: 'to1_outside', when: 'The actors who matter all sit outside the boundary',

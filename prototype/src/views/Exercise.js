@@ -248,9 +248,9 @@ export function Exercise({ step, ex, info, highlight, passageFor, onOpenRail, ra
         ? html`<div class="exercise__hint">
             <p><${Prov}>${variant.hint}</${Prov}></p>
             <button class="linkish" aria-expanded=${showPrinted} onClick=${() => setShowPrinted(!showPrinted)}><${Prov}>${showPrinted ? 'Hide the printed form' : 'The printed form'}</${Prov}></button>
-            ${showPrinted && html`<div class="printed-form"><div class="es-overline">${h.label}</div>${texts.map((t, i) => html`<p key=${i}><${Rich} c=${t} terms=${false} /></p>`)}</div>`}
+            ${showPrinted && html`<div class="printed-form"><div class="es-overline">${h.label}</div>${texts.map((t, i) => html`<p key=${i}><${Rich} c=${t} terms=${false} at=${`${ex.page}:${ex.number}`} /></p>`)}</div>`}
           </div>`
-        : texts.length > 0 && html`<div class="exercise__hint">${texts.map((t, i) => html`<p key=${i}><${Rich} c=${t} /></p>`)}</div>`}
+        : texts.length > 0 && html`<div class="exercise__hint">${texts.map((t, i) => html`<p key=${i}><${Rich} c=${t} at=${`${ex.page}:${ex.number}`} /></p>`)}</div>`}
     </${TermScope}>
     ${ex.subset && html`<${Subset} state=${state} />`}
     <div class=${`exercise__body ${ex.showBeside ? 'has-beside' : ''}`}>

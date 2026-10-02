@@ -3,27 +3,25 @@
 // of the record rather than a disappearance.
 
 import { html, useState, Fragment } from '../html.js';
-import { exercise } from '../definitions/index.js';
 import { useCase } from '../engine/store.js';
-import { Prov, fmtDate, pageNumber } from './text.js';
+import { Prov, fmtDate } from './text.js';
 import { useRouter } from './router.js';
 
 const arr = (x) => (Array.isArray(x) ? x : [x]);
 
-// Where a "no" sends the participant: a link to each exercise. With withPage, as under
-// each critical check criterion, each link also names the page the exercise is
-// printed on ("Exercise 6, page 11"), the page that page 24 prints beside the line.
-export function SendsTo({ step, to, withPage = false }) {
+// Where a "no" sends the participant: a link to each exercise, by its number. Page 24
+// prints the page beside each line of the critical check; on screen the exercise is
+// the place, so no page is named (decided 2 October 2026). With `list`, as under each
+// criterion, the links are separated with semicolons.
+export function SendsTo({ step, to, list = false }) {
   const { go } = useRouter();
   if (!to) return null;
   return arr(to).map((t, i) => {
     const s = t.step || step;
-    const ex = withPage ? exercise(s, t.exercise) : null;
-    const pg = ex ? pageNumber(ex.page) : '';
-    return html`<${Fragment} key=${i}>${withPage && i ? '; ' : ''}<a href="#" class=${withPage ? 'sendsto sendsto--page' : 'sendsto'} onClick=${(e) => {
+    return html`<${Fragment} key=${i}>${list && i ? '; ' : ''}<a href="#" class=${list ? 'sendsto sendsto--list' : 'sendsto'} onClick=${(e) => {
       e.preventDefault();
       go({ view: 'step', step: s, exercise: t.exercise });
-    }}>${t.step && t.step !== step ? `Step ${t.step}, ` : ''}Exercise ${t.exercise}${pg ? `, page ${pg}` : ''}</a></${Fragment}>`;
+    }}>${t.step && t.step !== step ? `Step ${t.step}, ` : ''}Exercise ${t.exercise}</a></${Fragment}>`;
   });
 }
 

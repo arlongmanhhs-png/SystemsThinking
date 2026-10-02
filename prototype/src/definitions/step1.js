@@ -299,7 +299,8 @@ export default {
   // Workbook page 24, which the specification and the description carry word for word
   // (settled 1 October 2026). Each sendsTo is the return the specification gives
   // beside the criterion (decided 2 October 2026): page 24 prints its page, and the
-  // screen names the exercise and its page.
+  // screen names the exercise, since on screen there are no pages (decided 2 October
+  // 2026).
   criticalCheck: [
     { id: 'c1', text: 'The agreed problem definition states a situation, not a solution: what is wrong with something valued, with the reason it matters and for whom.',
       sendsTo: { exercise: 6 } },

@@ -17,7 +17,7 @@ import { makeCtx } from '../engine/ctx.js';
 import { useRouter } from './router.js';
 import { Exercise, ReturnLink } from './Exercise.js';
 import { PassageFull, PassageRail } from './Passage.js';
-import { Rich, Prov, PageRef, fmtDate, fmtDateTime } from './text.js';
+import { Rich, Prov, fmtDate, fmtDateTime } from './text.js';
 import { SendsTo } from './Warnings.js';
 import { refOptions } from './fields.js';
 import { label as listLabel } from '../definitions/lists.js';
@@ -156,7 +156,7 @@ function CriticalCheck({ step, info, visibleUpTo }) {
             ${c.screenVariant && html`<${PrintedLine} text=${c.text} />`}
             <div class="check__meta">
               ${info.ticks[c.id] && html`<span class="check__date">${fmtDate(info.ticks[c.id])}</span>`}
-              <span class="check__if"><${Prov}>If not:</${Prov}> <${SendsTo} step=${step} to=${c.sendsTo} withPage=${true} /></span>
+              <span class="check__if"><${Prov}>If not:</${Prov}> <${SendsTo} step=${step} to=${c.sendsTo} list=${true} /></span>
             </div>
           </li>`)}
         </ul>`}
@@ -228,7 +228,9 @@ function Parked({ step }) {
 
 // Where this step sends the participant back to. Step 3's are its printed table
 // ("This step tests Step 1"), shown at the top because they are the commonest returns
-// in the process; any other step's are shown above its critical check.
+// in the process; any other step's are shown above its critical check. Where the
+// table prints "Step 1, page 11", the screen names the exercise the return reopens,
+// "Step 1, Exercise 6", in its own words (decided 2 October 2026).
 function Returns({ step, def }) {
   const { go } = useRouter();
   if (!def.returnsOut.length && !(def.returnsInside || []).length) return null;
@@ -241,7 +243,7 @@ function Returns({ step, def }) {
       <tbody>
         ${def.returnsOut.map((r) => html`<tr key=${r.id}>
           <td>${r.when}</td>
-          <td><${ReturnLink} step=${step} r=${r} text=${`Step ${r.to.step}`} />${r.to.page ? html`, page <${PageRef} to=${r.to.page} />` : ''}${r.action ? `, ${r.action}` : ''}${r.means ? html`. <span class="es-hint">${r.means}</span>` : ''}</td>
+          <td><${ReturnLink} step=${step} r=${r} text=${html`Step ${r.to.step}, <${Prov}>Exercise ${r.to.exercise}</${Prov}>`} />${r.action ? `, ${r.action}` : ''}${r.means ? html`. <span class="es-hint">${r.means}</span>` : ''}</td>
         </tr>`)}
         ${(def.returnsInside || []).map((r) => html`<tr key=${r.id}>
           <td>${r.when}</td>
@@ -357,9 +359,9 @@ export function StepScreen({ step }) {
           if (!shown.length) return null;
           return html`<div class="workpage" key=${item.page}>
             ${p.title && item.exercises.length > 1 && html`<header class="workpage__head">
-              <div class="es-overline">${p.overline || `Step ${step}`} <span class="passage__page">page ${p.page}</span></div>
+              <div class="es-overline">${p.overline || `Step ${step}`}</div>
               <h2 class="workpage__title">${p.title}</h2>
-              ${p.lead && html`<p class="workpage__lead"><${Rich} c=${p.lead} /></p>`}
+              ${p.lead && html`<p class="workpage__lead"><${Rich} c=${p.lead} at=${p.id} /></p>`}
             </header>`}
             ${shown.map((ex) => html`<${Exercise} key=${ex.number} step=${step} ex=${ex} info=${info} highlight=${highlight}
               passageFor=${passageOf(ex.number)}

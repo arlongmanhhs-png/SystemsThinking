@@ -13,7 +13,8 @@ import { CaseView } from './CaseView.js';
 import { StepScreen } from './StepScreen.js';
 import { ReadView } from './ReadView.js';
 import { FILE_NOTICES } from './save.js';
-import { Prov, PageRef, fmtDate } from './text.js';
+import { Prov, ScreenRef, fmtDate } from './text.js';
+import { screenRef } from '../definitions/screen-refs.js';
 
 const TOOL_TITLE = 'Systems Thinking Process';
 
@@ -42,13 +43,16 @@ function TopBar() {
   </header>`;
 }
 
+// Where each term is set out in full: the printed "p. 12" names the instructions on
+// screen, in the screen's words, and a page the screen does not show (the front
+// matter) names nothing (decided 2 October 2026; definitions/screen-refs.js).
 function Glossary() {
   const g = WORKBOOK.pages.glossary;
   return html`<main class="glossary">
     <div class="steptab steptab--phase">Glossary</div>
     <header><div class="es-overline">${g.tab}</div><h1>${g.title}</h1><p class="es-intro">${g.lead}</p></header>
     <dl class="glossary__list">${g.terms.map((t) => html`<div key=${t.term} class="glossary__item">
-      <dt>${t.term}</dt><dd>${t.definition}.</dd>${t.ref && html`<dd class="glossary__where">p. <${PageRef} to=${t.ref} /></dd>`}
+      <dt>${t.term}</dt><dd>${t.definition}.</dd>${t.ref && screenRef(t.ref, `glossary:${t.term}`) && html`<dd class="glossary__where"><${ScreenRef} refs=${[t.ref]} form="where" at=${`glossary:${t.term}`} /></dd>`}
     </div>`)}</dl>
   </main>`;
 }

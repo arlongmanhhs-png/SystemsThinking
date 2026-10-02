@@ -21,7 +21,7 @@ definition with a `// SPEC:` comment and reported in `FINDINGS.md`. Never silent
 | `passages` | The instruction pages, in order: `{ page, governs: [exercise numbers] }`. Each is shown once, whole, before the exercises it faces in the book, and stays one click away from each exercise it governs. The screen has this one arrangement (decided 2 October 2026) |
 | `pages` | The working pages, in order: `{ page, exercises: [numbers] }`. Title and lead come from the workbook |
 | `exercises` | In workbook order. See below |
-| `criticalCheck` | `[{ id, text, sendsTo, screenVariant }]`. `text` is the workbook's (page 24); `sendsTo` is the return the step's `spec.md` gives beside the criterion, and the screen names each exercise with its page. `screenVariant` is `{ text }`, only where the printed line names a physical thing the screen does not have (Step 2's seventh criterion); the printed form stays beside it |
+| `criticalCheck` | `[{ id, text, sendsTo, screenVariant }]`. `text` is the workbook's (page 24); `sendsTo` is the return the step's `spec.md` gives beside the criterion, and the screen names each exercise by its number, never a page (decided 2 October 2026). `screenVariant` is `{ text }`, only where the printed line names a physical thing the screen does not have (Step 2's seventh criterion); the printed form stays beside it |
 | `carriesForward` | `[{ output, goesTo, usedAs }]`, from the step's `spec.md` |
 | `returnsIn` | Triggers raised elsewhere that reopen fields here: `{ id, raisedAt, when, fields }` |
 | `returnsOut` | Returns this step can send: `{ id, when, means, to: { step, fields, exercise } }` |

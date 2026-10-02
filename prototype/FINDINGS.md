@@ -367,8 +367,10 @@ cover had to be invented:
   when the answer changes.
 - **Glossary terms are links** (page 6 promises it), linked at their first
   occurrence in each passage or hint.
-- **Page numbers** are kept as printed and made links, so a participant with the
-  book recognises them.
+- **Page numbers** were kept as printed and made links, so that a participant with
+  the book recognised them. Since 2 October 2026 a page reference on screen names
+  the Step and the Exercise, or the screen's place, in the screen's own words
+  (`src/definitions/screen-refs.js`), and the book keeps its numbers.
 - **The graph needs a scale**, which the printed grid does not have, and needs
   decimals and an interval. Evidence needs years for each part of the line; the
   build reads them as whole years, so 2012 to 2018 followed by 2019 to 2024 leaves

@@ -82,6 +82,7 @@ made on another device shows without clobbering one being typed here.
 | `src/definitions/phase-a.js` | Page 25, what carries forward, as the case view's panel |
 | `src/definitions/lists.js` | The closed lists, in one place, referenced by key |
 | `src/definitions/workbook.js` | **Generated.** The workbook's wording, read from `print/src/wb-part-*.html` by `tools/extract-workbook.py`. Never edited by hand |
+| `src/definitions/screen-refs.js` | What a printed page reference names on screen: the Step and Exercise, or the screen's place, by page and by where the reference occurs, with a fallback to the page's exercise range |
 | `artifact.html` | The artifact's page: the same scripts and stylesheets as `index.html`, without a document skeleton |
 | `src/engine/` | The case and its two backends (`store.js`, `storage.js`), saving a file through the artifact's save prompt or the browser's download (`files.js`), validation (blocking, stop, or warning, nothing else), and the derived step state |
 | `src/views/StepScreen.js` | The one renderer that turns any step definition into a screen |
@@ -97,7 +98,7 @@ made on another device shows without clobbering one being typed here.
 | `tools/wording-tiers.json` | The screen's own wording, sorted into method strings and controls, with where each one shows |
 | `FINDINGS.md` | What the build reports back (section 12 of the prompt) |
 
-## Three things on screen worth knowing
+## Five things on screen worth knowing
 
 **The top bar** carries the tool's working title, Systems Thinking Process, as
 plain text: a descriptive title rather than a product name, with no wordmark and
@@ -109,6 +110,19 @@ none of them is mistaken for settled copy. `tools/wording-tiers.json` sorts ever
 one of them into two tiers: method strings, which say something about the
 participant's work and which Ashley approves one at a time, and controls, which a
 rule in `CLAUDE.md` covers once Ashley approves that rule.
+
+**Page references** name the Step and the Exercise, or the screen's place, never a
+page (decided 2 October 2026): the workbook's "on page 10" reads "in the Step 1
+instructions, under <the printed heading>", page 25's "Decided on page 11" reads
+"Decided in Step 1, Exercise 6", and the Step 3 table's "Step 1, page 11" reads
+"Step 1, Exercise 6", each still a link to where it is on screen. The printed
+workbook keeps its page numbers, and `workbook.js` is not touched: `text.js` reads
+the page id from the printed reference, and `src/definitions/screen-refs.js` says
+what the screen shows for it, by page and by where the reference occurs, falling
+back to the page's range of exercises. Every such wording is the screen's own,
+dotted-underlined and listed in `tools/wording-tiers.json`. A sentence whose only
+job is about paper stays as printed, and is a question for Ashley
+(`core/open-questions.md`).
 
 **The instructions** sit where the book puts them: each instruction page once,
 whole, before the exercises it faces, then closed to a bar and one click away from
@@ -172,9 +186,9 @@ it at the same relative paths (nothing from `tools/`, and neither `index.html`,
 loads):
 
 - `src/app.css`, `src/html.js`, `src/main.js`
-- `src/definitions/index.js`, `lists.js`, `phase-a.js`, `step1.js`, `step2.js`,
-  `step3.js`, `workbook.js` (and `SCHEMA.md`, documentation the page never
-  fetches, so it may be left out)
+- `src/definitions/index.js`, `lists.js`, `phase-a.js`, `screen-refs.js`,
+  `step1.js`, `step2.js`, `step3.js`, `workbook.js` (and `SCHEMA.md`,
+  documentation the page never fetches, so it may be left out)
 - `src/engine/ctx.js`, `files.js`, `state.js`, `storage.js`, `store.js`,
   `validate.js`
 - `src/views/App.js`, `Arrangement.js`, `CaseView.js`, `Exercise.js`, `Graph.js`,

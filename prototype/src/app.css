@@ -131,7 +131,6 @@ h1,h2,h3{font-weight:400}
 .passage{background:var(--white);margin:0 0 22px}
 .passage--full{padding:22px 26px 18px;box-shadow:inset 0 3px 0 var(--navy),inset 0 0 0 1px var(--grey-20)}
 .passage__head{margin-bottom:10px}
-.passage__page{font:500 11px/1 var(--font-condensed);letter-spacing:.04em;color:var(--grey-60);text-transform:none;margin-left:6px}
 .passage__title{font-size:26px;margin:4px 0 6px}
 .passage__title--sm{font-size:20px}
 .passage__lead{font-size:var(--text-intro);line-height:var(--leading-intro);color:var(--grey-80)}
@@ -250,7 +249,7 @@ h1,h2,h3{font-weight:400}
 @media (max-width:760px){.shape-pick{grid-template-columns:1fr}}
 .returnlink{font-size:13px}
 .sendsto+.sendsto{margin-left:8px}
-.sendsto--page+.sendsto--page{margin-left:2px}
+.sendsto--list+.sendsto--list{margin-left:2px}
 
 /* Tables */
 .table{display:grid;gap:8px}
