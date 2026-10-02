@@ -1,0 +1,8 @@
+{
+  "name": "systems-thinking-process-tools",
+  "private": true,
+  "description": "Build and check tools for the printed workbook and the Phase A prototype",
+  "dependencies": {
+    "playwright": "^1.63.0"
+  }
+}
