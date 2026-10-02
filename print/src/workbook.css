@@ -1,0 +1,252 @@
+/* Workbook layout, on top of sheet.css.
+   A4 portrait, printed double sided. Side margins are symmetric (20mm both sides) rather
+   than mirrored, so one PDF works however it is bound: two-hole or four-hole punched into a
+   ring binder, wire-o, comb, saddle-stitched, or perfect bound, printed duplex or single
+   sided. Nothing important comes within 20mm of either edge. To switch to mirrored margins
+   for professional binding, set --inner and --outer below and apply them per page parity. */
+
+.wb{padding:14mm 20mm 16mm; --inner:20mm; --outer:20mm}
+.wb .rule-top{margin:.7em 0 1em}
+.wb .title{font-size:1.9em}
+.wb .zh{font-size:1.2em}
+.wb p{margin:0 0 .55em}
+.wb .lead{font-size:1.05em; color:var(--grey-80); margin-bottom:.8em}
+
+/* page furniture */
+.folio{position:absolute; bottom:8mm; font-family:var(--narrow); font-size:.78em;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--grey-60)}
+.folio.l{left:20mm}
+.folio.r{right:20mm; text-align:right}
+.folio b{color:var(--navy); font-weight:600}
+.tab{position:absolute; top:0; right:0; background:var(--navy); color:#fff; font-family:var(--narrow);
+  font-size:.74em; letter-spacing:.14em; text-transform:uppercase; padding:.35em 1.1em .35em 1.3em;
+  clip-path:polygon(6.26% 0%, 100% 0%, 100% 100%, 0% 100%)}
+.tab.green{background:var(--green); color:var(--navy)}
+
+/* instruction page */
+.instr h3{font-family:var(--display); font-size:1.12em; color:var(--navy); font-weight:400;
+  margin:.9em 0 .25em; letter-spacing:-.005em}
+.instr h3:first-of-type{margin-top:0}
+.instr p, .instr li{font-size:.95em}
+.instr ol, .instr ul{margin:0 0 .5em 1.15em; padding:0}
+.instr li{margin-bottom:.22em}
+.instr .q{background:var(--cream); border-left:5px solid var(--green); padding:.5em .75em; margin:.5em 0 .7em;
+  font-size:.95em}
+.instr .q b{color:var(--navy)}
+.opposite{font-family:var(--narrow); font-size:.8em; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--navy-70); border-top:1px solid var(--cream-line); padding-top:.5em; margin-top:.7em}
+
+/* a landscape page inside a portrait book */
+.land-wrap{position:absolute; top:50%; left:50%; width:267mm; height:170mm;
+  transform:translate(-50%,-50%) rotate(-90deg); transform-origin:center center;
+  display:flex; flex-direction:column}
+
+/* the sketch spread: two facing pages read as one area */
+.half{flex:1 1 auto; border:1px solid var(--cream-line); margin-top:.6em}
+.half.left{border-right:0}
+.half.right{border-left:0}
+
+/* title page */
+.cover{display:flex; flex-direction:column; height:100%}
+.cover .big{font-family:var(--display); font-size:3.1em; line-height:1.03; color:var(--navy);
+  letter-spacing:-.02em; margin:.3em 0 .2em}
+.cover .phase{font-family:var(--display); font-size:1.5em; color:var(--green); margin-bottom:.1em}
+.cover .fields{display:grid; grid-template-columns:1fr; gap:1.5em; margin-top:2em; max-width:78%}
+.cover .fields .f .lab{font-family:var(--narrow); font-size:.8em; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--grey-60); margin-bottom:1.6em}
+.cover .fields .f .rule{border-bottom:1px solid var(--grey-40)}
+
+/* contents / at a glance */
+.steps{width:100%; border-collapse:collapse; font-size:.95em}
+.steps td{padding:.3em .5em .3em 0; border-bottom:1px solid var(--grey-20); vertical-align:baseline}
+.steps td.n{width:2.2em; font-family:var(--narrow); color:var(--navy-70)}
+.steps td.p{width:3.4em; text-align:right; font-family:var(--narrow); color:var(--grey-60)}
+.steps td.p.later{color:var(--grey-40); font-style:italic; font-size:.9em}
+.steps tr.ph td{border-bottom:2px solid var(--navy); padding-top:.9em}
+.steps tr.ph td.t{font-family:var(--display); color:var(--navy); font-size:1.08em}
+.steps tr.now td{background:var(--cream)}
+
+/* phase summary */
+.sum .zh{font-size:1.1em}
+.revised{border-top:1px solid var(--cream-line); margin-top:.7em; padding-top:.4em; display:flex;
+  gap:.8em; align-items:baseline}
+.revised .k{font-family:var(--narrow); font-size:.76em; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--grey-60); white-space:nowrap}
+.revised .fill{flex:1 1 auto; border-bottom:1px solid var(--grey-30); height:1.4em}
+
+/* verso pages carry the tab on the outer (left) edge */
+.sheet.verso .tab{left:0; right:auto; padding:.35em 1.3em .35em 1.1em;
+  clip-path:polygon(0% 0%, 100% 0%, 93.74% 100%, 0% 100%)}
+
+/* the landscape actor table: short horizontal headers, full names on the facing page */
+.grid th.sh{font-size:.76em; letter-spacing:.02em; text-align:center; padding:.3em .1em .25em;
+  border-left:1px solid var(--grey-20)}
+.grid col.w{width:14mm}
+.grid col.a{width:7.4mm}
+.grid td.a, .grid th.sh + th.sh.g{border-left-color:var(--grey-30)}
+.grid tr.grp th.sh.g{font-family:var(--narrow); font-size:.72em; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--navy-70); padding-bottom:.15em; font-weight:400;
+  border-bottom:1px solid var(--grey-30)}
+.grid tr.grp th[rowspan]{vertical-align:bottom}
+.grid td.t{text-align:center}
+.land-wrap .grid td{height:9.2mm}
+.land-wrap .grid th{padding-bottom:.35em}
+
+/* ---------- graph ---------- */
+.graph{--gx:12mm; --gy:9mm; position:relative; border-left:1.5px solid var(--navy);
+  border-bottom:1.5px solid var(--navy);
+  background-image:
+    repeating-linear-gradient(to right, var(--grey-20) 0 .4mm, transparent .4mm var(--gx)),
+    repeating-linear-gradient(to bottom, var(--grey-20) 0 .4mm, transparent .4mm var(--gy));}
+.gwrap{display:grid; grid-template-columns:7mm 1fr; gap:0 2mm; align-items:stretch}
+.ylab{writing-mode:vertical-rl; transform:rotate(180deg); display:flex; align-items:center;
+  justify-content:center; font-family:var(--narrow); font-size:.78em; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--navy-70); border-right:1px solid var(--cream-line)}
+.xlab{display:flex; justify-content:space-between; font-family:var(--narrow); font-size:.78em;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--navy-70); margin-top:.25em}
+.xlab .fillsm{flex:1 1 auto; border-bottom:1px solid var(--grey-30); margin:0 .6em; height:1.3em}
+.events{margin-top:.5em}
+.events .hd{font-family:var(--narrow); font-size:.78em; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--navy-70); margin-bottom:.2em}
+.events .strip{display:grid; grid-template-columns:repeat(6,1fr); gap:0}
+.events .strip div{border:1px solid var(--grey-20); border-right:0; height:3.4em}
+.events .strip div:last-child{border-right:1px solid var(--grey-20)}
+.evtot{display:flex; align-items:baseline; gap:.35em; font-size:.82em; color:var(--grey-70);
+  margin-top:.3em; flex-wrap:wrap}
+.evtot .fill{flex:1 1 3em; border-bottom:1px solid var(--grey-40); min-height:1em}
+.evkey{display:flex; gap:1.2em; font-size:.85em; color:var(--grey-80); margin-top:.3em; flex-wrap:wrap}
+.smallgraph{--gx:8mm; --gy:7mm}
+.shapes{display:grid; grid-template-columns:repeat(3,1fr); gap:.5em .8em}
+.shapes label{display:flex; align-items:center; gap:.5em; font-size:.94em}
+.shapes i{width:1.1em; height:1.1em; border:1px solid var(--grey-40); display:inline-block; flex:0 0 auto}
+
+
+/* ======== revision of 29 September: legibility, exercises, references ======== */
+
+/* instruction text under a worksheet heading is prose, not a footnote */
+.wb .hint{font-size:.92em; color:var(--grey-80)}
+.wb .note{font-size:.86em}
+.wb .zp{font-size:1em}
+
+/* rules and grids darker */
+.wb .lines{background-image:repeating-linear-gradient(to bottom,
+    transparent 0, transparent calc(var(--pitch) - 1px),
+    var(--grey-40) calc(var(--pitch) - 1px), var(--grey-40) var(--pitch))}
+.wb .fill, .wb .layerrow .fill, .wb .layerrow .j2, .wb .inout .r,
+.wb .decisionline .fill, .wb .ara .fill, .wb .revised .fill, .wb .xlab .fillsm{border-bottom-color:var(--grey-50)}
+.wb .grid td{border-bottom-color:var(--grey-40)}
+.wb .grid td.t{border-left-color:var(--grey-30)}
+.wb .box{border-color:var(--grey-40)}
+.wb .tick, .wb .inline-ticks i, .wb .shapes i, .wb .checklist li::before{border-color:var(--grey-60)}
+.wb .graph{--gx:12mm; --gy:9mm;
+  background-image:
+    repeating-linear-gradient(to right, var(--grey-30) 0 .4mm, transparent .4mm var(--gx)),
+    repeating-linear-gradient(to bottom, var(--grey-30) 0 .4mm, transparent .4mm var(--gy))}
+.wb .events .strip div{border-color:var(--grey-40)}
+
+/* exercise label above a worksheet heading */
+.exlab{font-family:var(--narrow); font-size:.78em; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--green); font-weight:600; margin-bottom:.05em}
+.exlab b{color:var(--navy)}
+
+/* cover */
+.coverpage{display:flex; flex-direction:column; height:100%}
+.coverpage .big{font-family:var(--display); font-size:3.4em; line-height:1.02; color:var(--navy);
+  letter-spacing:-.02em; margin:.25em 0 .15em}
+.coverpage .sub{font-family:var(--display); font-size:1.35em; color:var(--green); margin-bottom:.2em}
+
+/* glossary */
+.gloss{display:grid; grid-template-columns:auto 1fr auto; gap:.45em .9em; align-items:baseline}
+.gloss .t{font-weight:600; color:var(--navy); font-size:.98em; white-space:nowrap}
+.gloss .d{font-size:.95em}
+.gloss .w{font-family:var(--narrow); font-size:.8em; color:var(--grey-60); white-space:nowrap}
+
+/* index */
+.steps td.p{width:4.2em}
+
+/* the phase opener */
+.opener{display:flex; flex-direction:column; height:100%}
+.opener .num{width:auto; height:auto; background:none; color:var(--green); font-size:1.5em;
+  clip-path:none; display:block; font-family:var(--display)}
+.stepcard{border-top:2px solid var(--navy); padding-top:.5em; margin-bottom:1.1em}
+.stepcard h3{font-family:var(--display); font-size:1.3em; color:var(--navy); margin:.1em 0 .25em; font-weight:400}
+.stepcard .n{font-family:var(--narrow); font-size:.8em; letter-spacing:.12em; text-transform:uppercase; color:var(--green)}
+
+.wb .zone{margin-bottom:.58em}
+.wb .revised{margin-top:.5em}
+
+
+/* ======== revision of 1 October: the six decisions, and rules that print ======== */
+
+/* Step 1, Exercise 3: the disqualifier's row, with the "how you know" line the four
+   questions above it have */
+.wb .dq{display:grid; grid-template-columns:auto auto minmax(4em,1fr); gap:0 .7em; align-items:end;
+  margin-top:.3em}
+.wb .dq .yn{margin-top:0}
+.wb .dq .fill{border-bottom:1px solid var(--grey); height:1.5em}
+
+/* Step 1, Exercise 4: a short year field in each box's label row */
+.wb .box .bl.yr{display:grid; grid-template-columns:1fr auto 4.6em; gap:0 .35em; align-items:end}
+.wb .box .bl.yr > span:first-child{letter-spacing:0}
+.wb .box .bl.yr .fill{border-bottom:1px solid var(--grey); height:1.3em}
+
+/* Writing lines and the graph grid are drawn as real rules rather than as repeating
+   gradients. Chromium writes a repeating gradient into the PDF as a function shading,
+   which each viewer samples at its own resolution: in MuPDF-based viewers the rules
+   blurred into bars or vanished, so the rationale on page 9 printed one line of three
+   and Exercise 4 on page 21 printed none. The script at the end of the book fills each
+   .lines and .graph with the rules; the geometry is unchanged. */
+.wb .lines{background-image:none; overflow:hidden}
+.wb .lines > .rule{height:var(--pitch); border-bottom:1px solid var(--grey-40)}
+.wb .graph{background-image:none}
+.wb .graph > .grid-svg{position:absolute; left:0; top:0; width:100%; height:100%; display:block}
+
+/* The page budget. The decisions added to pages 9, 13, 17, and 21, and each is tightened on
+   the page itself rather than by moving anything to another page or splitting it. Page 9 was
+   already past its foot before the decisions, with its revised strip under the folio, and
+   page 25 likewise, with its revised strip 1mm from the paper edge; both now end where every
+   other working page ends. */
+#s1work .zone{margin-bottom:.3em}
+#s1work .stmt{padding:.45em .85em .4em}
+#s1work .stmt .cap{margin-bottom:.28em}
+#s1work .lines.l3{--pitch:1.6em; height:4.8em}
+#s1work .tickrow{margin-bottom:.2em}
+#s1work .callout{padding:.45em .8em}
+#s1work .inline-ticks{margin-bottom:.25em}
+#s1work .zh{margin:.1em 0 .22em}
+/* Page 10 took page 8's check on 1 October, so that page 8 points to nothing beyond the
+   exercises it faces; its headings and reference tables are tightened to keep it on the page. */
+#s1ref h3:not(:first-of-type){margin-top:.7em}
+#s1ref .reftab td{padding:.28em .5em}
+#s2work1 .zone{margin-bottom:.4em}
+#s2work1 .inout .r, #s2work1 .inout .tk{height:1.75em}
+#s2work3 .zone{margin-bottom:.4em}
+#s2work3 .grid td{height:1.85em}
+#s3work1 .decisionline{margin-bottom:.35em}
+#carries .zone{margin-bottom:.45em}
+#carries .lines.tight{--pitch:1.5em}
+#carries .lines.tight.l2{height:3em}
+#carries .lines.tight.l3{height:4.5em}
+#carries .layerrow{margin-bottom:.25em}
+#carries .layerrow .fill{height:1.55em}
+/* ======== revision of 2 October: Ashley's decisions of 2 October ======== */
+
+/* Page 13, Exercise 2: six exclusions on the right, each with its own line for the reason,
+   in the height the twelve single lines had; the twelve rows on the left are unchanged */
+.wb .inout .why{grid-column:2 / span 2; display:flex; align-items:flex-end; gap:.6em; height:1.95em}
+#s2work1 .inout .why{height:1.75em}
+.wb .inout .why .k{font-family:var(--narrow); font-size:.76em; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--grey-60); padding-bottom:.25em}
+.wb .inout .why .fill{flex:1 1 auto; align-self:stretch; border-bottom:1px solid var(--grey)}
+/* the line under a table that may run out of rows, on pages 13 and 17: styled as a hint but
+   not classed as one, because the screen shows a zone's hints and has no cap on either table */
+.wb .more{font-family:var(--narrow); font-size:.92em; color:var(--grey-80); margin:.3em 0 0}
+/* Page 17, Exercise 9: the label above its two full-width lines */
+.wb .overline.speaks{margin:.5em 0 0}
+/* Page 24: the page each criterion sends you back to, printed beside it */
+#checks .checklist li{display:grid; grid-template-columns:1.05em 1fr 5.2em; column-gap:.6em; align-items:baseline}
+#checks .checklist li::before{align-self:start; margin:.12em 0 0}
+#checks .checklist .ret{font-family:var(--narrow); font-size:.92em; color:var(--navy-70); text-align:right}
+/* Pages 13 and 17 took a line each for rows beyond the printed ones on 2 October, and page 17
+   a second line for who speaks for each group; both are tightened on the page itself. */
+#s2work1 .layerrow{margin-bottom:.3em}

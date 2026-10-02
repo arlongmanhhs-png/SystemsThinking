@@ -1,0 +1,27 @@
+/* Type families: inherited from THUAS.
+   COPY. The original is tokens/fonts.css in the design system (see ../COPIED.md). One change
+   from the original: Archivo and Archivo Narrow are loaded from local .woff2 files in
+   ../assets/fonts instead of from Google Fonts, because the prototype makes no network calls
+   at runtime. The files are from @fontsource/archivo and @fontsource/archivo-narrow (SIL Open
+   Font License, LICENSE-archivo-OFL beside them).
+   Second change, 2 October 2026: the display face is Outfit (@fontsource/outfit 5.2.5, SIL Open
+   Font License, LICENSE-outfit-OFL beside it) in place of GT Walsheim Pro, whose licence for web
+   use is not recorded. Ashley's decision; the printed workbook uses the same face. The 600 cut
+   also answers requests for 700, so the design system's bold display classes use it unchanged. */
+@font-face{font-family:"Archivo";src:url("../assets/fonts/archivo-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Archivo";src:url("../assets/fonts/archivo-latin-400-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Archivo";src:url("../assets/fonts/archivo-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Archivo";src:url("../assets/fonts/archivo-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Archivo";src:url("../assets/fonts/archivo-latin-700-normal.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Archivo Narrow";src:url("../assets/fonts/archivo-narrow-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Archivo Narrow";src:url("../assets/fonts/archivo-narrow-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Archivo Narrow";src:url("../assets/fonts/archivo-narrow-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Archivo Narrow";src:url("../assets/fonts/archivo-narrow-latin-700-normal.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Outfit";src:url("../assets/fonts/outfit-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Outfit";src:url("../assets/fonts/outfit-latin-600-normal.woff2") format("woff2");font-weight:600 700;font-style:normal;font-display:swap}
+:root{
+  --font-display:"Outfit",Arial,sans-serif;
+  --font-text:"Archivo","Aktiv Grotesk",Arial,sans-serif;
+  --font-condensed:"Archivo Narrow","Aktiv Grotesk Condensed",Arial,sans-serif;
+  --font-office:Arial,Helvetica,sans-serif;
+}

@@ -1,0 +1,223 @@
+/* Working sheets for the systems thinking process.
+   Design basis: EmpowerSDGs x THUAS design system (tokens/colors.css, tokens/type.css,
+   tokens/layout.css). Print parity is not settled by that system, so these rules are ours.
+   Everything inside a sheet is sized in em, so one markup serves A4, A3, A2 and A1:
+   render.js sets .sheet{font-size} per paper size. */
+
+/* Display face: Outfit (SIL Open Font License), replacing GT Walsheim Pro on 2 October 2026 so that
+   print and screen use one face whose licence allows the web. Bold is the 600 cut, which also answers
+   requests for 700, so no heading carries a synthesised bold. */
+@font-face{font-family:"Outfit";src:url("fonts/outfit-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal}
+@font-face{font-family:"Outfit";src:url("fonts/outfit-latin-600-normal.woff2") format("woff2");font-weight:600 700;font-style:normal}
+@font-face{font-family:"Archivo";src:url("fonts/archivo-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal}
+@font-face{font-family:"Archivo";src:url("fonts/archivo-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal}
+@font-face{font-family:"Archivo";src:url("fonts/archivo-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal}
+@font-face{font-family:"Archivo";src:url("fonts/archivo-latin-700-normal.woff2") format("woff2");font-weight:700;font-style:normal}
+@font-face{font-family:"Archivo";src:url("fonts/archivo-latin-400-italic.woff2") format("woff2");font-weight:400;font-style:italic}
+@font-face{font-family:"Archivo Narrow";src:url("fonts/archivo-narrow-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal}
+@font-face{font-family:"Archivo Narrow";src:url("fonts/archivo-narrow-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal}
+@font-face{font-family:"Archivo Narrow";src:url("fonts/archivo-narrow-latin-700-normal.woff2") format("woff2");font-weight:700;font-style:normal}
+
+:root{
+  --navy:#17345E; --navy-70:#4A6186; --navy-40:#A2AEC0;
+  --green:#9EA700;
+  --grey:#223343; --grey-80:#4E5C69; --grey-60:#7A848E; --grey-40:#A6ADB4; --grey-30:#BDC2C7; --grey-20:#D3D6D9;
+  --cream:#F3F2EB; --cream-2:#E9E7DC; --cream-line:#D9D6C7;
+  --teal:#2A9CAE; --brown:#765044;
+  --display:"Outfit",Arial,sans-serif;
+  --text:"Archivo",Arial,sans-serif;
+  --narrow:"Archivo Narrow",Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff}
+.sheet{
+  position:relative; background:#fff; color:var(--grey);
+  font-family:var(--text); line-height:1.35;
+  padding:2.7em 3.0em 3.0em;
+  display:flex; flex-direction:column;
+  page-break-after:always; overflow:hidden;
+}
+.sheet:last-child{page-break-after:auto}
+
+/* ---------- header ---------- */
+.hdr{display:flex; align-items:flex-end; justify-content:space-between; gap:2em}
+.overline{font-family:var(--narrow); font-weight:600; font-size:.82em; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--navy-70)}
+.title{font-family:var(--display); font-size:2.5em; line-height:1.02; color:var(--navy); margin:.12em 0 0;
+  letter-spacing:-.015em}
+.subtitle{font-family:var(--text); font-size:1em; color:var(--grey-80); margin-top:.5em; max-width:44em}
+.meta{display:flex; gap:1.1em; flex:0 0 auto}
+.meta div{min-width:7.6em}
+.meta .lab{font-family:var(--narrow); font-size:.76em; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--grey-60); margin-bottom:1.5em}
+.meta .rule{border-bottom:1px solid var(--grey-40)}
+.rule-top{margin:.8em 0 1.1em; height:2px; background:var(--navy); position:relative}
+.rule-top::before{content:""; position:absolute; left:0; top:-2px; width:5.5em; height:6px; background:var(--green)}
+
+/* ---------- zones ---------- */
+.zone{display:grid; grid-template-columns:2.4em 1fr; gap:0 .9em; margin-bottom:.75em}
+.zone:last-of-type{margin-bottom:.6em}
+.num{width:2.5em; height:2.5em; background:var(--navy); color:#fff; font-family:var(--display);
+  font-size:1em; display:flex; align-items:center; justify-content:center; line-height:1;
+  clip-path:polygon(0% 0%, 100% 6.26%, 93.74% 93.74%, 6.26% 100%)}
+.zh{font-family:var(--display); font-size:1.26em; color:var(--navy); line-height:1.1; margin:.15em 0 .28em;
+  letter-spacing:-.01em}
+.zp{font-size:.96em; color:var(--grey-80); margin-bottom:.42em}
+.zp em{font-style:italic; color:var(--grey)}
+.hint{font-family:var(--narrow); font-size:.8em; color:var(--grey-60); margin-top:.3em}
+
+/* ---------- writing lines ---------- */
+.lines{--pitch:1.85em;
+  background-image:repeating-linear-gradient(to bottom,
+    transparent 0, transparent calc(var(--pitch) - 1px),
+    var(--grey-30) calc(var(--pitch) - 1px), var(--grey-30) var(--pitch));
+  background-position:0 0;}
+.l1{height:1.85em}.l2{height:3.7em}.l3{height:5.55em}.l4{height:7.4em}.l5{height:9.25em}.l6{height:11.1em}
+.tight{--pitch:1.6em}
+.tight.l1{height:1.6em}.tight.l2{height:3.2em}.tight.l3{height:4.8em}
+
+/* ---------- the problem sentence ---------- */
+.stmt{background:var(--cream); border-left:6px solid var(--green); padding:.6em .85em .55em;
+  font-size:1.06em; color:var(--grey); display:grid; grid-template-columns:1fr 1fr; gap:.15em 1.2em}
+.stmt .row{display:flex; align-items:baseline; gap:.4em}
+.stmt .full{grid-column:1 / -1}
+.stmt .fill{flex:1 1 auto; border-bottom:1px solid var(--grey-40); height:1.55em}
+.stmt .cap{font-family:var(--narrow); font-size:.62em; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--grey-60); line-height:1; margin:-.15em 0 .45em}
+.stmt .cap.i{grid-column:auto}
+.slot{display:inline-block; border-bottom:1px solid var(--grey-40); min-width:8em; height:1.5em;
+  vertical-align:-.35em; margin:0 .25em}
+.slot.wide{min-width:16em}
+.slot.xwide{min-width:24em}
+.slot-lab{font-family:var(--narrow); font-size:.62em; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--grey-60); display:block; line-height:1; margin-top:.15em}
+.pick{font-family:var(--narrow); font-size:.8em; color:var(--navy-70); letter-spacing:.06em}
+
+/* ---------- ticks, rows ---------- */
+.tickrow{display:grid; grid-template-columns:2.9em minmax(0,1.35fr) minmax(7em,1fr); gap:0 .8em;
+  align-items:end; margin-bottom:.34em}
+.tickrow .q{align-self:center}
+.tickrow .fill{border-bottom:1px solid var(--grey-30); height:1.5em}
+.yn{display:flex; gap:.5em; margin-top:.12em}
+.ynhead{display:grid; grid-template-columns:2.9em minmax(0,1.35fr) minmax(7em,1fr); gap:0 .8em}
+.ynhead .k{display:flex; gap:.5em; margin-bottom:.1em; font-family:var(--narrow); font-size:.76em; letter-spacing:.1em; color:var(--grey-60)}
+.ynhead .k span{width:1.15em; text-align:center}
+.tick{width:1.15em; height:1.15em; border:1px solid var(--grey-40); margin-top:.15em}
+.tickrow .q{font-size:.95em; color:var(--grey)}
+.tickrow .just{grid-column:2; margin-top:.15em}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:1.1em}
+.three{display:grid; grid-template-columns:1fr 1fr 1fr; gap:1em}
+.box{border:1px solid var(--grey-20); padding:.55em .7em .6em}
+.box .bl{font-family:var(--narrow); font-size:.8em; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--navy-70); margin-bottom:.4em}
+.inline-ticks{display:flex; flex-wrap:wrap; gap:.3em 1.1em; margin:.1em 0 .4em; font-size:.94em}
+.inline-ticks span{display:flex; align-items:center; gap:.45em; font-size:.95em}
+.inline-ticks i{width:1.05em; height:1.05em; border:1px solid var(--grey-40); display:inline-block; font-style:normal}
+
+/* ---------- foot strip ---------- */
+.spacer{flex:1 1 auto; min-height:.4em}
+.cut{border-top:1px dashed var(--grey-40); margin:.7em 0 .55em; position:relative}
+.cut span{position:absolute; right:0; top:-.72em; background:#fff; padding-left:.6em;
+  font-family:var(--narrow); font-size:.72em; letter-spacing:.1em; text-transform:uppercase; color:var(--grey-60)}
+.parked .zh{font-size:1.1em}
+.pagemark{position:absolute; left:3.0em; bottom:1.0em; font-family:var(--narrow); font-size:.76em;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--grey-60)}
+.pagemark b{color:var(--navy); font-weight:600}
+
+/* ---------- back-of-sheet reference ---------- */
+.ref h4{font-family:var(--display); font-size:1.18em; color:var(--navy); margin:0 0 .3em; font-weight:400}
+.ref ol,.ref ul{margin:0 0 0 1.1em; padding:0}
+.ref li{font-size:.94em; margin-bottom:.28em}
+.ref b{font-weight:600}
+.reftab{width:100%; border-collapse:collapse; font-size:.9em}
+.reftab th{font-family:var(--narrow); font-size:.86em; letter-spacing:.08em; text-transform:uppercase;
+  text-align:left; color:var(--navy); border-bottom:2px solid var(--navy); padding:.3em .5em .25em}
+.reftab td{border-bottom:1px solid var(--grey-20); padding:.38em .5em; vertical-align:top}
+.reftab tr:nth-child(even) td{background:var(--cream)}
+.sec{margin-bottom:1.15em}
+.callout{background:var(--cream); border-left:6px solid var(--teal); padding:.6em .8em; font-size:.94em}
+
+/* variants */
+body.var-a .only-b{display:none}
+body.var-b .only-a{display:none}
+
+/* ---------- sketch sheet ---------- */
+.canvas{flex:1 1 auto; border:1px solid var(--cream-line); margin:.2em 0 1em; position:relative}
+.marks{display:flex; gap:1.8em; align-items:center; flex-wrap:wrap; margin:.1em 0 .2em}
+.marks .lab{font-family:var(--narrow); font-size:.82em; letter-spacing:.1em; text-transform:uppercase; color:var(--grey-60)}
+.marks span{display:flex; align-items:center; gap:.5em; font-size:.95em; color:var(--grey-80)}
+.marks svg{display:block}
+.reminders{display:flex; gap:2.2em; flex-wrap:wrap; font-size:1em; color:var(--grey-80); margin-top:.5em}
+.reminders b{font-weight:600; color:var(--grey)}
+.band{background:var(--cream); border-top:2px solid var(--navy); padding:.85em 1.1em 1.1em;
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.6em}
+.band h3{font-family:var(--display); font-size:1.12em; color:var(--navy); margin:0 0 .15em; font-weight:400;
+  line-height:1.15}
+.band .n{font-family:var(--narrow); font-size:.78em; letter-spacing:.12em; color:var(--navy-70)}
+.band .lines{--pitch:1.9em}
+
+/* ---------- actor grid ---------- */
+.grid{width:100%; border-collapse:collapse; font-size:.88em; table-layout:fixed}
+.grid th{font-family:var(--narrow); font-size:.8em; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--navy); border-bottom:2px solid var(--navy); padding:.25em .35em; text-align:left;
+  vertical-align:bottom; font-weight:600}
+.grid th.rot{height:8.2em; padding:0 0 .3em; text-align:left; white-space:nowrap; font-size:.78em;
+  vertical-align:bottom}
+.grid th.rot div{writing-mode:vertical-rl; transform:rotate(180deg); margin:0 auto}
+.grid td{border-bottom:1px solid var(--grey-30); height:2.15em; padding:0 .35em}
+.grid td.t{border-left:1px solid var(--grey-20)}
+.grid td.dep{background:var(--cream)}
+.grid col.tick{width:1.7em}
+.zonehead{display:flex; align-items:baseline; justify-content:space-between; gap:1em}
+.note{font-family:var(--narrow); font-size:.8em; color:var(--grey-60)}
+.decisionline{display:flex; align-items:baseline; gap:.6em; margin:.1em 0 .5em}
+.decisionline .fill{flex:1 1 auto; border-bottom:1px solid var(--grey-40); height:1.55em}
+.ara{display:grid; grid-template-columns:auto 1fr; gap:.3em .8em; align-items:baseline}
+.ara .k{font-family:var(--narrow); font-size:.84em; letter-spacing:.06em; text-transform:uppercase; color:var(--navy)}
+.ara .fill{border-bottom:1px solid var(--grey-40); height:1.55em}
+.cols2{display:grid; grid-template-columns:1fr 1fr; gap:1.2em}
+.cols3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.1em}
+.checklist li{margin-bottom:.34em; list-style:none}
+.checklist{margin:0; padding:0}
+.checklist li::before{content:""; display:inline-block; width:1.05em; height:1.05em; border:1px solid var(--grey-40);
+  margin-right:.6em; vertical-align:-.15em}
+
+/* ---------- Step 2 extras ---------- */
+.cols5{display:grid; grid-template-columns:repeat(5,1fr); gap:.7em}
+.outrow{display:grid; grid-template-columns:1fr 5.4em; gap:0 .6em; align-items:end; margin-bottom:.95em}
+.outrow::before{content:""; border-bottom:1px solid var(--grey-30); height:1.75em}
+.outrow::after{content:""; display:flex; }
+.outrow{position:relative}
+.outrow .t3{display:flex; gap:.55em; justify-content:flex-end}
+.layerrow{display:grid; grid-template-columns:1.4em 1.35fr auto 1fr; gap:0 .7em; align-items:end; margin-bottom:.45em}
+.layerrow .n{font-family:var(--narrow); font-size:.85em; color:var(--navy-70)}
+.layerrow .fill{border-bottom:1px solid var(--grey-30); height:1.75em}
+.layerrow .j{font-family:var(--narrow); font-size:.76em; letter-spacing:.06em; text-transform:uppercase; color:var(--grey-60); white-space:nowrap}
+.layerrow .j2{border-bottom:1px solid var(--grey-30)}
+
+/* Step 2 sheets: slightly smaller display type, tighter zones, compact grid */
+.s2 .title{font-size:1.8em}
+.s2 .zone{margin-bottom:.6em}
+.s2 .grid td{height:1.95em}
+.s2 .grid th.rot{height:6.4em}
+.s2 .zp{margin-bottom:.35em}
+.s2 .pagemark{bottom:.8em}
+.s2{padding-bottom:2.6em}
+/* zone 1, aligned two columns */
+.inout{display:grid; grid-template-columns:1fr 1fr 7.6em; gap:0 1.2em; align-items:end}
+.inout .colhead{font-family:var(--narrow); font-size:.82em; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--navy-70); border-bottom:2px solid var(--navy); padding-bottom:.2em}
+.inout .tickhead{display:flex; gap:.35em; justify-content:flex-end; font-family:var(--narrow); font-size:.62em;
+  letter-spacing:.02em; text-transform:uppercase; color:var(--grey-60); border-bottom:2px solid var(--navy);
+  padding-bottom:.2em; align-items:flex-end}
+.inout .tickhead span{width:2.1em; text-align:center; line-height:1.0}
+.inout .r{border-bottom:1px solid var(--grey-30); height:1.95em}
+.inout .tk{display:flex; gap:.35em; justify-content:flex-end; padding-right:.45em; align-items:flex-end; height:1.95em; padding-bottom:.25em}
+.inout .blank{height:1.95em}
+
+.s2 .box{padding:.4em .55em .45em}
+.s2 .ref li{font-size:.9em; margin-bottom:.26em}
+.s2 .ref h4{font-size:1.08em}
+.s2 .callout{font-size:.9em; padding:.5em .7em}
+.inout .tk .tick{width:2.1em; height:1.15em; border:1px solid var(--grey-40)}

@@ -1,0 +1,42 @@
+/* EmpowerSDGs × THUAS — colour.
+   Two parents, one system, weighted 50/50:
+   - THUAS (Huisstijlrichtlijnen v1.4) gives corporate green (action, progress, drivers) and
+     corporate grey (ink) with its allowed tint ladder. Green is never screened back.
+   - The EmpowerSDGs deck theme ("EmpowerSDGs" colour scheme, Session decks 2024) gives navy
+     (structure: bars, title blocks, outcomes), cream paper, and six accents.
+   Small text on green is set in navy, not white (white on #9EA700 is 2.6:1). */
+:root{
+  /* THUAS */
+  --green:#9EA700;--green-a:#A8AD00;--green-b:#909806;--green-press:#7F8604;
+  --grey:#223343;--grey-80:#4E5C69;--grey-70:#64707B;--grey-60:#7A848E;--grey-50:#9099A1;--grey-40:#A6ADB4;--grey-30:#BDC2C7;--grey-20:#D3D6D9;--grey-10:#E9EAEC;--grey-05:#F4F5F6;
+  /* EmpowerSDGs */
+  --navy:#17345E;--navy-80:#2E4870;--navy-70:#4A6186;--navy-40:#A2AEC0;
+  --cream:#F3F2EB;--cream-2:#E9E7DC;--cream-line:#D9D6C7;
+  --teal:#2A9CAE;--olive:#B3B939;--olive-light:#B5C975;--sage:#C2DABC;--brown:#765044;--slate:#73828A;
+  --white:#FFFFFF;
+
+  /* Semantic — text */
+  --text-body:var(--grey);--text-heading:var(--navy);--text-muted:var(--grey-80);--text-faint:var(--grey-60);
+  --text-on-dark:var(--white);--text-on-dark-muted:var(--navy-40);--text-on-green:var(--navy);--text-accent-on-dark:var(--green);
+  /* Semantic — surfaces + lines */
+  --surface-page:var(--cream);--surface-sheet:var(--white);--surface-sunken:var(--cream-2);
+  --surface-dark:var(--navy);--surface-dark-raised:var(--navy-80);--surface-accent:var(--green);--surface-notice:var(--sage);
+  --border-subtle:var(--cream-line);--border-sheet:var(--grey-20);--border-input:var(--grey-40);--border-strong:var(--grey);
+  /* Semantic — interaction */
+  --action:var(--green);--action-hover:var(--green-b);--action-press:var(--green-press);--action-ink:var(--navy);
+  --link:var(--navy);--link-underline:var(--teal);--link-hover:var(--green-b);
+  --focus-ring:var(--teal);
+
+  /* Systems-thinking semantics (canvas + analysis) */
+  --node-driver:var(--green);--node-driver-ink:var(--navy);
+  --node-outcome:var(--navy);--node-outcome-ink:var(--white);
+  --node-mid:var(--cream);--node-mid-ink:var(--grey);--node-mid-edge:var(--grey-40);
+  --node-selected:var(--teal);
+  --edge:var(--grey);--edge-dim:var(--grey-20);--edge-draft:var(--teal);--edge-unset:var(--grey-50);
+  --loop-r:var(--brown);--loop-r-ink:var(--white);
+  --loop-b:var(--teal);--loop-b-ink:var(--navy);
+  --lev-high:var(--green);--lev-medium:var(--olive-light);--lev-low:var(--white);--lev-ink:var(--navy);
+  --flag:var(--brown);
+  /* 5-step bridge scale, navy → green (results chain, ordered data) */
+  --scale-1:var(--navy);--scale-2:var(--teal);--scale-3:var(--sage);--scale-4:var(--olive-light);--scale-5:var(--green);
+}

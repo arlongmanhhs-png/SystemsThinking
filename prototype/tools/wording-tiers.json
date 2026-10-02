@@ -1,0 +1,1654 @@
+{
+ "about": "The screen's own wording: every string the screen shows that the workbook does not print, sorted into two tiers (decided 2 October 2026). tools/check-wording.mjs fails on a string the screen marks as its own and this list does not hold, and on a listed string no longer found. Lines are refreshed with node tools/check-wording.mjs --lines.",
+ "tiers": {
+  "method": "Says something about the participant's work: warnings, field labels, findings, instructions, return and review messages, and the canvas reports. Ashley approves each one; until then each stays marked as provisional.",
+  "controls": "Buttons, navigation, saving notices, empty states, and the names a screen reader reads. Approved as a block under the rule in CLAUDE.md, \"Wording the screen's controls\", once Ashley approves that rule (a draft of 2 October 2026); until then they stay marked as provisional. meetsRule says whether a control already meets the draft rule, and suggestion gives wording that would."
+ },
+ "how": {
+  "marked": "Marked with Prov in a view: shown with a dotted underline.",
+  "definition": "Marked provisional: true in a step definition or page 25: shown with a dotted underline.",
+  "literal": "Shown with a dotted underline through a variable; listed by a piece of the source.",
+  "dialog": "A browser dialog, which cannot carry the underline.",
+  "attribute": "An aria-label, title, or placeholder: read by a screen reader or shown as a tooltip, not underlined."
+ },
+ "counts": {
+  "method": 91,
+  "controls": 80,
+  "controlsMeetingRule": 66
+ },
+ "strings": [
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/phase-a.js",
+   "line": 39,
+   "text": "The boundary, in one sentence",
+   "how": "definition",
+   "shows": "The case view, page 25, zone 3"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/phase-a.js",
+   "line": 40,
+   "text": "The exclusion most likely to be wrong",
+   "how": "definition",
+   "shows": "The case view, page 25, zone 3"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/phase-a.js",
+   "line": 41,
+   "text": "why",
+   "how": "definition",
+   "shows": "The case view, page 25, zone 3"
+  },
+  {
+   "tier": "method",
+   "kind": "warning",
+   "file": "src/definitions/step1.js",
+   "line": 157,
+   "text": "A no to any of the first three questions means the problem may not be the kind this process is for.",
+   "how": "definition",
+   "shows": "Step 1, Exercise 3: a no to the chronic, history, or attempts question"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/definitions/step1.js",
+   "line": 240,
+   "text": "Replace what is written in the five agreed slots with the first attempt?",
+   "how": "definition",
+   "shows": "Step 1, Exercise 6: the dialog before the first attempt replaces what is written"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/definitions/step1.js",
+   "line": 241,
+   "text": "The five agreed slots hold the first attempt as it stands.",
+   "how": "definition",
+   "shows": "Step 1, Exercise 6, once the first attempt is copied across"
+  },
+  {
+   "tier": "method",
+   "kind": "exercise label",
+   "file": "src/definitions/step2.js",
+   "line": 123,
+   "text": "Exercise 1",
+   "how": "definition",
+   "shows": "Step 2, Exercise 1: the label, without the printed \"on a large sheet, not in this book\" (a screen variant)"
+  },
+  {
+   "tier": "method",
+   "kind": "instruction",
+   "file": "src/definitions/step2.js",
+   "line": 124,
+   "text": "Put everything you know about this case onto one drawing. Pictures and symbols rather than sentences, phrases rather than paragraphs, and show who is in conflict with whom. Use marks for money, for conflict, for a blockage, and a question mark for what you do not know. Nothing on it has to be tidy.",
+   "how": "definition",
+   "shows": "Step 2, Exercise 1: the screen variant of the printed instruction"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 129,
+   "text": "A photograph of the drawing",
+   "how": "definition",
+   "shows": "Step 2, Exercise 1"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 131,
+   "text": "The first drawing exists.",
+   "how": "definition",
+   "shows": "Step 2, Exercise 1: the confirmation"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 137,
+   "text": "The problem definition, as agreed in Step 1",
+   "how": "definition",
+   "shows": "Step 2, Exercise 2, and Step 3, Exercises 1 and 6: beside the exercise"
+  },
+  {
+   "tier": "method",
+   "kind": "instruction",
+   "file": "src/definitions/step2.js",
+   "line": 159,
+   "text": "Ordered by how far a decision reaches, widest scope of decision first and narrowest last. Three to five, and five is the limit. Two only if you write why this case has no third scope of decision.",
+   "how": "definition",
+   "shows": "Step 2, Exercise 3: the screen variant of the printed rule (draft of 2 October 2026)"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 175,
+   "text": "Why this case has no third scope of decision",
+   "how": "definition",
+   "shows": "Step 2, Exercise 3, when there are two layers"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 237,
+   "text": "Note",
+   "how": "definition",
+   "shows": "Step 2, Exercise 5: the column head"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 277,
+   "text": "which actor",
+   "how": "definition",
+   "shows": "Step 2, Exercise 6: the head of each role's actor"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 14,
+   "text": "Who needs it",
+   "how": "definition",
+   "shows": "Step 2, Exercise 7: the column head of the actor who needs the resource"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step2.js",
+   "line": 339,
+   "text": "Reads the problem as",
+   "how": "definition",
+   "shows": "Step 2, Exercise 8: the column head"
+  },
+  {
+   "tier": "method",
+   "kind": "instruction",
+   "file": "src/definitions/step2.js",
+   "line": 385,
+   "text": "The same case, arranged this time by the layers, the actors, and the descriptions you have just defined. Put the actors in bands by layer, widest scope of decision at the top. Draw a line between two actors where one needs a resource from the other, and mark where two actors read the problem differently. Then write the three sentences in Exercise 11.",
+   "how": "definition",
+   "shows": "Step 2, Exercise 10: the screen variant of the printed instruction (draft of 2 October 2026)"
+  },
+  {
+   "tier": "method",
+   "kind": "instruction",
+   "file": "src/definitions/step2.js",
+   "line": 431,
+   "text": "The system has been drawn in Exercise 1, drawn again in Exercise 10, and its three sentences written.",
+   "how": "definition",
+   "shows": "Step 2's critical check, seventh line: the screen variant (draft of 2 October 2026)"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/definitions/step2.js",
+   "line": 463,
+   "text": "If this happens, go back",
+   "how": "definition",
+   "shows": "Step 2: the heading of the return table above the critical check"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step3.js",
+   "line": 92,
+   "text": "The problem definition, as agreed in Step 1",
+   "how": "definition",
+   "shows": "Step 2, Exercise 2, and Step 3, Exercises 1 and 6: beside the exercise"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step3.js",
+   "line": 106,
+   "text": "No quantity with a history can be found.",
+   "how": "definition",
+   "shows": "Step 3, Exercise 1, for a problem not happened yet"
+  },
+  {
+   "tier": "method",
+   "kind": "warning",
+   "file": "src/definitions/step3.js",
+   "line": 128,
+   "text": "The second year comes after the first.",
+   "how": "definition",
+   "shows": "Step 3, Exercise 2: a blocking message, the period running backwards"
+  },
+  {
+   "tier": "method",
+   "kind": "warning",
+   "file": "src/definitions/step3.js",
+   "line": 134,
+   "text": "The line starts in a different year from the period in Exercise 1.",
+   "how": "definition",
+   "shows": "Step 3, Exercise 2"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step3.js",
+   "line": 21,
+   "text": "Year",
+   "how": "definition",
+   "shows": "Step 3, Exercise 3: the column head"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step3.js",
+   "line": 148,
+   "text": "What happened",
+   "how": "definition",
+   "shows": "Step 3, Exercise 3: the column head"
+  },
+  {
+   "tier": "method",
+   "kind": "warning",
+   "file": "src/definitions/step3.js",
+   "line": 169,
+   "text": "An event falls outside the years of the line, so it cannot be lined up under its year.",
+   "how": "definition",
+   "shows": "Step 3, Exercise 3"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step3.js",
+   "line": 182,
+   "text": "Kind",
+   "how": "definition",
+   "shows": "Step 3, Exercise 4: the column head"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/definitions/step3.js",
+   "line": 21,
+   "text": "Years",
+   "how": "definition",
+   "shows": "Step 3, Exercise 4: the column head"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/engine/validate.js",
+   "line": 65,
+   "text": "at least ${f.min} ${f.min === 1 ? 'row' : 'rows'}",
+   "how": "literal",
+   "shows": "The critical check, while closed: a table with too few rows"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/engine/validate.js",
+   "line": 76,
+   "text": "${f.label ? `${f.label}, row` : 'row'} ${i + 1}: ${lab}",
+   "how": "literal",
+   "shows": "The critical check, while closed: a row with a cell missing"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/engine/validate.js",
+   "line": 98,
+   "text": ": at least ${f.min || 2} points",
+   "how": "literal",
+   "shows": "The critical check, while closed: a graph with too few points"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/engine/validate.js",
+   "line": 110,
+   "text": "still in the tray",
+   "how": "literal",
+   "shows": "The critical check, while closed: Step 2, Exercise 10, actors not placed"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/engine/validate.js",
+   "line": 111,
+   "text": "the actors from Exercise 5",
+   "how": "literal",
+   "shows": "The critical check, while closed: Step 2, Exercise 10, before any actor exists"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas report",
+   "file": "src/views/Arrangement.js",
+   "line": 128,
+   "text": "When you left the drawing, ${fmtDateTime(left)}",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10 and the head of Exercise 11: the report on leaving the drawing"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas report",
+   "file": "src/views/Arrangement.js",
+   "line": 129,
+   "text": "Recorded in Exercise 7 and not drawn:",
+   "how": "marked",
+   "shows": "The report on leaving the drawing"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas report",
+   "file": "src/views/Arrangement.js",
+   "line": 131,
+   "text": "The two descriptions from Exercise 8 that cannot both be acted on have no mark between their actors.",
+   "how": "marked",
+   "shows": "The report on leaving the drawing"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas hint",
+   "file": "src/views/Arrangement.js",
+   "line": 329,
+   "text": "${ pick ? `Click a band to place ${label(pick)}.` : mode === 'line' ? (from ? `From ${label(from)}: click the actor at the other end.` : 'Click one actor, then the other: a line where one needs a resource from the other.') : mode === 'mark' ? (from ? `From ${label(from)}: click the actor who reads the problem differently.` : 'Click two actors who read the problem differently.') : 'Drag an actor from the tray into a band, or click the actor and then the band. Drag to tidy.' }",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: the line beside the tools saying what a click does; it restates what a line and a disagreement mark mean"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas report",
+   "file": "src/views/Arrangement.js",
+   "line": 415,
+   "text": "${a.name} is in the band for ${b.name || 'a layer'}, and Exercise 5 records ${rec ? rec.name : 'another layer'}. Either the placement is wrong, or Exercise 3 or Exercise 5 is.",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: the flag for an actor outside its recorded layer"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas report",
+   "file": "src/views/Arrangement.js",
+   "line": 423,
+   "text": "No row in Exercise 7 has ${label(l.a)} holding a resource and ${label(l.b)} under \"Who needs it\", or the other way round. Does the dependency between ${label(l.a)} and ${label(l.b)} belong in Exercise 7?",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: a line with no dependency recorded"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas report",
+   "file": "src/views/Arrangement.js",
+   "line": 430,
+   "text": "Exercise 8 records ${label(m.a)} and ${label(m.b)} as reading the problem the same way. Does the mark belong, or does Exercise 8 need changing?",
+   "how": "literal",
+   "shows": "Step 2, Exercise 10: a disagreement mark between two actors recorded as reading the problem the same way"
+  },
+  {
+   "tier": "method",
+   "kind": "canvas report",
+   "file": "src/views/Arrangement.js",
+   "line": 431,
+   "text": "Exercise 8 has no description for ${missing.join(' or ')}. Does a description for ${missing.join(' and ')} belong in Exercise 8?",
+   "how": "literal",
+   "shows": "Step 2, Exercise 10: a disagreement mark with no description recorded"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/CaseView.js",
+   "line": 45,
+   "text": "Passed ${fmtDate(info.passedAt)}",
+   "how": "marked",
+   "shows": "The case view: a step card once its critical check has passed"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/CaseView.js",
+   "line": 46,
+   "text": "${ info.reason.kind === 'return' ? `Reopened by Step ${info.reason.item.from}: ${info.reason.item.when}` : info.reason.kind === 'pending' ? `You changed an answer after Step ${n} passed` : info.reason.kind === 'blocking' ? `Something Step ${n} needs is missing: Exercise ${info.reason.item.exercise}` : info.reason.kind === 'unticked' ? 'A line of the critical check is no longer ticked' : `Revised ${fmtDate(info.reason.item.at)}${info.reason.item.because ? `, because ${info.reason.item.because}` : ''}` }",
+   "how": "marked",
+   "shows": "The case view: why a step card shows as reopened"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/CaseView.js",
+   "line": 53,
+   "text": "Marked for review: Step ${m.from} revised ${fmtDate(m.at)}${m.because ? `, because ${m.because}` : ''}",
+   "how": "marked",
+   "shows": "The case view: a step card marked for review"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/CaseView.js",
+   "line": 74,
+   "text": "The copy here differs from ${from}.",
+   "how": "marked",
+   "shows": "The case view, page 25: a copy that no longer matches its source"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/CaseView.js",
+   "line": 91,
+   "text": "Written here: neither half exists anywhere in Step 2.",
+   "how": "marked",
+   "shows": "The case view, page 25, zone 3"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/Exercise.js",
+   "line": 127,
+   "text": "As you have written it",
+   "how": "marked",
+   "shows": "Step 1, Exercises 2 and 6, and Step 3, Exercise 6: over the sentence assembled from the slots"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/Exercise.js",
+   "line": 209,
+   "text": "Fixed by Step 1 and not changed here.",
+   "how": "marked",
+   "shows": "Step 3, Exercise 1, under the thing measured"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/Exercise.js",
+   "line": 209,
+   "text": "go back to Step ${r.to.step}",
+   "how": "marked",
+   "shows": "Step 3, Exercise 1: the return to Step 1"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/Exercise.js",
+   "line": 267,
+   "text": "The pattern this allocation shows",
+   "how": "marked",
+   "shows": "Step 2, Exercise 6"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/Exercise.js",
+   "line": 283,
+   "text": "Asked for, read off Exercise 6",
+   "how": "marked",
+   "shows": "Step 2, Exercise 7: who the dependency question is asked for"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/Exercise.js",
+   "line": 284,
+   "text": "No layer holds authority, responsibility, or accountability yet in Exercise 6.",
+   "how": "marked",
+   "shows": "Step 2, Exercise 7, before Exercise 6 allocates anything"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/Exercise.js",
+   "line": 287,
+   "text": "${n ? `${n} resource${n > 1 ? 's' : ''} still to answer` : 'answered'}",
+   "how": "marked",
+   "shows": "Step 2, Exercise 7, beside each actor asked for"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/Exercise.js",
+   "line": 289,
+   "text": "And those they need something from",
+   "how": "marked",
+   "shows": "Step 2, Exercise 7"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/Exercise.js",
+   "line": 293,
+   "text": "Not asked",
+   "how": "marked",
+   "shows": "Step 2, Exercise 7"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/Graph.js",
+   "line": 277,
+   "text": "If nothing changes",
+   "how": "marked",
+   "shows": "Step 3, Exercise 7: which future the participant is drawing"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/Graph.js",
+   "line": 278,
+   "text": "The desired change",
+   "how": "marked",
+   "shows": "Step 3, Exercise 7: which future the participant is drawing"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/ReadView.js",
+   "line": 76,
+   "text": "${placed} of ${actors.length} actors placed; ${arr(v && v.lines).length} lines; ${arr(v && v.marks).length} disagreement marks.",
+   "how": "marked",
+   "shows": "The read-through: the second drawing, as counts"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 38,
+   "text": "own('(empty)')",
+   "how": "literal",
+   "shows": "A review mark: what changed, for an answer that was or became empty"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 42,
+   "text": "own('(removed)')",
+   "how": "literal",
+   "shows": "A review mark: a choice that points at a row since removed"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 46,
+   "text": "own(v ? 'ticked' : 'not ticked')",
+   "how": "literal",
+   "shows": "A review mark: what changed, for a box ticked or not"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 47,
+   "text": "row${v.length === 1 ? '' : 's'}",
+   "how": "literal",
+   "shows": "A review mark: what changed, for a table, as a count of rows"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 48,
+   "text": "points`)",
+   "how": "literal",
+   "shows": "A review mark: what changed, for a graph, as a count of points"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 49,
+   "text": "own('the drawing')",
+   "how": "literal",
+   "shows": "A review mark: what changed, for the second drawing"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 71,
+   "text": "Marked for review",
+   "how": "marked",
+   "shows": "A step marked for review: the banner's heading"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 72,
+   "text": "Step ${m.from} was revised on ${fmtDate(m.at)}",
+   "how": "marked",
+   "shows": "A step marked for review"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 78,
+   "text": "I looked, and it still holds",
+   "how": "marked",
+   "shows": "A step marked for review: the answer recorded in the log (quoted in steps/01-framing/spec.md, \"The revision log\")"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 80,
+   "text": "I have revised this step",
+   "how": "marked",
+   "shows": "A step marked for review: the answer recorded in the log"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 86,
+   "text": "Reopened by Step ${r.from}, ${fmtDate(r.at)}",
+   "how": "marked",
+   "shows": "A step a return has reopened"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 88,
+   "text": "Reopens",
+   "how": "marked",
+   "shows": "A step a return has reopened: the fields it reopens"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 142,
+   "text": "The critical check opens when these are present:",
+   "how": "marked",
+   "shows": "The critical check, while it is closed"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 147,
+   "text": "The exercises still to come ask for more.",
+   "how": "marked",
+   "shows": "The critical check, while it is closed"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 158,
+   "text": "If not:",
+   "how": "marked",
+   "shows": "Under each critical check line, before the return named in the specification"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/StepScreen.js",
+   "line": 163,
+   "text": "A finding, from Exercise ${x.ex}",
+   "how": "marked",
+   "shows": "Step 3's critical check, when no quantity with a history can be found"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 166,
+   "text": "Passed on ${fmtDate(info.passedAt)}",
+   "how": "marked",
+   "shows": "The critical check, once passed"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 168,
+   "text": "Reopened",
+   "how": "marked",
+   "shows": "The critical check of a reopened step"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 169,
+   "text": "By Step ${info.reason.item.from}:",
+   "how": "marked",
+   "shows": "The critical check of a step a return has reopened"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 170,
+   "text": "You changed an answer after Step ${step} passed. Say why in the strip below.",
+   "how": "marked",
+   "shows": "The critical check of a passed step with an answer changed"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 171,
+   "text": "Something Step ${step} needs is missing since it passed: Exercise ${info.reason.item.exercise}, ${info.reason.item.text}. A change in an earlier step can do this.",
+   "how": "marked",
+   "shows": "The critical check of a passed step that lost a required answer"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 172,
+   "text": "A line of the critical check is no longer ticked.",
+   "how": "marked",
+   "shows": "The critical check of a passed step with a line unticked"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 173,
+   "text": "Revised on ${fmtDate(info.reason.item.at)}",
+   "how": "marked",
+   "shows": "The critical check of a revised step"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 178,
+   "text": "${info.returns.length && !state.revisions.some((r) => r.step === step && r.kind === 'revision' && info.returns.some((x) => r.at > x.at)) ? 'I looked, and it still holds' : 'Reconfirm the critical check'}",
+   "how": "marked",
+   "shows": "A step marked for review: the answer recorded in the log (quoted in steps/01-framing/spec.md, \"The revision log\")"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 202,
+   "text": "Recording the revision marks the steps that use Step ${step} for review. Nothing in those steps is erased.",
+   "how": "marked",
+   "shows": "The strip at the foot of a step"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 206,
+   "text": "Critical check reconfirmed ${fmtDateTime(r.at)}${r.returns && r.returns.length ? ' after a return' : ''}",
+   "how": "marked",
+   "shows": "The revision log at the foot of a step"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/StepScreen.js",
+   "line": 207,
+   "text": "Reviewed ${fmtDateTime(r.at)}: ${r.review_result === 'unchanged' ? 'looked, and it still holds' : 'revised'}",
+   "how": "marked",
+   "shows": "The revision log at the foot of a step"
+  },
+  {
+   "tier": "method",
+   "kind": "return or review message",
+   "file": "src/views/Warnings.js",
+   "line": 47,
+   "text": "Dismissed ${fmtDate(w.dismissed.at)}:",
+   "how": "marked",
+   "shows": "A dismissed warning, with its one line"
+  },
+  {
+   "tier": "method",
+   "kind": "finding",
+   "file": "src/views/fields.js",
+   "line": 226,
+   "text": "No resources ticked for this actor in Exercise 5",
+   "how": "marked",
+   "shows": "Step 2, Exercise 7: the resource column for an actor with no resource ticked"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/fields.js",
+   "line": 293,
+   "text": "shared",
+   "how": "marked",
+   "shows": "Step 2, Exercise 8: a cell left empty because the row shares another's reading"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/fields.js",
+   "line": 315,
+   "text": "Suggested types. Use any of them, or none:",
+   "how": "marked",
+   "shows": "Step 2, Exercise 4: the suggested actor types"
+  },
+  {
+   "tier": "method",
+   "kind": "field label",
+   "file": "src/views/fields.js",
+   "line": 340,
+   "text": "which actor, where you can say",
+   "how": "marked",
+   "shows": "Step 2, Exercise 6: beside each role's actor"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step1.js",
+   "line": 293,
+   "text": "Add a potential solution",
+   "how": "definition",
+   "shows": "Step 1, Exercise 8",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step2.js",
+   "line": 141,
+   "text": "Add a row",
+   "how": "definition",
+   "shows": "Step 2, Exercises 2 and 7",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step2.js",
+   "line": 165,
+   "text": "Add a layer",
+   "how": "definition",
+   "shows": "Step 2, Exercise 3",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step2.js",
+   "line": 183,
+   "text": "Add a type",
+   "how": "definition",
+   "shows": "Step 2, Exercise 4",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step2.js",
+   "line": 226,
+   "text": "Add an actor",
+   "how": "definition",
+   "shows": "Step 2, Exercise 5",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step2.js",
+   "line": 268,
+   "text": "Add a second decision",
+   "how": "definition",
+   "shows": "Step 2, Exercise 6",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step2.js",
+   "line": 333,
+   "text": "Add a description",
+   "how": "definition",
+   "shows": "Step 2, Exercise 8",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step3.js",
+   "line": 144,
+   "text": "Add an event",
+   "how": "definition",
+   "shows": "Step 3, Exercise 3",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/definitions/step3.js",
+   "line": 179,
+   "text": "Mark a part of the line",
+   "how": "definition",
+   "shows": "Step 3, Exercise 4",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/App.js",
+   "line": 27,
+   "text": "The case",
+   "how": "attribute",
+   "shows": "Top bar: the name of the case field, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/App.js",
+   "line": 29,
+   "text": "Phase A",
+   "how": "attribute",
+   "shows": "Top bar: the name of the step navigation, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/App.js",
+   "line": 37,
+   "text": "Read through",
+   "how": "marked",
+   "shows": "Top bar: the tab that opens the read-through of Phase A",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "saving notice",
+   "file": "src/views/App.js",
+   "line": 73,
+   "text": "That file is not a saved case.",
+   "how": "dialog",
+   "shows": "Dialog, when a file opened is not a saved case",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "saving notice",
+   "file": "src/views/App.js",
+   "line": 74,
+   "text": "Open this saved case? The case in this browser is replaced. Save it to a file first if you want to keep it.",
+   "how": "dialog",
+   "shows": "Dialog, before a saved case replaces the one in the browser",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "saving notice",
+   "file": "src/views/App.js",
+   "line": 79,
+   "text": "The case could not be saved in this browser: its storage is full. Save it to a file.",
+   "how": "marked",
+   "shows": "Footer, when the browser's storage is full",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/App.js",
+   "line": 83,
+   "text": "Save the case to a file",
+   "how": "marked",
+   "shows": "Footer",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/App.js",
+   "line": 84,
+   "text": "Open a saved case",
+   "how": "marked",
+   "shows": "Footer",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/App.js",
+   "line": 86,
+   "text": "Start a new case",
+   "how": "marked",
+   "shows": "Footer",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "saving notice",
+   "file": "src/views/App.js",
+   "line": 86,
+   "text": "Start a new, empty case? The case in this browser is replaced. Save it to a file first if you want to keep it.",
+   "how": "dialog",
+   "shows": "Dialog, before a new case replaces the one in the browser",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/Arrangement.js",
+   "line": 315,
+   "text": "The bands come from the layers in Exercise 3, and the actors from Exercise 5. Both are needed before this drawing can start.",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10, before Exercises 3 and 5 hold anything",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/Arrangement.js",
+   "line": 324,
+   "text": "Tool",
+   "how": "attribute",
+   "shows": "Step 2, Exercise 10: the name of the tool group, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Arrangement.js",
+   "line": 325,
+   "text": "Place and move",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: the canvas tools",
+   "meetsRule": false,
+   "suggestion": "Place and move actors"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Arrangement.js",
+   "line": 326,
+   "text": "Draw a line",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: the canvas tools",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Arrangement.js",
+   "line": 327,
+   "text": "Mark a disagreement",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: the canvas tools",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Arrangement.js",
+   "line": 335,
+   "text": "${sel.kind === 'node' ? `Put ${label(sel.id)} back in the tray` : sel.kind === 'line' ? 'Remove the line' : 'Remove the mark'}",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10, while an element is selected",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Arrangement.js",
+   "line": 336,
+   "text": "Leave the drawing",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: one of the three ways of leaving the drawing (working rule adopted 2 October 2026)",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/Arrangement.js",
+   "line": 340,
+   "text": "Actors not yet placed",
+   "how": "attribute",
+   "shows": "Step 2, Exercise 10: the name of the tray, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/Arrangement.js",
+   "line": 341,
+   "text": "Not yet placed",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: the heading of the tray",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/Arrangement.js",
+   "line": 342,
+   "text": "Every actor is placed.",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: the tray once it is empty",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/Arrangement.js",
+   "line": 346,
+   "text": "(no name yet)",
+   "how": "marked",
+   "shows": "Step 2, Exercise 10: an actor in the tray with no name",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/Arrangement.js",
+   "line": 354,
+   "text": "The second drawing",
+   "how": "attribute",
+   "shows": "Step 2, Exercise 10: the name of the sheet, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/CaseView.js",
+   "line": 38,
+   "text": "Opens when Step ${n - 1} is complete",
+   "how": "marked",
+   "shows": "The case view: a step card that cannot be opened yet",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/CaseView.js",
+   "line": 43,
+   "text": "(The boundary sentence is written with what carries forward.)",
+   "how": "marked",
+   "shows": "The case view: the Step 2 card, before the boundary sentence is written",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/CaseView.js",
+   "line": 44,
+   "text": "Progress",
+   "how": "attribute",
+   "shows": "The case view: the progress bar on a step card, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/CaseView.js",
+   "line": 70,
+   "text": "Copied from",
+   "how": "marked",
+   "shows": "The case view, page 25: the label over the field a zone was copied from",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/CaseView.js",
+   "line": 71,
+   "text": "${copy ? 'Copy the text again' : 'Copy the text here'}",
+   "how": "marked",
+   "shows": "The case view, page 25",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/CaseView.js",
+   "line": 73,
+   "text": "Nothing written there yet.",
+   "how": "marked",
+   "shows": "The case view, page 25: a zone whose source is empty",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/CaseView.js",
+   "line": 117,
+   "text": "Also carried forward, by the step specifications, and not on page 25",
+   "how": "marked",
+   "shows": "The case view: the toggle under page 25",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/Exercise.js",
+   "line": 102,
+   "text": "Open",
+   "how": "attribute",
+   "shows": "Step 1, Exercise 1, once collapsed: the tooltip",
+   "meetsRule": false,
+   "suggestion": "Open the answer"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Exercise.js",
+   "line": 103,
+   "text": "open",
+   "how": "marked",
+   "shows": "Step 1, Exercise 1, once collapsed to one line",
+   "meetsRule": false,
+   "suggestion": "Open the answer"
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/Exercise.js",
+   "line": 199,
+   "text": "in total",
+   "how": "attribute",
+   "shows": "Step 3, Exercise 3: the name of the number field, read by a screen reader (the printed words)",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Exercise.js",
+   "line": 232,
+   "text": "Instructions",
+   "how": "marked",
+   "shows": "Beside each exercise's title: opens the instruction page beside the exercise",
+   "meetsRule": false,
+   "suggestion": "Open the instructions"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Exercise.js",
+   "line": 241,
+   "text": "${showPrinted ? 'Hide the printed form' : 'The printed form'}",
+   "how": "marked",
+   "shows": "Under a screen variant: shows the printed form",
+   "meetsRule": false,
+   "suggestion": "Show the printed form / Hide the printed form"
+  },
+  {
+   "tier": "controls",
+   "kind": "tool hint",
+   "file": "src/views/Graph.js",
+   "line": 244,
+   "text": "Click the grid to place a point, drag it to move it, select it and press Delete to remove it.",
+   "how": "marked",
+   "shows": "Step 3, Exercises 2 and 7: how the graph is drawn",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Graph.js",
+   "line": 245,
+   "text": "${open ? 'Hide the values' : 'Type the values'}",
+   "how": "marked",
+   "shows": "Step 3, Exercises 2 and 7",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Graph.js",
+   "line": 246,
+   "text": "Remove the selected point",
+   "how": "marked",
+   "shows": "Step 3, Exercises 2 and 7, while a point is selected",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/Graph.js",
+   "line": 268,
+   "text": "The years go in Exercise 2 first.",
+   "how": "marked",
+   "shows": "Step 3, Exercise 7, before Exercise 2 has its years",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/Graph.js",
+   "line": 293,
+   "text": "Write the years above, and the grid appears.",
+   "how": "marked",
+   "shows": "Step 3, Exercise 2, before the years are written",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Passage.js",
+   "line": 76,
+   "text": "I have read this",
+   "how": "marked",
+   "shows": "At the foot of each instruction page, until it has been read",
+   "meetsRule": false,
+   "suggestion": "Mark the instructions as read"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Passage.js",
+   "line": 77,
+   "text": "Close the instructions",
+   "how": "marked",
+   "shows": "An instruction page opened again, and the instructions beside an exercise",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Passage.js",
+   "line": 85,
+   "text": "Open the instructions",
+   "how": "marked",
+   "shows": "An instruction page closed to a bar",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/Passage.js",
+   "line": 95,
+   "text": "Instructions",
+   "how": "marked",
+   "shows": "The instructions beside an exercise: the label at the top",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/ReadView.js",
+   "line": 99,
+   "text": "Phase A, read through",
+   "how": "marked",
+   "shows": "The read-through: its heading (to be approved with the export, decided 2 October 2026)",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/StepScreen.js",
+   "line": 75,
+   "text": "One line, if you want one",
+   "how": "attribute",
+   "shows": "Review and return banners: the name of the optional line, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/StepScreen.js",
+   "line": 99,
+   "text": "${open ? 'Hide the printed form' : 'The printed form'}",
+   "how": "marked",
+   "shows": "Under Step 2's seventh critical check line: shows the printed form",
+   "meetsRule": false,
+   "suggestion": "Show the printed form / Hide the printed form"
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/StepScreen.js",
+   "line": 197,
+   "text": "because",
+   "how": "attribute",
+   "shows": "The strip: the name of the reason field, read by a screen reader (the printed word)",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/StepScreen.js",
+   "line": 199,
+   "text": "Record the revision",
+   "how": "marked",
+   "shows": "The strip at the foot of a step, after an answer changes on a passed step",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/StepScreen.js",
+   "line": 222,
+   "text": "A potential solution",
+   "how": "attribute",
+   "shows": "The parked list under each step's title: the name of the field, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/StepScreen.js",
+   "line": 223,
+   "text": "Park it",
+   "how": "marked",
+   "shows": "Under each step's title after Step 1: adds a potential solution",
+   "meetsRule": false,
+   "suggestion": "Add the potential solution"
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/StepScreen.js",
+   "line": 312,
+   "text": "Step ${step} opens when Step ${step - 1} is complete: when its critical check has been passed.",
+   "how": "marked",
+   "shows": "A step that cannot be opened yet",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "navigation",
+   "file": "src/views/StepScreen.js",
+   "line": 369,
+   "text": "Exercise ${def.exercises[visibleUpTo + 1].number} appears once Exercise ${def.exercises[visibleUpTo].number} has something in it.",
+   "how": "marked",
+   "shows": "Under the last exercise shown",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Warnings.js",
+   "line": 48,
+   "text": "Show again",
+   "how": "marked",
+   "shows": "A dismissed warning",
+   "meetsRule": false,
+   "suggestion": "Show the warning again"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Warnings.js",
+   "line": 57,
+   "text": "Dismiss, with one line",
+   "how": "marked",
+   "shows": "Every warning",
+   "meetsRule": false,
+   "suggestion": "Dismiss the warning, with one line"
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/Warnings.js",
+   "line": 59,
+   "text": "One line on why",
+   "how": "attribute",
+   "shows": "A warning being dismissed: the name of the line, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Warnings.js",
+   "line": 60,
+   "text": "Dismiss",
+   "how": "marked",
+   "shows": "A warning being dismissed",
+   "meetsRule": false,
+   "suggestion": "Dismiss the warning"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/Warnings.js",
+   "line": 61,
+   "text": "Cancel",
+   "how": "marked",
+   "shows": "A warning being dismissed",
+   "meetsRule": false,
+   "suggestion": "Keep the warning"
+  },
+  {
+   "tier": "controls",
+   "kind": "saving notice",
+   "file": "src/views/fields.js",
+   "line": 139,
+   "text": "That file could not be read as an image.",
+   "how": "literal",
+   "shows": "Step 2, Exercise 1, when a file is not an image",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/fields.js",
+   "line": 145,
+   "text": "Remove the photograph",
+   "how": "marked",
+   "shows": "Step 2, Exercise 1, once a photograph is added",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/fields.js",
+   "line": 148,
+   "text": "Add a photograph",
+   "how": "marked",
+   "shows": "Step 2, Exercise 1",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/fields.js",
+   "line": 157,
+   "text": "Placeholder for the first drawing",
+   "how": "attribute",
+   "shows": "Step 2, Exercise 1: the placeholder, read by a screen reader",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/fields.js",
+   "line": 160,
+   "text": "A free canvas goes here: marks, short labels, and connectors, with marks for money, for conflict, for a blockage, and a question mark for what is not known. No bands, no tray, no structure, and nothing checked. The free canvas comes in a later version.",
+   "how": "marked",
+   "shows": "Step 2, Exercise 1: the placeholder until the canvas is built (decided 2 October 2026)",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "empty state",
+   "file": "src/views/fields.js",
+   "line": 161,
+   "text": "Until then, draw on paper and add a photograph.",
+   "how": "marked",
+   "shows": "Step 2, Exercise 1: the placeholder",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/fields.js",
+   "line": 248,
+   "text": "Remove this row",
+   "how": "attribute",
+   "shows": "Any table: the cross beside a row, read by a screen reader and shown as a tooltip",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/fields.js",
+   "line": 250,
+   "text": "Remove the row",
+   "how": "marked",
+   "shows": "Any table, after the cross beside a row",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/fields.js",
+   "line": 251,
+   "text": "Keep the row",
+   "how": "marked",
+   "shows": "Any table, after the cross beside a row",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/fields.js",
+   "line": 301,
+   "text": "Move up",
+   "how": "attribute",
+   "shows": "Step 2, Exercise 3: the arrow beside a layer, read by a screen reader and shown as a tooltip",
+   "meetsRule": false,
+   "suggestion": "Move the layer up"
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/fields.js",
+   "line": 302,
+   "text": "Move down",
+   "how": "attribute",
+   "shows": "Step 2, Exercise 3: the arrow beside a layer, read by a screen reader and shown as a tooltip",
+   "meetsRule": false,
+   "suggestion": "Move the layer down"
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/fields.js",
+   "line": 310,
+   "text": "${f.addLabel || 'Add a row'}",
+   "how": "marked",
+   "shows": "Any table without its own label for adding a row",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "button",
+   "file": "src/views/fields.js",
+   "line": 347,
+   "text": "${rows.length ? f.addLabel : 'Add the decision'}",
+   "how": "marked",
+   "shows": "Step 2, Exercise 6",
+   "meetsRule": true
+  },
+  {
+   "tier": "controls",
+   "kind": "accessible name",
+   "file": "src/views/text.js",
+   "line": 109,
+   "text": "Not printed in the workbook: the screen's own wording, provisional",
+   "how": "attribute",
+   "shows": "The tooltip on every dotted underline",
+   "meetsRule": true
+  }
+ ]
+}

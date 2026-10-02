@@ -1,0 +1,381 @@
+# Systems process: the machine-readable structure.
+# Decided 28 September 2026: this file is kept, and is updated in the SAME COMMIT as any
+# steps/*/spec.md it describes. Where the two disagree, the specification is right and this
+# file is out of date. Fields are listed only for steps whose specification is written.
+# Updated 1 October 2026 for Steps 1, 2, and 3 together, after the six decisions in
+# design/WORK-ORDER-2026-10-01.md. Every field key below is settled.
+# Updated 2 October 2026 for Ashley's decisions of that date: page 25's keys under
+# phase_pages, the revision log that fills revised_on and revised_because, one
+# description in Step 1, Exercise 7, sketch_second_left, the first drawing completed by
+# a canvas or a photograph, and depends_on widened to match the carry-forward tables.
+version: 0.3
+updated: 2026-10-02
+
+phases:
+  A: Frame
+  B: Understand
+  C: Choose
+  D: Test and plan
+  E: Apply
+
+steps:
+  - id: 1
+    slug: framing
+    phase: A
+    title: Define the problem, the desired change, and your position
+    depends_on: []
+    spec: steps/01-framing/spec.md
+    fields:
+      # Exercise 1
+      - {key: situation, type: text, required: true}
+      # Exercise 2: the first attempt, in the default form only. Read by nothing downstream.
+      - {key: problem_thing, type: text, required: true, read_downstream: false}
+      - {key: problem_direction, type: enum, required: true, values: [too_much, too_little], read_downstream: false}
+      - {key: problem_who, type: text, required: true, read_downstream: false}
+      - {key: problem_since, type: text, required: true, read_downstream: false}
+      - {key: problem_consequence, type: text, required: true, read_downstream: false}
+      - {key: rationale, type: text, required: true}
+      # Exercise 3: four suitability questions. A "no" warns, asks for one line, and never blocks.
+      - {key: suit_chronic, type: bool, required: true, warn_if: false}
+      - {key: suit_chronic_note, type: text, required: false}
+      - {key: suit_history, type: bool, required: true, warn_if: false}
+      - {key: suit_history_note, type: text, required: false}
+      - {key: suit_attempts, type: bool, required: true, warn_if: false}
+      - {key: suit_attempts_note, type: text, required: false}
+      - {key: suit_size, type: bool, required: true, warn_if: false}
+      - {key: suit_size_note, type: text, required: false}
+      # Exercise 3: the disqualifier, a field of its own. A yes is a stop, not a warning.
+      - {key: suit_procedure_would_solve, type: bool, required: true, stop_if: true}
+      - {key: suit_procedure_note, type: text, required: false}
+      # Exercise 4
+      - {key: change_long, type: text, required: true}
+      - {key: change_long_year, type: year, required: true}
+      - {key: change_near, type: text, required: false}
+      - {key: change_near_year, type: year, required: false}
+      # Exercise 5
+      - {key: position, type: enum, required: true, values: [outside, for_organisation, advise_decider, decide, affected]}
+      - {key: on_behalf_of, type: text, required_if: "position != outside"}
+      # Exercise 6: the form, then the agreed problem definition. Every later step reads agreed_*.
+      - {key: problem_form, type: enum, required: true, values: [excess_deficit, mismatch, standard, not_yet]}
+      - {key: form_reason, type: text, required_if: "problem_form != excess_deficit"}
+      - {key: agreed_thing, type: text, required: true}
+      - {key: agreed_direction, type: text, required: true}
+      - {key: agreed_who, type: text, required: true}
+      - {key: agreed_since, type: text, required: true}
+      - {key: agreed_consequence, type: text, required: true}
+      # Exercise 7: one description, not a list (decided 2 October 2026). rep_omission is
+      # optional, printed "What that description leaves out".
+      - {key: rep_description, type: text, required: true}
+      - {key: rep_source, type: text, required: true}
+      - {key: rep_assumption, type: text, required: true}
+      - {key: rep_omission, type: text, required: false}
+      # Exercise 8
+      - {key: parked, type: list, required: false, opened_at: 7}
+      # Foot of every working page. On screen both are written from the revision log, never
+      # typed separately: the date and the reason of the step's latest revision.
+      - {key: revised_on, type: date, required: false, written_from: revision_log}
+      - {key: revised_because, type: text, required: false, written_from: revision_log}
+  - id: 2
+    slug: boundary
+    phase: A
+    title: Set the boundary and the perspectives
+    depends_on: [1]
+    spec: steps/02-boundary/spec.md
+    fields:
+      # Exercise 1: complete with the confirmation and either a drawing on the canvas or a
+      # photograph (decided 2 October 2026). The canvas is still to be built.
+      - {key: sketch_first_done, type: bool, required: true}
+      - {key: sketch_first_canvas, type: canvas, required_if: "not sketch_first_image", on: screen}
+      - {key: sketch_first_image, type: image, required: false}
+      # Exercise 2
+      - {key: inside, type: list, of: text, required: true, min: 1}
+      - key: outside
+        type: list
+        required: true
+        min: 1
+        item:
+          - {key: label, type: text, required: true}
+          - {key: mark, type: enum, required: true, values: [F, O, I]}
+          - {key: reason, type: text, required: true}
+      # Exercise 3: two to five, five a hard cap, and two only with a line saying why.
+      - key: layers
+        type: list
+        required: true
+        min: 2
+        max: 5
+        item:
+          - {key: name, type: text, required: true}
+          - {key: reason, type: text, required: true}
+      - {key: two_layers_because, type: text, required_if: "count(layers) == 2"}
+      # Exercise 4: five is the only hard rule; one type per three actors is a warning. A type
+      # holding one actor warns from three actors; a type holding all the actors but one, or
+      # all of them, warns from six (adopted 2 October 2026).
+      - {key: actor_types, type: list, required: true, min: 1, max: 5, item: [{key: label, type: text, required: true}]}
+      # Exercise 5: warn past twelve actors and again past fifteen; never block. Nothing ticked
+      # in column 2 of admits warns from three actors (adopted 2 October 2026).
+      - key: actors
+        type: list
+        required: true
+        min: 1
+        warn_above: [12, 15]
+        item:
+          - {key: name, type: text, required: true}
+          - {key: layer, type: ref, of: layers, required: true}
+          - {key: type, type: ref, of: actor_types, required: true}
+          - {key: admits, type: set, values: ["1", "2", "3", "4"], required: true, min: 1}
+          - {key: resources, type: set, values: [authority, money, delivery, information, access, legitimacy, attention], required: false}
+          - {key: resource_note, type: text, required: false}
+      # Exercise 6: at most two decisions on screen; one on paper.
+      - key: decisions
+        type: list
+        required: true
+        min: 1
+        max: 2
+        item:
+          - {key: statement, type: text, required: true}
+          - {key: authority, type: ref, of: layers, or: nobody, required: true}
+          - {key: responsibility, type: ref, of: layers, or: nobody, required: true}
+          - {key: accountability, type: ref, of: layers, or: nobody, required: true}
+          - {key: authority_actor, type: ref, of: actors, required: false}
+          - {key: responsibility_actor, type: ref, of: actors, required: false}
+          - {key: accountability_actor, type: ref, of: actors, required: false}
+      - {key: ara_pattern, type: derived, from: decisions}
+      # Exercise 7: asked for the subset read off the allocation in Exercise 6, and for anyone
+      # whose row names one of those actors in needed_by (decided 2 October 2026).
+      - key: dependencies
+        type: list
+        required: true
+        item:
+          - {key: actor, type: ref, of: actors, required: true}
+          - {key: resource, type: enum, values: [authority, money, delivery, information, access, legitimacy, attention], required: true}
+          # Required for the actors the dependency question is asked for: those in a layer holding
+          # authority, responsibility, or accountability in Exercise 6, and any actor whose row
+          # names one of them in needed_by (steps/02-boundary/spec.md). One row per resource held
+          # is checked for the first half only. A blank row for any other actor is a state.
+          - {key: who_needs_it, type: text, required_if: "actor is one the dependency question is asked for"}
+          - {key: needed_by, type: ref, of: actors, required: false}
+      # Exercise 8: warn past five.
+      - key: descriptions
+        type: list
+        required: true
+        min: 2
+        warn_above: [5]
+        item:
+          - {key: actor, type: ref, of: actors, required: true}
+          - {key: reading, type: text, required_if: "not shares_with"}
+          - {key: status, type: enum, values: [evidenced, inferred], required_if: "not shares_with"}
+          - {key: read_from, type: text, required_if: "not shares_with"}
+          - {key: shares_with, type: ref, of: descriptions, required: false}
+      - {key: conflicting_pair, type: ref, of: descriptions, count: 2, required: true}
+      # Exercise 9
+      - {key: who_is_missing, type: text, required: true}
+      - {key: spoken_for_by, type: text, required: true}
+      # Exercises 10 and 11
+      - {key: sketch_second, type: canvas, required: true}
+      # When the participant last left the drawing, written by the screen and kept apart from
+      # sketch_second; leaving records no revision (adopted 2 October 2026).
+      - {key: sketch_second_left, type: datetime, required: false, written_by: screen}
+      - {key: sentence_produces, type: text, required: true}
+      - {key: sentence_disagreement, type: text, required: true}
+      - {key: sentence_surprise, type: text, required: true}
+      # Foot of every working page. On screen both are written from the revision log, never
+      # typed separately: the date and the reason of the step's latest revision.
+      - {key: revised_on, type: date, required: false, written_from: revision_log}
+      - {key: revised_because, type: text, required: false, written_from: revision_log}
+  - id: 3
+    slug: behaviour-over-time
+    phase: A
+    title: Describe behaviour over time
+    depends_on: [1, 2]
+    spec: steps/03-behaviour-over-time/spec.md
+    fields:
+      # Exercise 1. What is measured is given by the agreed problem definition; how is chosen.
+      - {key: thing_measured, type: text, required: true, copied_from: "1.agreed_thing", editable: false}
+      - {key: measure, type: text, required: true}
+      - {key: measure_because, type: text, required: true}
+      - {key: form_route, type: derived, from: "1.problem_form"}
+      - {key: nearest_quantity_because, type: text, required_if: "1.problem_form == not_yet and not no_nearest_quantity"}
+      - {key: no_nearest_quantity, type: bool, required: false}
+      - {key: period_start, type: year, required: true}
+      - {key: period_start_because, type: text, required: true}
+      # Exercise 2. The interval was retired as a field on 1 October 2026.
+      - {key: period_from, type: year, required: true}
+      - {key: period_to, type: year, required: true}
+      - {key: series, type: series, required: true, min: 2}
+      # Exercise 3: six is a soft cap; a seventh warns and never blocks.
+      - key: events
+        type: list
+        required: true
+        min: 1
+        warn_above: [6]
+        item:
+          - {key: year, type: year, required: true}
+          - {key: label, type: text, required: true}
+      - {key: events_total, type: number, required: false}
+      # Exercise 4: the segments tile the line with no unlabelled gap.
+      - key: evidence
+        type: list
+        required: true
+        min: 1
+        item:
+          - {key: kind, type: enum, values: [measured, documented, estimated], required: true}
+          - {key: range, type: span, required: true, on: screen}
+          - {key: note, type: text, required: true}
+      # Exercise 5
+      - {key: shape, type: enum, required: true, values: [steady, accelerating, levelling, up_down, rise_collapse, flat]}
+      - {key: shape_because, type: text, required: true}
+      # Exercise 6
+      - {key: spd_since, type: text, required: true}
+      - {key: spd_quantity, type: text, required: true}
+      - {key: spd_shape, type: text, required: true}
+      - {key: spd_tried, type: text, required: true}
+      - {key: system_problem_definition, type: derived, required: true, from: [spd_since, spd_quantity, spd_shape, spd_tried]}
+      # Exercise 7: optional, two boxes and one further quantity.
+      - {key: future_unchanged, type: series, required: false}
+      - {key: future_desired, type: series, required: false}
+      - {key: other_quantity_label, type: text, required: false}
+      - {key: other_quantity_series, type: series, required: false}
+      # Foot of every working page. On screen both are written from the revision log, never
+      # typed separately: the date and the reason of the step's latest revision.
+      - {key: revised_on, type: date, required: false, written_from: revision_log}
+      - {key: revised_because, type: text, required: false, written_from: revision_log}
+  - {id: 4,  slug: factors,             phase: B, title: Identify enablers and inhibitors,       depends_on: [1, 2, 3],    fields: []}
+  # depends_on widened on 2 October 2026 to every step a carry-forward table names.
+  - {id: 5,  slug: mapping,             phase: B, title: Map the causal structure,               depends_on: [1, 2, 3, 4],       fields: []}
+  - {id: 6,  slug: analysis,            phase: B, title: Analyse the mapping and write its narrative, depends_on: [2, 3, 5],  fields: []}
+  - {id: 7,  slug: leverage,            phase: C, title: Identify leverage,                      depends_on: [1, 2, 3, 5, 6],    fields: []}
+  - {id: 8,  slug: consequences,        phase: C, title: Weigh consequences and interests,       depends_on: [1, 2, 6, 7],       fields: []}
+  - {id: 9,  slug: hypothesis,          phase: C, title: State the intervention hypothesis,      depends_on: [1, 3, 6, 8],       fields: []}
+  - {id: 10, slug: test,                phase: D, title: Test the hypothesis,                    depends_on: [1, 2, 3, 5, 9],    fields: []}
+  - {id: 11, slug: monitoring,          phase: D, title: Plan monitoring and learning,           depends_on: [1, 3, 10],         fields: []}
+  - {id: 12, slug: apply,               phase: E, title: Apply the analysis,                   depends_on: [1, 2, 7, 8],       fields: []}
+  - {id: 13, slug: communicate,         phase: E, title: Communicate to audiences,               depends_on: [1, 2, 6, 9, 12],   fields: []}
+
+# Pages that belong to a phase rather than to a step (decided 2 October 2026). Page 25, what
+# carries forward, closes Phase A. A copy is made only when the participant asks, can then be
+# edited, and shows its source beside it. Nothing on page 25 is required on screen, as built.
+phase_pages:
+  - phase: A
+    slug: carries
+    title: What carries forward
+    spec: steps/phase-a-carries/spec.md
+    fields:
+      # Zone 1
+      - {key: carry_problem, type: text, required: false, copied_from: ["1.agreed_*"], copy: on_request}
+      # Zone 2
+      - {key: carry_change_position, type: text, required: false, copied_from: ["1.change_long", "1.change_long_year", "1.change_near", "1.change_near_year", "1.position", "1.on_behalf_of"], copy: on_request}
+      # Zone 3: written here, not copied. Neither half exists anywhere in Step 2.
+      - {key: boundary_sentence, type: text, required: false}
+      - {key: exclusion_most_likely_wrong, type: ref, of: "2.outside", required: false}
+      - {key: exclusion_most_likely_wrong_note, type: text, required: false}
+      # Zone 4
+      - {key: carry_layers_decision, type: text, required: false, copied_from: ["2.layers", "2.decisions"], copy: on_request}
+      # Zone 5
+      - {key: carry_disagreement, type: text, required: false, copied_from: ["2.conflicting_pair", "2.descriptions"], copy: on_request}
+      # Zone 6
+      - {key: carry_sentences, type: text, required: false, copied_from: ["2.sentence_produces", "2.sentence_disagreement", "2.sentence_surprise"], copy: on_request}
+      # Zone 7
+      - {key: carry_spd_shape, type: text, required: false, copied_from: ["3.system_problem_definition", "3.shape"], copy: on_request}
+
+# The revision log (decided 2 October 2026; steps/01-framing/spec.md, "The revision log").
+# One log for the case, each entry belonging to one step, written by the screen and never
+# erased. revised_on and revised_because hold the date and the reason of the step's latest
+# entry of kind revision. Recording a revision also writes a review mark on each step marked.
+revision_log:
+  key: revisions
+  type: list
+  written_by: screen
+  item:
+    - {key: id, type: id, required: true}
+    - {key: step, type: ref, of: steps, required: true}
+    - {key: at, type: datetime, required: true}
+    - {key: kind, type: enum, values: [revision, reconfirmed, review], required: true}
+    - {key: because, type: text, required_if: "kind == revision"}
+    - {key: since, type: datetime, required_if: "kind == revision"}
+    - key: fields
+      type: list
+      required_if: "kind == revision"
+      item:
+        - {key: key, type: text, required: true}
+        - {key: before, type: value, required: true}
+        - {key: after, type: value, required: true}
+    - {key: returns, type: list, of: returns, required: false}
+    - {key: mark, type: ref, of: marks, required_if: "kind == review"}
+    - {key: review_result, type: enum, values: [unchanged, revised], required_if: "kind == review"}
+review_marks:
+  key: marks
+  type: list
+  written_by: screen
+  item:
+    - {key: id, type: id, required: true}
+    - {key: "on", type: ref, of: steps, required: true}
+    - {key: from, type: ref, of: steps, required: true}
+    - {key: at, type: datetime, required: true}
+    - {key: revision, type: ref, of: revisions, required: true}
+    - {key: fields, type: list, of: text, required: true}
+    - {key: because, type: text, required: true}
+    - {key: resolved, type: record, required: false}
+
+# Cross-step return triggers. A trigger reopens the step or fields it names, never the whole process.
+triggers:
+  - raised_at: 6
+    when: The narrative does not explain the pattern from Step 3
+    returns_to: [5]
+  - raised_at: 6
+    when: The narrative does not explain the pattern from Step 3
+    returns_to: [3]
+    fields: [shape, series, spd_since, spd_quantity, spd_shape, spd_tried]
+  - raised_at: 7
+    when: No leverage candidate reaches beyond parameters
+    returns_to: [5, 6]
+  - raised_at: 8
+    when: The consequences are judged unacceptable for every candidate
+    returns_to: [7]
+  - raised_at: 10
+    when: An assumption is rated weak
+    returns_to: [5, 7]
+  - raised_at: 11
+    when: No indicator can be found for an outcome
+    returns_to: [10]
+  - raised_at: 3
+    when: The line cannot be drawn, because the quantity does not move
+    returns_to: [1]
+    fields: [agreed_thing, agreed_direction]
+  - raised_at: 3
+    when: The line can be drawn, but it is not the problem
+    returns_to: [1]
+    fields: [agreed_thing]
+  - raised_at: 3
+    when: The period has to reach outside the boundary
+    returns_to: [2]
+    fields: [outside, layers]
+  - raised_at: 4
+    when: Fewer than about six, or more than about twenty, variables survive naming
+    returns_to: [1]
+    fields: [suit_size, suit_size_note]
+  - raised_at: 2
+    when: The actors who matter all sit outside the boundary
+    returns_to: [1]
+    fields: [agreed_thing, agreed_who, change_long]
+  - raised_at: 5
+    when: The mapping cannot explain the pattern from Step 3, and something that moves the thing named in the problem definition was left outside the boundary
+    returns_to: [2]
+    fields: [outside]
+  - raised_at: 5
+    when: The mapping cannot produce a structure that would make this shape
+    returns_to: [3]
+    fields: [shape, shape_because]
+  - raised_at: 7
+    when: A candidate lever is chosen
+    returns_to: [2]
+    fields: [dependencies]
+  - raised_at: 7
+    when: The powerful actors' description differs from the one recorded
+    returns_to: [1]
+    fields: [rep_description, rep_source, rep_assumption, rep_omission]
+
+# Critical checks are self-checked. The system enforces completeness only; it never scores an answer.
+critical_checks:
+  enforce: required_fields_present
+  criteria: self_checked_with_timestamp
+  backwards: always_open

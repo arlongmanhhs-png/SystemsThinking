@@ -1,0 +1,10 @@
+# Display face no longer used; its licence for this use is not recorded (Outfit replaced it on 2 October 2026)
+prototype/design-system/assets/fonts/GT-Walsheim-Pro-*.otf
+# Word copy of design/platform-phase-a.md from 29 September, out of date
+platform-phase-a.docx
+# Office and system files
+~$*
+desktop.ini
+Thumbs.db
+.DS_Store
+node_modules/

@@ -1,0 +1,31 @@
+/* Raster, spacing, shape, motion. THUAS rules hold: square 24px base raster, radius 0,
+   no elevation (shadows only for transient overlays), squangle corners offset exactly 6.26%. */
+:root{
+  --grid-unit:24px;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;
+  --page-margin:clamp(16px,3vw,40px);--measure:66ch;--container:1440px;
+  --topbar-height:56px;--guide-width:320px;--aside-width:300px;
+  --radius:0;--hairline:1px;--rule:2px;--accent-bar:6px;
+
+  --squangle-skew:6.26%;
+  --squangle-1a:polygon(0% 0%, 100% 6.26%, 93.74% 93.74%, 6.26% 100%); /* @kind other */
+  --squangle-1b:polygon(0% 0%, 93.74% 6.26%, 100% 93.74%, 6.26% 100%); /* @kind other */
+  --squangle-1c:polygon(6.26% 6.26%, 93.74% 0%, 100% 100%, 0% 93.74%); /* @kind other */
+  --squangle-1d:polygon(6.26% 6.26%, 100% 0%, 93.74% 100%, 0% 93.74%); /* @kind other */
+  --squangle-2a:polygon(0% 6.26%, 100% 0%, 93.74% 100%, 6.26% 93.74%); /* @kind other */
+  --squangle-2b:polygon(6.26% 0%, 93.74% 6.26%, 100% 93.74%, 0% 100%); /* @kind other */
+  --squangle-2c:polygon(0% 6.26%, 93.74% 0%, 100% 100%, 6.26% 93.74%); /* @kind other */
+  --squangle-2d:polygon(6.26% 0%, 100% 6.26%, 93.74% 93.74%, 0% 100%); /* @kind other */
+  --squangle-3a:polygon(0% 6.26%, 100% 0%, 100% 100%, 0% 93.74%); /* @kind other */
+  --squangle-3b:polygon(0% 0%, 100% 6.26%, 100% 93.74%, 0% 100%); /* @kind other */
+
+  --shadow-overlay:0 12px 32px rgba(23,52,94,.18);
+  --shadow-dialog:0 24px 64px rgba(23,52,94,.28);
+
+  --duration-snap:90ms; /* @kind other */
+  --duration-fast:140ms; /* @kind other */
+  --duration-base:220ms; /* @kind other */
+  --duration-slow:420ms; /* @kind other */
+  --ease-snap:steps(3,end); /* @kind other */
+  --ease-standard:cubic-bezier(.2,0,.2,1); /* @kind other */
+}

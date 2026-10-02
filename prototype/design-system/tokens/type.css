@@ -1,0 +1,11 @@
+/* Type scale — app translation of the THUAS ladder. GT Walsheim for display, headings, step
+   numbers and quotes; Archivo for running text and UI; Archivo Narrow for tables, overlines,
+   counts and canvas micro-labels only. Headlines are left-aligned and tight. */
+:root{
+  --text-display:clamp(40px,4.6vw,64px);
+  --text-h1:36px;--text-h2:26px;--text-h3:20px;--text-h4:16px;
+  --text-intro:18px;--text-body:15px;--text-small:13px;--text-caption:12px;--text-micro:11px;
+  --leading-display:1.02;--leading-heading:1.15;--leading-body:1.5;--leading-intro:1.55;
+  --tracking-display:-0.02em;--tracking-heading:-0.01em;--tracking-caps:0.1em;
+  --weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+}
