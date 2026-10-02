@@ -10,11 +10,13 @@ import { html, useEffect, useRef, useState } from '../html.js';
 import { LISTS } from '../definitions/lists.js';
 import { Prov } from './text.js';
 
-const W = 880;
-const H = 300;
-const M = { l: 52, r: 18, t: 16, b: 30 };
+// The geometry is exported so that the read-through's file (ReadFile.js) draws the
+// same graph from the same numbers, as static markup.
+export const W = 880;
+export const H = 300;
+export const M = { l: 52, r: 18, t: 16, b: 30 };
 const arr = (x) => (Array.isArray(x) ? x : []);
-const num = (x) => (x === '' || x == null || Number.isNaN(Number(x)) ? null : Number(x));
+export const num = (x) => (x === '' || x == null || Number.isNaN(Number(x)) ? null : Number(x));
 
 function niceCeil(x) {
   if (x <= 0) return 1;
@@ -41,7 +43,9 @@ function fmtT(t, step) {
 const snap = (t, x0, step) => +(x0 + Math.round((t - x0) / step) * step).toFixed(6);
 const eq = (a, b) => Math.abs(a - b) < 1e-6;
 
-export function useDomain(state, { futures = false, series = [] } = {}) {
+// The axes a graph is drawn on, from the years in Exercise 2 and the values of the
+// series drawn. Not a hook, whatever its older name says: pure, and usable anywhere.
+export function domainOf(state, { futures = false, series = [] } = {}) {
   const v3 = state.values[3] || {};
   const x0 = num(v3.period_from);
   let x1 = num(v3.period_to);
@@ -58,8 +62,9 @@ export function useDomain(state, { futures = false, series = [] } = {}) {
   const y0 = lo < 0 ? -niceCeil(-lo * 1.25) : 0;
   return { x0, x1, y0, y1, step, xEnd: num(v3.period_to) };
 }
+export const useDomain = domainOf;
 
-function scales(d) {
+export function scales(d) {
   const sx = (t) => M.l + ((t - d.x0) / (d.x1 - d.x0)) * (W - M.l - M.r);
   const sy = (v) => M.t + (1 - (v - d.y0) / (d.y1 - d.y0)) * (H - M.t - M.b);
   const ix = (px) => d.x0 + ((px - M.l) / (W - M.l - M.r)) * (d.x1 - d.x0);
@@ -67,17 +72,33 @@ function scales(d) {
   return { sx, sy, ix, iy };
 }
 
-function pathOf(points, sx, sy) {
+export function pathOf(points, sx, sy) {
   const pts = arr(points).filter((p) => num(p.t) != null && num(p.v) != null).sort((a, b) => a.t - b.t);
   return pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p.t).toFixed(1)},${sy(p.v).toFixed(1)}`).join(' ');
 }
 
-function Axes({ d, sx, sy }) {
+// Which years and values the axes are ticked at.
+export function axisTicks(d) {
   const years = [];
   const span = d.x1 - d.x0;
   const every = span > 40 ? 10 : span > 20 ? 5 : span > 10 ? 2 : 1;
   for (let y = Math.ceil(d.x0); y <= d.x1; y += 1) if ((y - Math.ceil(d.x0)) % every === 0 || y === d.x1) years.push(y);
   const ys = [0, 0.25, 0.5, 0.75, 1].map((k) => d.y0 + k * (d.y1 - d.y0));
+  return { years, ys };
+}
+
+// The events inside the years of the line, oldest first (an event outside them is
+// not drawn off the plot; Exercise 3 says so), the evidence segments with both years,
+// and the height of the event strip under the plot.
+export const eventsOf = (v3, domain) => arr(v3.events)
+  .filter((e) => num(e.year) != null && num(e.year) >= domain.x0 && num(e.year) <= domain.x1)
+  .sort((a, b) => num(a.year) - num(b.year));
+export const segmentsOf = (v3) => arr(v3.evidence).filter((s) => s.range && num(s.range.from) != null && num(s.range.to) != null);
+export const stripHeight = (evs) => 18 + Math.min(4, evs.length) * 14;
+export const BAND_H = 26;
+
+function Axes({ d, sx, sy }) {
+  const { years, ys } = axisTicks(d);
   return html`<g class="graph__axes">
     ${ys.map((v, i) => html`<g key=${`y${i}`}>
       <line x1=${M.l} x2=${W - M.r} y1=${sy(v)} y2=${sy(v)} class="graph__grid" />
@@ -93,7 +114,7 @@ function Axes({ d, sx, sy }) {
   </g>`;
 }
 
-const KIND_CLASS = { measured: 'ev--measured', documented: 'ev--documented', estimated: 'ev--estimated' };
+export const KIND_CLASS = { measured: 'ev--measured', documented: 'ev--documented', estimated: 'ev--estimated' };
 
 // The graph. `edit` names the series being drawn; everything else is read only.
 export function GraphView({ state, domain: liveDomain, layers = [], edit = null, onEdit, events = false, evidence = false, gaps = [], caption }) {
@@ -165,11 +186,10 @@ export function GraphView({ state, domain: liveDomain, layers = [], edit = null,
     }
   };
 
-  // Events outside the years of the line are not drawn off the plot; Exercise 3 says so.
-  const evs = events ? arr(v3.events).filter((e) => num(e.year) != null && num(e.year) >= domain.x0 && num(e.year) <= domain.x1) : [];
-  const segs = evidence ? arr(v3.evidence).filter((s) => s.range && num(s.range.from) != null && num(s.range.to) != null) : [];
-  const stripH = events ? 18 + Math.min(4, evs.length) * 14 : 0;
-  const bandH = evidence ? 26 : 0;
+  const evs = events ? eventsOf(v3, domain) : [];
+  const segs = evidence ? segmentsOf(v3) : [];
+  const stripH = events ? stripHeight(evs) : 0;
+  const bandH = evidence ? BAND_H : 0;
   const totalH = H + stripH + bandH;
 
   return html`<figure class="graph">
@@ -194,7 +214,7 @@ export function GraphView({ state, domain: liveDomain, layers = [], edit = null,
       })}
       ${evs.map((ev, i) => html`<line key=${`evl${i}`} x1=${sx(num(ev.year))} x2=${sx(num(ev.year))} y1=${M.t} y2=${H - M.b + 4} class="graph__event" />`)}
       ${events && html`<g class="graph__strip" transform=${`translate(0, ${H})`}>
-        ${evs.sort((a, b) => num(a.year) - num(b.year)).map((ev, i) => html`<g key=${`ev${i}`}>
+        ${evs.map((ev, i) => html`<g key=${`ev${i}`}>
           <rect x=${sx(num(ev.year)) - 3} y=${2} width="6" height="6" class="graph__eventmark" />
           <text x=${sx(num(ev.year)) > W * 0.7 ? sx(num(ev.year)) - 6 : sx(num(ev.year)) + 6} y=${14 + (i % 4) * 14}
             text-anchor=${sx(num(ev.year)) > W * 0.7 ? 'end' : 'start'} class="graph__eventlabel">${num(ev.year)} ${ev.label || ''}</text>
@@ -264,7 +284,7 @@ export function Graph({ f, value, onChange, state, step }) {
   const [which, setWhich] = useState('future_unchanged');
 
   if (role === 'futures') {
-    const domain = useDomain(state, { futures: true, series: [v3.series, v3.future_unchanged, v3.future_desired] });
+    const domain = domainOf(state, { futures: true, series: [v3.series, v3.future_unchanged, v3.future_desired] });
     if (!domain) return html`<p class="es-hint"><${Prov}>The years go in Exercise 2 first.</${Prov}></p>`;
     const end = domain.xEnd;
     const layers = [
@@ -283,13 +303,13 @@ export function Graph({ f, value, onChange, state, step }) {
   }
 
   if (role === 'other') {
-    const domain = useDomain(state, { series: [value] });
+    const domain = domainOf(state, { series: [value] });
     if (!domain) return html`<p class="es-hint"><${Prov}>The years go in Exercise 2 first.</${Prov}></p>`;
     return html`<${GraphView} state=${state} domain=${domain} layers=${[{ key: f.key, value, className: 'graph__series--other' }]}
       edit=${f.key} onEdit=${(k, v) => onChange(v)} />`;
   }
 
-  const domain = useDomain(state, { series: [value] });
+  const domain = domainOf(state, { series: [value] });
   if (!domain) return html`<p class="es-hint"><${Prov}>Write the years above, and the grid appears.</${Prov}></p>`;
   return html`<${GraphView} state=${state} domain=${domain} layers=${[{ key: f.key, value, className: 'graph__series--main' }]}
     edit=${f.key} onEdit=${(k, v) => onChange(v)} events=${arr(v3.events).length > 0} />`;

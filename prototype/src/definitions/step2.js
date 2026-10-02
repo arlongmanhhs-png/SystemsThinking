@@ -123,9 +123,20 @@ export default {
         label: 'Exercise 1',
         hint: 'Put everything you know about this case onto one drawing. Pictures and symbols rather than sentences, phrases rather than paragraphs, and show who is in conflict with whom. Use marks for money, for conflict, for a blockage, and a question mark for what you do not know. Nothing on it has to be tidy.',
       },
+      wide: true,
       fields: [
-        // A placeholder in this prototype (design/platform-phase-a.md, section 7).
-        { key: 'sketch_first_canvas', kind: 'sketch', required: false },
+        // The free-form canvas (design/platform-phase-a.md, section 7; built 2 October
+        // 2026). Required only where no photograph is added: either one, with the
+        // confirmation, completes Exercise 1 (decided 2 October 2026). The marks are
+        // the ones page 13 names, in its words; the canvas reads them from here.
+        { key: 'sketch_first_canvas', kind: 'sketch',
+          required: (ctx) => !ctx.filled((ctx.v('sketch_first_image') || {}).src),
+          marks: [
+            { key: 'money', label: 'money' },
+            { key: 'conflict', label: 'conflict' },
+            { key: 'blockage', label: 'a blockage' },
+            { key: 'question', label: 'a question mark for what you do not know' },
+          ] },
         { key: 'sketch_first_image', kind: 'image', label: 'A photograph of the drawing', provisional: true, required: false },
         // SPEC: "Confirmation that the drawing exists", with no printed wording.
         { key: 'sketch_first_done', kind: 'confirm', label: 'The first drawing exists.', provisional: true, required: true },

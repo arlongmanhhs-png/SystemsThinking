@@ -33,14 +33,16 @@ import { newId, useCase } from '../engine/store.js';
 import { Prov, fmtDateTime } from './text.js';
 import { useRouter } from './router.js';
 
-const W = 960;
+// The sheet's geometry, exported so that the read-through's file (ReadFile.js)
+// draws the arrangement from the same numbers.
+export const W = 960;
 // A band's height, and where inside it an actor's centre may sit: below the strip
 // that holds the band's label, and clear of the band's lower edge. Two rows of
 // actors fit in a band.
-const BH = 140;
+export const BH = 140;
 const LABEL_STRIP = 30;
-const NW = 150;
-const NH = 46;
+export const NW = 150;
+export const NH = 46;
 const DY_MIN = LABEL_STRIP + 4 + NH / 2;
 const DY_MAX = BH - 10 - NH / 2;
 // Placements kept before 2 October 2026 as a height on the sheet ({ x, y }) were
@@ -66,7 +68,7 @@ export function readCase(state) {
 // A placement, read in the current band order, and drawn inside its band below the
 // label strip whatever height it was kept at. Placements from before positions were
 // kept by band ({ x, y }) are read by the band they fall in.
-function placementOf(c, p) {
+export function placementOf(c, p) {
   if (!p) return null;
   if (p.band) {
     const i = c.layers.findIndex((l) => l.id === p.band);
@@ -132,13 +134,23 @@ export function DrawingReport({ state, compact }) {
   </div>`;
 }
 
-function NodeShape({ w, h }) {
+// An actor's box: the design system's squangle, as a polygon.
+export function nodePoints(w, h) {
   const o = 0.0626;
-  const pts = [[0, 0], [w * (1 - o), h * o], [w, h * (1 - o)], [w * o, h]];
-  return html`<polygon points=${pts.map((p) => p.join(',')).join(' ')} />`;
+  return [[0, 0], [w * (1 - o), h * o], [w, h * (1 - o)], [w * o, h]].map((p) => p.join(',')).join(' ');
 }
 
-function trim(s, n) {
+function NodeShape({ w, h }) {
+  return html`<polygon points=${nodePoints(w, h)} />`;
+}
+
+// What an actor's type is called on the sheet: its letter and its label.
+export function typeLabel(c, a) {
+  const i = c.types.findIndex((t) => t.id === a.type);
+  return i >= 0 ? `${LETTERS[i]} ${c.types[i].label || ''}` : '';
+}
+
+export function trim(s, n) {
   const t = String(s || '');
   return t.length > n ? `${t.slice(0, n - 1)}…` : t;
 }
@@ -278,10 +290,7 @@ export function Arrangement({ value, onChange, state }) {
 
   const actor = (id) => c.actors.find((a) => a.id === id);
   const label = (id) => (actor(id) || {}).name || '___';
-  const typeOf = (a) => {
-    const i = c.types.findIndex((t) => t.id === a.type);
-    return i >= 0 ? `${LETTERS[i]} ${c.types[i].label || ''}` : '';
-  };
+  const typeOf = (a) => typeLabel(c, a);
   const unplaced = c.actors.filter((a) => !pos(a.id));
   const onCanvas = c.actors.filter((a) => pos(a.id));
 

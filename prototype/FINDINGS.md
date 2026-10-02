@@ -373,8 +373,14 @@ cover had to be invented:
   decimals and an interval. Evidence needs years for each part of the line; the
   build reads them as whole years, so 2012 to 2018 followed by 2019 to 2024 leaves
   no gap.
-- **The first drawing** is a placeholder with a photograph slot and a confirmation,
-  neither of which is printed.
+- **The first drawing** was a placeholder with a photograph slot and a confirmation,
+  neither of which is printed. The canvas was built on 2 October 2026, and its
+  controls (the tool buttons, the hint beside them, the undo) are further words the
+  workbook does not print.
+- **The file at the end of Phase A** (built 2 October 2026) needed a button, a
+  line saying what the file is, and a date of saving at its top; the workbook has a
+  folder instead. The file carries the dotted underlines with it, so a reader of the
+  file sees which words are the screen's own.
 - **About sixty interface words** the workbook never needed (buttons, messages,
   empty states, the canvas tools). All are marked provisional on screen with a dotted
   underline.

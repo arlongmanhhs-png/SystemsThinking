@@ -3,7 +3,7 @@
 // them out where the page has a shape of its own (the sentence form, the yes or no
 // grid, the two boxes, the position ticks).
 
-import { html, useState } from '../html.js';
+import { html, Fragment, useState } from '../html.js';
 import { zone, BUILT } from '../definitions/index.js';
 import { LISTS, label as listLabel } from '../definitions/lists.js';
 import { fieldValue, makeCtx } from '../engine/ctx.js';
@@ -57,8 +57,10 @@ function Beside({ spec, state, step }) {
 }
 
 // Copies what is shown beside an exercise into its fields, on request only. Offered once
-// every source value is written; replaces what is already written only after asking.
+// every source value is written; replaces what is already written only after asking,
+// on the page itself (in the artifact a browser dialog never shows).
 function CopyAcross({ copy, state, step, act }) {
+  const [ask, setAsk] = useState(false);
   const src = state.values[copy.fromStep || step] || {};
   const cur = state.values[step] || {};
   const vals = Object.entries(copy.map).map(([key, get]) => [key, (get(src) || '').toString().trim()]);
@@ -66,11 +68,18 @@ function CopyAcross({ copy, state, step, act }) {
   const same = vals.every(([key, v]) => String(cur[key] || '').trim() === v);
   if (ready && same) return html`<p class="es-hint beside__copied"><${Prov}>${copy.done}</${Prov}></p>`;
   const written = vals.some(([key]) => String(cur[key] || '').trim() !== '');
-  const onCopy = () => {
-    if (written && !window.confirm(copy.replace)) return;
-    for (const [key, v] of vals) act.setValue(step, key, v);
-  };
-  return html`<button class="es-btn es-btn--ghost es-btn--sm beside__copy" disabled=${!ready} onClick=${onCopy}>${copy.label}</button>`;
+  const doCopy = () => { setAsk(false); for (const [key, v] of vals) act.setValue(step, key, v); };
+  const onCopy = () => { if (written) setAsk(true); else doCopy(); };
+  return html`<${Fragment}>
+    <button class="es-btn es-btn--ghost es-btn--sm beside__copy" disabled=${!ready} onClick=${onCopy}>${copy.label}</button>
+    ${ask && html`<div class="es-notice beside__ask" role="alertdialog">
+      <span><${Prov}>${copy.replace}</${Prov}></span>
+      <span class="beside__askacts">
+        <button class="es-btn es-btn--primary es-btn--sm" onClick=${doCopy}><${Prov}>Replace what is written</${Prov}></button>
+        <button class="es-btn es-btn--ghost es-btn--sm" onClick=${() => setAsk(false)}><${Prov}>Keep what is written</${Prov}></button>
+      </span>
+    </div>`}
+  </${Fragment}>`;
 }
 
 export function Exercise({ step, ex, info, highlight, passageFor, onOpenRail, railPage, railInline }) {

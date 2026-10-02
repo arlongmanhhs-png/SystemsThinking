@@ -83,7 +83,7 @@ steps:
     spec: steps/02-boundary/spec.md
     fields:
       # Exercise 1: complete with the confirmation and either a drawing on the canvas or a
-      # photograph (decided 2 October 2026). The canvas is still to be built.
+      # photograph (decided 2 October 2026; the canvas was built the same day).
       - {key: sketch_first_done, type: bool, required: true}
       - {key: sketch_first_canvas, type: canvas, required_if: "not sketch_first_image", on: screen}
       - {key: sketch_first_image, type: image, required: false}

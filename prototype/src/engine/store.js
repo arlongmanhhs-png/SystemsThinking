@@ -1,4 +1,7 @@
-// One case, in the browser's local storage. No backend, no network.
+// One case per person. Kept in the private area of the person's claude.ai account
+// where the person can save there, and in this browser otherwise (decided 2 October
+// 2026, B02); the two backends are in storage.js, and nothing here or in the views
+// knows which one holds the case. No network beyond the artifact's own database.
 //
 // Stored: field values, critical check ticks with their dates, confirmations (the
 // dates a step passed or was reconfirmed), pending edits on a passed step, the
@@ -9,8 +12,12 @@
 import { html, createContext, useContext, useEffect, useMemo, useRef, useState } from '../html.js';
 import { BUILT } from '../definitions/index.js';
 import { stepHasContent } from './validate.js';
+import { browser, databaseBackend, capability, cannotWriteHere, inArtifact } from './storage.js';
 
-const KEY = 'systems-process.case.v1';
+// How long a pause in typing is before the case is written: the browser copy at
+// once, give or take; the account after a longer pause, one write per pause.
+const BROWSER_PAUSE = 150;
+const ACCOUNT_PAUSE = 800;
 // Keys that never open a revision: parked ideas block nothing, the record of
 // leaving the drawing is not part of the drawing, and the strip is written from the
 // log.
@@ -124,16 +131,51 @@ export function migrate(s) {
   return s;
 }
 
-function load() {
+// Every member of a case in the shape the engine expects: the lists as arrays, the
+// maps as objects, and a step's values as an object. A file edited by hand, or
+// damaged, may carry a member of the wrong type, which would otherwise crash a step
+// screen (found in review, 2 October 2026).
+const asObject = (x, d) => (x && typeof x === 'object' && !Array.isArray(x) ? x : d);
+const asList = (x, d) => (Array.isArray(x) ? x : d);
+function shape(s) {
+  const e = emptyCase();
+  const out = { ...e, ...asObject(s, {}) };
+  out.meta = { ...e.meta, ...asObject(s.meta, {}) };
+  for (const k of ['ticks', 'confirmations', 'pending', 'dismissed', 'read', 'edited']) out[k] = asObject(s[k], e[k]);
+  for (const k of ['revisions', 'marks', 'returns']) out[k] = asList(s[k], e[k]);
+  out.values = { ...e.values, ...asObject(s.values, {}) };
+  for (const k of Object.keys(out.values)) out.values[k] = asObject(out.values[k], {});
+  return out;
+}
+
+// A stored case, brought up to the shape the engine expects.
+export function hydrate(raw) {
   try {
-    const raw = window.localStorage.getItem(KEY);
-    if (!raw) return emptyCase();
-    const s = migrate(JSON.parse(raw));
-    return { ...emptyCase(), ...s, values: { ...emptyCase().values, ...(s.values || {}) } };
+    if (!looksLikeCase(raw)) return emptyCase();
+    return shape(migrate(shape(raw)));
   } catch (e) {
-    console.error('load', e);
+    console.error('hydrate', e);
     return emptyCase();
   }
+}
+
+function load() {
+  const raw = browser.read();
+  return raw ? hydrate(raw) : emptyCase();
+}
+
+// Whether a case has anything in it beyond the date it was started: a name, an
+// answer, a tick, a line of the log, or a page marked as read.
+export function caseHasContent(s) {
+  if (!s) return false;
+  if (s.meta && s.meta.case && String(s.meta.case).trim()) return true;
+  for (const k of ['values', 'ticks', 'confirmations', 'pending', 'dismissed', 'read']) {
+    for (const v of Object.values(s[k] || {})) {
+      if (v && typeof v === 'object' ? Object.keys(v).length : v) return true;
+    }
+  }
+  for (const k of ['revisions', 'marks', 'returns']) if (Array.isArray(s[k]) && s[k].length) return true;
+  return false;
 }
 
 export const now = () => new Date().toISOString();
@@ -160,31 +202,211 @@ const clone = (x) => (typeof structuredClone === 'function' ? structuredClone(x)
 const Store = createContext(null);
 
 export function CaseProvider({ children }) {
-  const [state, setState] = useState(load);
+  // Locally, rendered from the browser copy at once. In the artifact, rendered empty
+  // and read only until the page knows who is here and where the case is kept (the
+  // capabilities resolve after the first run of the script): a signed-in person's
+  // copy is never shown before the account has said who is here, and nothing typed
+  // before then can be lost or land in the wrong slot.
+  const artifact = useMemo(inArtifact, []);
+  const [state, setState] = useState(() => (artifact ? emptyCase() : load()));
+  // False while the page is still finding where the case is kept: the views are
+  // read only then.
+  const [ready, setReady] = useState(!artifact);
+  // Where the case is kept, for the footer to say: 'connecting', 'browser' or 'account'.
+  const [keptIn, setKeptIn] = useState(artifact ? 'connecting' : 'browser');
+  // True when the account could not be read: the page stays read only until it is.
+  const [readError, setReadError] = useState(false);
+  // { browser: true } when the browser copy could not be written, { account: true }
+  // when the account could not be; null when the last writes went through.
   const [saveError, setSaveError] = useState(null);
   const timer = useRef(null);
+  const accountTimer = useRef(null);
+  const backend = useRef(null); // the account, once connected
+  const writing = useRef(false);
+  const dirty = useRef(false);
+  const readyRef = useRef(!artifact);
+  // The account id whose own slot the browser copy goes to, once the account has
+  // said who is here; null for the browser-only slot.
+  const slot = useRef(null);
+  // What the own slot's copy is: base, the stamp of the account's case the copy
+  // descends from; pending, whether the copy holds a change the account has not
+  // confirmed. Written beside the copy (storage.js).
+  const sync = useRef({ base: null, pending: false });
+  // The next state change came from the account, not from here: nothing to write back.
+  const fromAccount = useRef(false);
+  const again = useRef(null); // reads the account again after a failed read
 
   const latest = useRef(state);
   latest.current = state;
-  const write = () => {
-    try {
-      window.localStorage.setItem(KEY, JSON.stringify(latest.current));
-      setSaveError(null);
-    } catch (e) {
-      setSaveError(e);
-    }
+
+  const fail = (which, on) => setSaveError((prev) => {
+    if (!!(prev && prev[which]) === !!on) return prev;
+    const next = { ...(prev || {}) };
+    if (on) next[which] = true;
+    else delete next[which];
+    return Object.keys(next).length ? next : null;
+  });
+
+  // A state that came from the account or from the browser's own slot: the effect
+  // below writes the browser copy and nothing else.
+  const adopt = (s) => { fromAccount.current = true; setState(s); };
+
+  // Leaves the account for the rest of this visit: the case stays in the browser,
+  // in this person's own slot.
+  const leaveAccount = () => {
+    if (backend.current && backend.current.unsubscribe) backend.current.unsubscribe();
+    backend.current = null;
+    setKeptIn('browser');
+  };
+
+  const writeBrowser = () => {
+    if (!readyRef.current) return;
+    const id = slot.current;
+    const ok = browser.write(latest.current, id) && (!id || browser.writeSync(id, sync.current));
+    fail('browser', !ok);
+  };
+
+  // One write at a time to the account, and only the latest state; a change made
+  // while a write is in flight is written after it. Once the account holds the
+  // latest state, the own slot's copy is no longer pending.
+  const pump = () => {
+    const be = backend.current;
+    if (!be) return;
+    if (writing.current) { dirty.current = true; return; }
+    writing.current = true;
+    const attempt = (n) => {
+      const s = latest.current;
+      return be.write(s).then((st) => {
+        fail('account', false);
+        if (latest.current === s) { sync.current = { base: st, pending: false }; browser.writeSync(be.id, sync.current); }
+      }).catch((e) => {
+        if (e && e.code === 'unavailable' && n === 0) return new Promise((r) => setTimeout(r, 300 + Math.random() * 500)).then(() => attempt(1));
+        fail('account', true);
+        if (cannotWriteHere(e)) leaveAccount();
+      });
+    };
+    attempt(0).finally(() => {
+      writing.current = false;
+      if (dirty.current) { dirty.current = false; pump(); }
+    });
   };
 
   useEffect(() => {
+    const local = !fromAccount.current;
+    fromAccount.current = false;
+    if (!readyRef.current) return;
+    if (local && slot.current) sync.current = { ...sync.current, pending: true };
     clearTimeout(timer.current);
-    timer.current = setTimeout(() => { timer.current = null; write(); }, 150);
+    timer.current = setTimeout(() => { timer.current = null; writeBrowser(); }, BROWSER_PAUSE);
+    if (!local || !backend.current) return;
+    clearTimeout(accountTimer.current);
+    accountTimer.current = setTimeout(() => { accountTimer.current = null; pump(); }, ACCOUNT_PAUSE);
   }, [state]);
 
-  // An edit made just before the page closes is written at once, not lost.
+  // Once the page knows where the case is kept, the copy goes to its slot at once:
+  // a state adopted while the page was still finding out was not written then.
+  useEffect(() => { if (ready && artifact) writeBrowser(); }, [ready]);
+
+  // An edit made just before the page closes is written at once, not lost. The
+  // browser copy is written whole; the account's write may not finish, and the copy
+  // then stays pending and is carried into the account on the next visit.
   useEffect(() => {
-    const flush = () => { if (timer.current) { clearTimeout(timer.current); timer.current = null; write(); } };
+    const flush = () => {
+      if (timer.current) { clearTimeout(timer.current); timer.current = null; writeBrowser(); }
+      if (accountTimer.current) { clearTimeout(accountTimer.current); accountTimer.current = null; pump(); }
+    };
     window.addEventListener('pagehide', flush);
     return () => { window.removeEventListener('pagehide', flush); flush(); };
+  }, []);
+
+  // The account, in the artifact. Who is here decides the slot: nobody the page can
+  // name uses the browser-only slot, as locally; a signed-in person uses a slot of
+  // that person's own, whether or not the account can hold the case. Then, where
+  // the account can: a copy in the own slot that is pending, and descends from the
+  // case the account holds (or the area is empty), is newer than the account and
+  // is carried into the account; otherwise a case held in the account is the case,
+  // and a pending copy that descends from an older case than the account holds
+  // gives way to the account's (another device wrote meanwhile; the later writer
+  // wins, as it does while the page is open); an empty area receives the own slot's
+  // copy, or the browser-only copy the first time this person signs in here, so
+  // nothing is lost. A browser-only copy that stays browser-only is never shown to
+  // a signed-in person whose account holds a case, and another person's own slot is
+  // never read or written.
+  useEffect(() => {
+    if (!artifact) return undefined;
+    let gone = false;
+    let unsubscribe = null;
+    const finish = (where) => { readyRef.current = true; setKeptIn(where); setReady(true); };
+    const connect = async () => {
+      setReadError(false);
+      const [db, user] = await Promise.all([capability('db'), capability('user')]);
+      if (gone) return;
+      let id = null;
+      if (user) { try { id = await user.id(); } catch (e) { id = null; } }
+      if (gone) return;
+      if (!id) {
+        const raw = browser.read();
+        if (raw) adopt(hydrate(raw));
+        finish('browser');
+        return;
+      }
+      slot.current = id;
+      // The own slot's copy, when the copy has anything in it: a slot holding an
+      // empty case is as good as none.
+      const own = (() => { const o = browser.read(id); return o && caseHasContent(hydrate(o)) ? o : null; })();
+      sync.current = own ? browser.readSync(id) : { base: null, pending: false };
+      let be = db ? databaseBackend(db, id) : null;
+      let held = null;
+      if (be) {
+        try { held = await be.read(); } catch (e) {
+          if (gone) return;
+          if (cannotWriteHere(e)) be = null;
+          else { setReadError(true); return; }
+        }
+        if (gone) return;
+      }
+      const anon = own ? null : browser.read();
+      const local = own || (anon && caseHasContent(hydrate(anon)) ? anon : null);
+      const localWins = !!own && sync.current.pending && (!held || sync.current.base === held.stamp);
+      if (held && !localWins) {
+        sync.current = { base: held.stamp, pending: false };
+        adopt(hydrate(held.case));
+      } else {
+        const s = local ? hydrate(local) : null;
+        if (s) {
+          if (!own) sync.current = { base: null, pending: true };
+          adopt(s);
+        }
+        if (be && s && caseHasContent(s)) {
+          try {
+            const st = await be.write(s);
+            sync.current = { base: st, pending: false };
+          } catch (e) {
+            if (gone) return;
+            fail('account', true);
+            if (cannotWriteHere(e)) be = null;
+          }
+        }
+        if (gone) return;
+        // The browser-only copy is now this person's own.
+        if (s && !own) browser.remove();
+      }
+      if (be) {
+        unsubscribe = be.subscribe((got) => {
+          // A change being typed here is not clobbered: this page's own write
+          // follows and is the later one.
+          if (accountTimer.current || writing.current || dirty.current) return;
+          sync.current = { base: got.stamp, pending: false };
+          adopt(hydrate(got.case));
+        }, (e) => { if (cannotWriteHere(e)) leaveAccount(); });
+        be.unsubscribe = () => { if (unsubscribe) unsubscribe(); unsubscribe = null; };
+        backend.current = be;
+      }
+      finish(be ? 'account' : 'browser');
+    };
+    again.current = connect;
+    connect();
+    return () => { gone = true; if (unsubscribe) unsubscribe(); };
   }, []);
 
   const act = useMemo(() => {
@@ -305,12 +527,14 @@ export function CaseProvider({ children }) {
         s.values[1].parked = [...rows, { id: newId('park'), idea: text }];
       }),
 
-      replaceCase: (next) => setState({ ...emptyCase(), ...migrate(next) }),
+      replaceCase: (next) => setState(hydrate(next)),
       resetCase: () => setState(emptyCase()),
+      // After the account could not be read: reads it again.
+      readAgain: () => { if (again.current) again.current(); },
     };
   }, []);
 
-  const value = useMemo(() => ({ state, act, saveError }), [state, act, saveError]);
+  const value = useMemo(() => ({ state, act, saveError, keptIn, ready, readError }), [state, act, saveError, keptIn, ready, readError]);
   return html`<${Store.Provider} value=${value}>${children}</${Store.Provider}>`;
 }
 

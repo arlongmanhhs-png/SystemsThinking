@@ -4,10 +4,14 @@
    non-modal popover. Two things come from the workbook rather than the system: the step
    tab, and the hairline rule. */
 
-:root{ --hair:1px solid var(--grey-30); --col:760px; }
+:root{ --hair:1px solid var(--grey-30); --col:760px; color-scheme:light }
 *{box-sizing:border-box}
-body{min-height:100vh}
+/* One light look, the printed workbook's, whatever ground the page is given by the host
+   that frames it as an artifact; no dark mode */
+html body{min-height:100vh;background:var(--surface-page);color:var(--text-body);font-family:var(--font-text);font-size:var(--text-body);line-height:var(--leading-body)}
 .app{display:flex;flex-direction:column;min-height:100vh}
+.app__body{display:flex;flex-direction:column;flex:1}
+.app__body[inert]{cursor:progress}
 h1,h2,h3{font-weight:400}
 
 /* The screen's own wording, where the workbook prints none */
@@ -36,7 +40,7 @@ h1,h2,h3{font-weight:400}
 .dot--closed{box-shadow:inset 0 0 0 1.5px var(--navy-70)}
 
 /* The step tab, from the workbook: where you are, without a heading */
-.steptab{position:fixed;right:0;top:calc(var(--topbar-height) + 40px);z-index:10;writing-mode:vertical-rl;padding:18px 7px;background:var(--green);color:var(--navy);font:600 12px/1 var(--font-condensed);letter-spacing:var(--tracking-caps);text-transform:uppercase}
+.steptab{position:fixed;right:env(safe-area-inset-right,0);top:calc(var(--topbar-height) + 40px);z-index:10;writing-mode:vertical-rl;padding:18px 7px;background:var(--green);color:var(--navy);font:600 12px/1 var(--font-condensed);letter-spacing:var(--tracking-caps);text-transform:uppercase}
 .steptab--phase{background:var(--navy);color:var(--white)}
 
 /* States: text labels in the system's colours */
@@ -322,9 +326,53 @@ h1,h2,h3{font-weight:400}
 .revised__pending{padding:12px 14px;background:var(--white);box-shadow:inset 3px 0 0 var(--navy),inset 0 0 0 1px var(--grey-20);display:grid;gap:8px}
 .revised__log{margin:10px 0 0;padding-left:18px;display:grid;gap:4px;color:var(--grey-80)}
 
-/* The first drawing: a placeholder */
-.sketch-placeholder{display:grid;place-items:center;min-height:240px;padding:24px;background-color:var(--white);background-image:radial-gradient(var(--grey-30) 1px,transparent 1px);background-size:24px 24px;box-shadow:inset 0 0 0 2px var(--grey-30);outline:2px dashed var(--grey-40);outline-offset:-10px;margin-bottom:12px}
-.sketch-placeholder__inner{max-width:52ch;background:var(--white);padding:12px 16px;display:grid;gap:8px;font-size:14px;color:var(--grey-80)}
+/* Step 2, Exercise 1: the first drawing, a free-form canvas (Sketch.js). The
+   design system's canvas layer: a white sheet on a 24px dot raster, grey lines, no
+   shadows, and a selected thing recolouring while the rest drops back to grey. */
+.sk{display:grid;gap:10px;margin-bottom:12px}
+.sk__tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sk__tools .es-seg button{display:inline-flex;align-items:center;gap:6px;height:auto;min-height:32px;padding:4px 10px}
+.sk__markicon{width:22px;height:22px;flex:none}
+.sk__markicon .sk__glyph{stroke-width:2.4}
+.sk__markicon .sk__q{font-size:30px}
+.es-seg button[aria-pressed="true"] .sk__glyph{fill:var(--navy);stroke:var(--white)}
+.es-seg button[aria-pressed="true"] .sk__q{fill:var(--white)}
+.sk__modehint{flex:1;min-width:220px}
+.sk__sheet{position:relative;overflow-x:auto;overflow-y:hidden;min-width:0;box-shadow:inset 0 0 0 1px var(--grey-20)}
+.sk__svg{display:block;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none}
+.sk__svg:focus-visible{outline:2px solid var(--focus-ring);outline-offset:-2px}
+.sk__svg--read{width:100%;height:auto;max-height:480px;background:var(--white);box-shadow:inset 0 0 0 1px var(--grey-20)}
+.sk__svg.tool-label,.sk__svg.tool-mark{cursor:crosshair}
+.sk__paper{fill:var(--white)}
+.sk__raster{pointer-events:none}
+.sk__dot{fill:var(--grey-30)}
+.sk__thing{cursor:grab;touch-action:none;outline:none}
+.sk__svg.tool-connect .sk__thing{cursor:crosshair}
+.sk__hit{fill:transparent;stroke:none}
+.sk__thing:focus-visible .sk__hit{stroke:var(--focus-ring);stroke-width:2}
+.sk__box{fill:var(--white);stroke:none}
+.sk__labelbox{stroke:var(--grey);stroke-width:1.2}
+.sk__labeltext{font:500 14px/1 var(--font-text);fill:var(--grey)}
+.sk__glyph{fill:var(--white);stroke:var(--grey);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.sk__q{font:700 28px/1 var(--font-text);fill:var(--grey);stroke:none}
+.sk__thing.is-from .sk__box{stroke:var(--teal);stroke-width:2.5}
+.sk__thing.is-selected .sk__box{stroke:var(--navy);stroke-width:2}
+.sk__thing.is-selected .sk__labelbox{fill:var(--navy)}
+.sk__thing.is-selected .sk__labeltext{fill:var(--white)}
+.sk__thing.is-selected .sk__glyph{stroke:var(--navy);stroke-width:2.6}
+.sk__thing.is-selected .sk__q{fill:var(--navy)}
+.sk__thing.is-dim .sk__labelbox{stroke:var(--grey-20)}
+.sk__thing.is-dim .sk__labeltext{fill:var(--grey-40)}
+.sk__thing.is-dim .sk__glyph{stroke:var(--grey-30)}
+.sk__thing.is-dim .sk__q{fill:var(--grey-30)}
+.sk__conn{outline:none}
+.sk__conn line{stroke:var(--grey);stroke-width:1.6}
+.sk__conn line.sk__connhit{stroke:transparent!important;stroke-width:22!important}
+.sk__conn.is-selected line:not(.sk__connhit){stroke:var(--teal);stroke-width:2.5}
+.sk__conn.is-dim line:not(.sk__connhit){stroke:var(--grey-20)}
+.sk__conn:focus-visible line:not(.sk__connhit){stroke:var(--focus-ring);stroke-width:3}
+.sk__edit{position:absolute;box-sizing:border-box;height:30px;padding:4px 8px;margin:0;border:0;font:500 14px/1 var(--font-text);color:var(--navy);background:var(--white);box-shadow:inset 0 0 0 2px var(--teal);outline:none;text-align:center}
+.read__drawing--first{margin:6px 0}
 
 /* Step 3's graph */
 .graph{margin:6px 0 12px}
@@ -443,6 +491,11 @@ h1,h2,h3{font-weight:400}
 /* Read through */
 .read{max-width:980px}
 .read__head{margin-bottom:24px}
+.read__acts{margin-top:10px}
+/* Offering a file: the button, and the notice a save can end in, beside it */
+.savefile{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;max-width:100%}
+.savefile__notice{display:inline-flex;align-items:center;gap:8px 14px;flex-wrap:wrap;width:auto;padding:8px 12px;font-size:13px}
+.caseview__file{display:grid;gap:8px;justify-items:start;padding:14px 16px;background:var(--white);box-shadow:inset 0 0 0 1px var(--grey-20)}
 .read__head h1{font-size:36px;margin:6px 0}
 .read__case{font:400 18px/1.4 var(--font-display);color:var(--navy)}
 .read__step{padding:18px 0;border-top:3px solid var(--navy);margin-top:18px}
@@ -453,6 +506,7 @@ h1,h2,h3{font-weight:400}
 .read__field{margin:4px 0 8px 28px}
 .read__label{font:600 11px/1.3 var(--font-condensed);letter-spacing:.05em;text-transform:uppercase;color:var(--grey-70)}
 .read__text{white-space:pre-wrap;max-width:var(--measure)}
+.read__scroll{max-width:100%;overflow-x:auto}
 .read__table{border-collapse:collapse;font-size:13px;margin-top:4px}
 .read__table th{text-align:left;font:600 11px/1.2 var(--font-condensed);text-transform:uppercase;letter-spacing:.05em;color:var(--grey-80);padding:3px 12px 3px 0;border-bottom:1px solid var(--grey-40)}
 .read__table td{padding:4px 12px 4px 0;border-bottom:1px solid var(--grey-10);vertical-align:top}
@@ -472,6 +526,10 @@ h1,h2,h3{font-weight:400}
 .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;padding:14px var(--page-margin);border-top:var(--hair);background:var(--cream-2);font-size:12px;color:var(--grey-80)}
 .foot__acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .foot__error{width:100%}
+.foot__kept{display:block;margin-top:4px}
+.foot__notice,.foot__ask{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between}
+.foot__askacts,.beside__askacts{display:flex;gap:6px;flex-wrap:wrap}
+.beside__ask{margin-top:10px;font-size:13px}
 
 @media (max-width:640px){
   .topbar{gap:8px}
@@ -492,7 +550,7 @@ h1,h2,h3{font-weight:400}
 .table{overflow-x:auto}
 .exercise--wide .table__grid{min-width:720px}
 @media (max-width:760px){
-  .topbar{position:static;flex-direction:column;align-items:stretch;gap:0;padding:6px 16px 8px}
+  .topbar{position:static;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:0;padding:6px 16px 8px}
   .topbar__nav{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 10px}
   .topbar__tab{height:44px;white-space:nowrap}
   .topbar__caseinput{width:100%}

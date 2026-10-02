@@ -20,10 +20,10 @@ three instruction pages. Both drawings are canvases on screen, and they are two
 different instruments: Exercise 1 is free-form and unchecked, Exercise 10 is a
 structured arrangement built from what the step has since defined. Both are set
 out in `design/platform-phase-a.md`, which also records that Exercise 1's canvas
-is a placeholder in the first prototype. Decided 2 October 2026: the free-form
+was a placeholder in the first prototype. Decided 2 October 2026: the free-form
 canvas is built for the online version, a participant who drew on a large sheet
-adds a photograph instead, and either one completes Exercise 1. The canvas is
-still to be built; until it is, the placeholder and the photograph slot stand.
+adds a photograph instead, and either one completes Exercise 1. The canvas was
+built the same day, beside the photograph slot.
 
 On paper the two drawings keep their settings: Exercise 1 is a large sheet worked
 standing up, usually by a group, and Exercise 10 is the double-page spread. The
@@ -38,7 +38,7 @@ written stays open for editing.
 | Exercise | Key | Input | Required | What the system checks |
 | --- | --- | --- | --- | --- |
 | 1. The first drawing | `sketch_first_done` | Confirmation that the drawing exists | Yes | Present before the critical check opens |
-| 1. The first drawing | `sketch_first_canvas` | A free-form canvas: marks, short labels, connectors, and the four symbols the page names (money, conflict, a blockage, and a question mark for what is not known). No bands and no structure | Yes on screen, unless `sketch_first_image` holds a photograph | Present where no photograph is added, and nothing else: nothing about what is drawn. There is no case data at Exercise 1 to check a drawing against, because the layers, the actors, and the descriptions are all defined later in the step. Exercise 1 is complete with `sketch_first_done` and either a drawing on the canvas or a photograph (decided 2 October 2026). **A placeholder in the first prototype**, with the photograph slot beside it, until the canvas is built |
+| 1. The first drawing | `sketch_first_canvas` | A free-form canvas: marks, short labels, connectors, and the four symbols the page names (money, conflict, a blockage, and a question mark for what is not known). No bands and no structure | Yes on screen, unless `sketch_first_image` holds a photograph | Present where no photograph is added, and nothing else: nothing about what is drawn. There is no case data at Exercise 1 to check a drawing against, because the layers, the actors, and the descriptions are all defined later in the step. Exercise 1 is complete with `sketch_first_done` and either a drawing on the canvas or a photograph (decided 2 October 2026). A placeholder in the first prototype; built on 2 October 2026, with the photograph slot beside it. Stored as marks, labels, and connectors with their positions, and empty once nothing is on the drawing. No cap on a label or on the drawing: a build sets no threshold of its own (caps of 80 characters a label and 300 things a drawing, set by the build on 2 October 2026, were removed the same day after review) |
 | 1. The first drawing | `sketch_first_image` | Photograph, where the drawing was made on a large sheet instead | No. A photograph takes the place of the canvas | Nothing. On paper the sheet is its own record |
 | 2. Inside | `inside[]` | Repeating rows, no cap. Twelve printed on paper, matching the dozen actors the step targets | At least one | Each row non-empty |
 | 2. Outside | `outside[].label` | One line, no cap on screen. On paper six entries are printed beside the twelve inside rows, each on two lines: the item with its F, O, and I boxes on the first, and its reason on the line beneath (decided 2 October 2026) | At least one | Non-empty |

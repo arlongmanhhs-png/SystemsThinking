@@ -11,6 +11,8 @@ import { makeCtx, derivedAt } from '../engine/ctx.js';
 import { useRouter } from './router.js';
 import { Rich, Prov, fmtDate } from './text.js';
 import { Block, Line, RefSelect } from './fields.js';
+import { SaveButton } from './save.js';
+import { readThroughFile } from './ReadFile.js';
 
 const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 
@@ -53,6 +55,19 @@ function StepCard({ n }) {
       ${info.marks.map((m) => html`<div class="card__mark" key=${m.id}><${Prov}>Marked for review: Step ${m.from} revised ${fmtDate(m.at)}${m.because ? `, because ${m.because}` : ''}</${Prov}></div>`)}
     </div>
   </button>`;
+}
+
+// At the end of Phase A, a file of the whole phase (decided 2 October 2026, B03):
+// offered here once every step has passed its critical check, and on the
+// read-through at any time.
+function PhaseFile() {
+  const { state } = useCase();
+  const complete = STEPS.every((s) => stepInfo(state, s.number).status === 'passed');
+  if (!complete) return null;
+  return html`<div class="caseview__file">
+    <p class="es-hint"><${Prov}>The whole of Phase A, as one file to read in any browser and print from there.</${Prov}></p>
+    <${SaveButton} build=${() => readThroughFile(state)} className="es-btn es-btn--primary es-btn--sm"><${Prov}>Save the read-through to a file</${Prov}></${SaveButton}>
+  </div>`;
 }
 
 function CopyZone({ z, zone }) {
@@ -135,6 +150,7 @@ export function CaseView() {
     <div class="caseview__grid">
       <div class="caseview__steps">
         ${STEPS.map((s) => html`<${StepCard} key=${s.number} n=${s.number} />`)}
+        <${PhaseFile} />
       </div>
       <${Panel} />
     </div>

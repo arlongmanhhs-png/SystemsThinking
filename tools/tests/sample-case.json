@@ -1,0 +1,167 @@
+{
+ "version": 1,
+ "meta": { "case": "Waiting lists", "started": "2026-09-14T09:00:00Z" },
+ "values": {
+  "1": {
+   "situation": "Social housing waiting lists in the city have grown for a decade, while the number of homes completed each year has fallen. Families wait years for a first offer.",
+   "problem_direction": "too_much",
+   "problem_thing": "waiting time for social housing",
+   "problem_who": "households on the waiting list",
+   "problem_since": "2014",
+   "problem_consequence": "families stay in unsuitable housing for years",
+   "rationale": "The wait is the thing people complain about, and the thing the council reports on. Shortening it is what every party says it wants.",
+   "suit_chronic": "yes",
+   "suit_history": "yes",
+   "suit_attempts": "yes",
+   "suit_size": "yes",
+   "suit_procedure_would_solve": "no",
+   "suit_attempts_note": "a building programme in 2019 and a rent cap in 2022",
+   "change_long": "An average wait of under two years for a first offer",
+   "change_long_year": 2032,
+   "change_near": "The list stops growing",
+   "change_near_year": 2028,
+   "position": "advise_decider",
+   "on_behalf_of": "the city council",
+   "problem_form": "excess_deficit",
+   "form_reason": "",
+   "agreed_thing": "waiting time for social housing",
+   "agreed_direction": "too much",
+   "agreed_who": "households on the waiting list",
+   "agreed_since": "2014",
+   "agreed_consequence": "families stay in unsuitable housing for years",
+   "rep_description": "A queue that grows because fewer homes are let each year than households join the list.",
+   "rep_assumption": "That the queue is one queue: allocation rules in fact split it into priority groups.",
+   "rep_source": "Council housing reports 2014 to 2025",
+   "rep_omission": "Households who give up and leave the list",
+   "parked": [],
+   "idea": ""
+  },
+  "2": {
+   "sketch_first_canvas": {
+    "marks": [
+     { "id": "mk1", "mark": "money", "x": 120, "y": 110 },
+     { "id": "mk2", "mark": "conflict", "x": 320, "y": 200 },
+     { "id": "mk3", "mark": "blockage", "x": 470, "y": 110 },
+     { "id": "mk4", "mark": "question", "x": 560, "y": 260 }
+    ],
+    "labels": [
+     { "id": "lb1", "text": "Council", "x": 230, "y": 70 },
+     { "id": "lb2", "text": "Tenants on the list", "x": 380, "y": 300 },
+     { "id": "lb3", "text": "Corporations", "x": 470, "y": 180 }
+    ],
+    "connectors": [
+     { "id": "cn1", "a": "lb1", "b": "mk1" },
+     { "id": "cn2", "a": "lb1", "b": "lb2" },
+     { "id": "cn3", "a": "lb3", "b": "mk3" }
+    ]
+   },
+   "sketch_first_done": true,
+   "inside": [
+    { "id": "i1", "label": "Allocation of social housing in the city" },
+    { "id": "i2", "label": "The building programme" }
+   ],
+   "outside": [
+    { "id": "o1", "label": "The national housing market", "mark": "O", "reason": "set by interest rates and national policy" },
+    { "id": "o2", "label": "Migration into the city", "mark": "F", "reason": "will not change in the period" }
+   ],
+   "layers": [
+    { "id": "l1", "name": "National government", "reason": "sets the rules" },
+    { "id": "l2", "name": "Municipality", "reason": "allocates" },
+    { "id": "l3", "name": "Neighbourhood", "reason": "lives with it" }
+   ],
+   "actor_types": [
+    { "id": "t1", "label": "public authority" },
+    { "id": "t2", "label": "affected group" },
+    { "id": "t3", "label": "delivery body" }
+   ],
+   "actors": [
+    { "id": "a1", "name": "Ministry of Housing", "layer": "l1", "type": "t1", "admits": ["1", "4"], "resources": ["authority", "money"] },
+    { "id": "a2", "name": "Rent tribunal", "layer": "l1", "type": "t1", "admits": ["4"], "resources": ["authority"] },
+    { "id": "a3", "name": "City council", "layer": "l2", "type": "t1", "admits": ["1", "4"], "resources": ["authority", "money"] },
+    { "id": "a4", "name": "Housing corporation", "layer": "l2", "type": "t3", "admits": ["1", "3"], "resources": ["delivery"] },
+    { "id": "a5", "name": "Tenants on the waiting list", "layer": "l3", "type": "t2", "admits": ["2"], "resources": ["legitimacy"] }
+   ],
+   "decisions": [
+    { "id": "dc1", "statement": "Whether 2,000 social homes are built by 2030", "authority": "l2", "responsibility": "l2", "accountability": "l1", "authority_actor": "a3", "responsibility_actor": "a4", "accountability_actor": "a1" }
+   ],
+   "dependencies": [
+    { "id": "d1", "actor": "a1", "resource": "money", "needed_by": "a3", "who_needs_it": "City council, for building" },
+    { "id": "d2", "actor": "a4", "resource": "delivery", "needed_by": "a3", "who_needs_it": "City council, to build" },
+    { "id": "d3", "actor": "a2", "resource": "authority", "needed_by": "a3", "who_needs_it": "City council, for a ruling" },
+    { "id": "d4", "actor": "a1", "resource": "authority", "needed_by": "a3", "who_needs_it": "City council, for permission to build on protected land" },
+    { "id": "d5", "actor": "a3", "resource": "authority", "needed_by": "a4", "who_needs_it": "Housing corporation, for building permits" },
+    { "id": "d6", "actor": "a3", "resource": "money", "needed_by": "a4", "who_needs_it": "Housing corporation, for land" }
+   ],
+   "descriptions": [
+    { "id": "r1", "actor": "a3", "reading": "Not enough land to build on", "status": "evidenced", "read_from": "council minutes" },
+    { "id": "r2", "actor": "a5", "reading": "Allocation is unfair", "status": "evidenced", "read_from": "petition" },
+    { "id": "r3", "actor": "a4", "reading": "Building costs have outrun the rents allowed", "status": "inferred", "read_from": "annual report" }
+   ],
+   "conflicting_pair": ["r1", "r2"],
+   "who_is_missing": "Private landlords, who house many of the people who leave the list.",
+   "spoken_for_by": "Tenants on the waiting list are spoken for by the tenants' association, which is not on the list itself.",
+   "sketch_second": {
+    "placed": { "a1": { "band": "l1", "x": 110, "dy": 60 }, "a2": { "band": "l1", "x": 420, "dy": 60 }, "a3": { "band": "l2", "x": 100, "dy": 60 }, "a4": { "band": "l2", "x": 520, "dy": 70 }, "a5": { "band": "l3", "x": 130, "dy": 60 } },
+    "lines": [ { "id": "ln1", "a": "a1", "b": "a3" }, { "id": "ln2", "a": "a4", "b": "a3" }, { "id": "ln3", "a": "a2", "b": "a3" } ],
+    "marks": [ { "id": "mx1", "a": "a3", "b": "a5" } ]
+   },
+   "sketch_second_left": "2026-09-21T15:10:00Z",
+   "sentence_produces": "The system produces a queue that grows faster than homes are let.",
+   "sentence_disagreement": "The council reads the problem as land and the tenants read it as allocation.",
+   "sentence_surprise": "The rent tribunal holds a ruling the council needs and nobody had drawn it."
+  },
+  "3": {
+   "measure": "Average wait in months for a first offer",
+   "measure_because": "the housing corporations publish it every year, for the whole city",
+   "period_start": 2014,
+   "period_start_because": "the allocation rules changed in 2014",
+   "period_from": 2014,
+   "period_to": 2025,
+   "series": { "points": [ { "t": 2014, "v": 38 }, { "t": 2016, "v": 45 }, { "t": 2018, "v": 52 }, { "t": 2020, "v": 61 }, { "t": 2022, "v": 74 }, { "t": 2024, "v": 85 }, { "t": 2025, "v": 88 } ] },
+   "events": [
+    { "id": "ev1", "year": 2015, "label": "Housing act amended" },
+    { "id": "ev2", "year": 2019, "label": "Building programme announced" },
+    { "id": "ev3", "year": 2022, "label": "Rent cap" }
+   ],
+   "evidence": [
+    { "id": "ez1", "kind": "measured", "range": { "from": 2014, "to": 2020 }, "note": "corporation reports" },
+    { "id": "ez2", "kind": "documented", "range": { "from": 2021, "to": 2023 }, "note": "council minutes" },
+    { "id": "ez3", "kind": "estimated", "range": { "from": 2024, "to": 2025 }, "note": "this line is an estimate" }
+   ],
+   "shape": "accelerating",
+   "shape_because": "Each year adds more households than the year before, while completions fall.",
+   "spd_since": "2014",
+   "spd_quantity": "the average wait for a first offer",
+   "spd_shape": "risen faster each year",
+   "spd_tried": "the building programme",
+   "future_unchanged": { "points": [ { "t": 2026, "v": 95 }, { "t": 2029, "v": 110 }, { "t": 2032, "v": 125 } ] },
+   "future_desired": { "points": [ { "t": 2026, "v": 85 }, { "t": 2029, "v": 50 }, { "t": 2032, "v": 22 } ] },
+   "other_quantity_label": "Homes completed per year",
+   "other_quantity_series": { "points": [ { "t": 2014, "v": 900 }, { "t": 2018, "v": 600 }, { "t": 2022, "v": 700 }, { "t": 2025, "v": 650 } ] }
+  },
+  "A": {
+   "carry_problem": "There is too much waiting time for social housing\nfor households on the waiting list since 2014\nwhich matters because families stay in unsuitable housing for years",
+   "carry_change_position": "An average wait of under two years for a first offer (2032)\nThe list stops growing (2028)\nAdvising the decider, on behalf of the city council",
+   "boundary_sentence": "Allocation and building of social housing in the city, with the national market left outside.",
+   "exclusion_most_likely_wrong": "o2",
+   "exclusion_most_likely_wrong_note": "migration may rise with the economy",
+   "carry_layers_decision": "1 National government\n2 Municipality\n3 Neighbourhood\nWhether 2,000 social homes are built by 2030\nAuthority: Municipality\nResponsibility: Municipality\nAccountability: National government",
+   "carry_disagreement": "City council: Not enough land to build on. Tenants on the waiting list: Allocation is unfair.",
+   "carry_sentences": "1. The system produces a queue that grows faster than homes are let.\n2. The council reads the problem as land and the tenants read it as allocation.\n3. The rent tribunal holds a ruling the council needs and nobody had drawn it.",
+   "carry_spd_shape": "Since 2014, the average wait for a first offer has risen faster each year, and the building programme has not changed it.\nAccelerating"
+  }
+ },
+ "ticks": {
+  "1": { "c1": "2026-09-16T10:00:00Z", "c2": "2026-09-16T10:00:00Z", "c3": "2026-09-16T10:00:00Z", "c4": "2026-09-16T10:00:00Z", "c5": "2026-09-16T10:00:00Z", "c6": "2026-09-16T10:00:00Z", "c7": "2026-09-16T10:00:00Z", "c8": "2026-09-16T10:00:00Z" },
+  "2": { "c1": "2026-09-23T10:00:00Z", "c2": "2026-09-23T10:00:00Z", "c3": "2026-09-23T10:00:00Z", "c4": "2026-09-23T10:00:00Z", "c5": "2026-09-23T10:00:00Z", "c6": "2026-09-23T10:00:00Z", "c7": "2026-09-23T10:00:00Z", "c8": "2026-09-23T10:00:00Z", "c9": "2026-09-23T10:00:00Z", "c10": "2026-09-23T10:00:00Z" },
+  "3": { "c1": "2026-09-30T10:00:00Z", "c2": "2026-09-30T10:00:00Z", "c3": "2026-09-30T10:00:00Z", "c4": "2026-09-30T10:00:00Z", "c5": "2026-09-30T10:00:00Z", "c6": "2026-09-30T10:00:00Z" }
+ },
+ "confirmations": { "1": ["2026-09-16T10:05:00Z"], "2": ["2026-09-23T10:05:00Z"], "3": ["2026-09-30T10:05:00Z"] },
+ "pending": {},
+ "revisions": [],
+ "marks": [],
+ "returns": [],
+ "dismissed": {},
+ "read": {},
+ "edited": {}
+}

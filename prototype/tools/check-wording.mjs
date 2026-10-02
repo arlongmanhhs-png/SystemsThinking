@@ -113,6 +113,8 @@ for (const def of STEPS) {
       for (const k of ['label', 'caption', 'hint', 'callout']) check(`${F} ${k}`, f[k], { provisional: !!f.provisional && k === 'label' });
       check(`${F} maxText`, f.maxText, { source: f.maxSource });
       check(`${F} addLabel`, f.addLabel, { provisional: !!f.addProvisional });
+      // The marks the first drawing offers, each in the words of the printed instruction.
+      for (const m of f.marks || []) check(`${F} mark ${m.key}`, m.label);
       if (f.layout) { check(`${F} before`, f.layout.before); check(`${F} after`, f.layout.after); }
       for (const c of f.columns || []) {
         check(`${F}.${c.key} head`, c.head, { provisional: !!c.provisional });
@@ -169,7 +171,7 @@ function walk(dir) {
 }
 walk(join(proto, 'src'));
 walk(join(proto, 'tools'));
-for (const f of ['README.md', 'index.html']) {
+for (const f of ['README.md', 'index.html', 'artifact.html']) {
   const lines = readFileSync(join(proto, f), 'utf8').split('\n');
   lines.forEach((l, i) => { if (/[\u2013\u2014]/.test(l)) faults.push(`${f}:${i + 1}: em or en dash`); });
 }

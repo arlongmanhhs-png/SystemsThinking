@@ -53,13 +53,15 @@ definition with a `// SPEC:` comment and reported in `FINDINGS.md`. Never silent
 | `min`, `max`, `warnAbove` | Counts and caps. `max` blocks adding; `warnAbove` warns; `min` blocks the critical check |
 | `showIf` | `(ctx) => boolean` |
 | `derive` | For `derived`: `(ctx) => value` |
+| `marks` | For `sketch`: the marks the canvas offers, `[{ key, label }]`, each label in the words of the printed instruction (checked against the page by `tools/check-wording.mjs`) |
 
 ## The kinds
 
 `line`, `block`, `year`, `number`, `choice`, `choices`, `confirm`, `table`, `ref`,
 `derived`, `image`, `series`, `span`, and two canvases: `sketch` (Step 2,
-Exercise 1: a placeholder in this prototype) and `arrangement` (Step 2,
-Exercise 10).
+Exercise 1: the free-form canvas, built 2 October 2026) and `arrangement` (Step 2,
+Exercise 10). A `sketch` value is `{ marks, labels, connectors }` or null when
+empty; presence is all that is checked, and only where no photograph is added.
 
 ## The strip at the foot of every working page
 

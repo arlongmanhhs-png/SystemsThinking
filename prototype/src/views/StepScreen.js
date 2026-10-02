@@ -47,6 +47,7 @@ function show(state, step, key, v) {
   if (Array.isArray(v)) return own(`${v.length} row${v.length === 1 ? '' : 's'}`);
   if (typeof v === 'object' && v.points) return own(`${arr(v.points).length} points`);
   if (typeof v === 'object' && v.placed) return own('the drawing');
+  if (typeof v === 'object' && Array.isArray(v.connectors)) return own('the first drawing');
   if (typeof v === 'object' && ('from' in v || 'to' in v)) return `${v.from || '?'} to ${v.to || '?'}`;
   return String(v);
 }

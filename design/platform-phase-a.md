@@ -54,11 +54,11 @@ one running its exercises in the order the workbook runs them, ending in its
 critical check.
 
 Both drawings in Step 2 get a **canvas**, described in section 7. They are two
-different canvases. The prototype builds only the second, with a placeholder and a
+different canvases. The prototype built the second first, with a placeholder and a
 photograph slot for the first, so that the rest of Phase A could be seen working
-before the larger piece of drawing work was started. Online, either a drawing on
-the first canvas or a photograph of a drawing made on a large sheet completes
-Exercise 1 (section 7).
+before the larger piece of drawing work was started; the first was built on
+2 October 2026. Either a drawing on the first canvas or a photograph of a drawing
+made on a large sheet completes Exercise 1 (section 7).
 
 **At the end of Phase A, a file of the whole phase.** Decided 2 October 2026. The
 artifact offers the student a file of the "Read through" view: every exercise of
@@ -70,7 +70,29 @@ through", is provisional and waits for approval. The file is not laid out page f
 page like the book. A page-for-page export is the aim for the hosted version: the
 hosted version builds a PDF of the completed workbook in the same style as the
 printed book, because the same exercises are completed on paper and online
-(Ashley, 2 October). Neither export is built yet.
+(Ashley, 2 October). The page-for-page export is not built.
+
+**Built 2 October 2026, in a provisional format.** The format of the artifact's
+file is an open question with Ashley (`core/open-questions.md`); the format
+recommended to her is built, and her verdict can still change it. The file is one
+self-contained HTML document of the read-through, readable offline in any browser
+and printable from that browser: inline CSS with A4 print styles, the case's
+content as static markup with no script, every piece of participant text escaped,
+and the three faces (Outfit, Archivo, Archivo Narrow) embedded from the
+repository's own font files, about 96 KB of the file; a plain stack stands in
+where the faces cannot be read. It holds the case's name and the date of saving at
+the top, every exercise of Steps 1 to 3 in the book's order with its number and
+title, each step's state and the date it passed, the Step 3 graphs as inline SVG
+from the same geometry as the screen's, the first drawing as inline SVG or the
+photograph embedded, the second drawing as counts and a list of lines and, since
+the sheet's geometry made it cheap, drawn as well, and page 25 at the end. The
+wording is the screen's, read through the same code as the read-through, with the
+screen's own words marked in the file as they are on screen. The file is offered
+with "Save the read-through to a file" on the read-through at any time, and on the
+case view once every step has passed its critical check; in the artifact it goes
+through the artifact's own save prompt, locally through the browser's download.
+Nothing in the file is a link, and nothing prints from a button: the person prints
+from the browser the file is open in.
 
 **A lecturer reads a case only when the student hands the case in.** Decided
 2 October 2026. The student decides what to hand in and when (the saved case file
@@ -263,10 +285,48 @@ blocking check on the content of a sentence.
   own. In the artifact, saving a file goes through the artifact's own save prompt,
   which the student confirms each time. The footer keeps its three buttons, and its
   provisional wording about "this browser" changes to say where the case is kept.
+  The file of the whole phase at the end of Phase A (section 1) is offered the same
+  way, and is a reading of the case, not a copy of it: "Open a saved case" reads
+  the case file, never the read-through.
 
 Students log in: the hosted version, built once the platform is complete, has its
-own way of logging in, chosen when the hosted version is built. The prototype
-keeps the browser and the file only; the database is still to be built.
+own way of logging in, chosen when the hosted version is built.
+
+**Built 2 October 2026.** One codebase serves both: `prototype/index.html` runs
+locally and keeps the browser and the file only; `prototype/artifact.html` is the
+artifact's page, with the same scripts published beside it, and keeps the case in
+the account where the person can save there. The two backends sit behind one
+interface in `prototype/src/engine/storage.js`, and nothing in the engine or the
+views knows which holds the case. The browser holds two kinds of slot: the
+browser-only slot, for whoever uses the page without an account, and one slot per
+signed-in person, named by the account id, with a record beside it saying whether
+the copy holds a change the account has not confirmed and which case of the
+account's the copy descends from (reworked 2 October 2026, after review). In the
+artifact the page renders empty and read only, with the footer saying the case is
+being read, until the capabilities resolve and the account has said who is here:
+so one person's copy is never shown to another, nothing typed before then can be
+lost, and another person's slot is never read or written over. Then a case held in
+the account is the case, unless the own slot's copy is pending and descends from
+that very case (the account's write did not finish last time), in which case the
+copy is the newer one and is carried into the account; a pending copy that
+descends from an older case gives way to the account's, since another device wrote
+meanwhile and the later writer wins, as it does while the page is open. An empty
+area receives the own slot's copy, or the browser-only copy the first time the
+person signs in on that browser, so nothing is lost. Writes are debounced, one at a
+time per document, only on change, and the case is split across documents so that
+a photograph never pushes one over the limit a document may hold; a document is
+never rewritten once written and the head names every document the case is made
+of, so a write cut short leaves the previous case whole, and a torn read only ever
+means a newer head is on its way: the page reads again, and after four attempts
+says the case could not be read, with "Read the case again", staying read only
+until a read succeeds. The head document is subscribed once, so a change made on
+another device shows without clobbering one being typed here. A person who cannot
+write there (view-only access) stays in the browser, in that person's own slot,
+with a saving notice. In the artifact a browser dialog never shows, so the
+questions before a saved case or a new case replaces the current one, and before
+the first attempt is copied over what is written in Step 1, Exercise 6, are asked
+on the page itself. The footer says where the case is kept. `prototype/README.md`
+describes the database layout.
 
 Store the field values, the critical check ticks with their dates, the revision
 log, and the review marks raised on other steps. Derive everything else: a step's
@@ -353,8 +413,8 @@ appears once the one above it has content, and everything already written stays
 open for editing. Disclosure here is about not showing a participant an empty
 wall; it is not a lock, and nothing is ever locked.
 
-**Both drawings in Step 2 are canvases, and section 7 describes them.** In this
-prototype the first is a placeholder and the second is built.
+**Both drawings in Step 2 are canvases, and section 7 describes them.** Both are
+built: the second on 29 September 2026 and the first on 2 October 2026.
 
 **The critical check sits at the foot of the step**, and opens when the required
 fields are present. Its criteria are statements the participant ticks, each
@@ -370,10 +430,10 @@ Step 2 draws the case twice, and the two drawings are different instruments. The
 first is a dump and the second is an arrangement, which is the whole reason the
 step asks for both. Two canvases, therefore, not one used twice.
 
-**Only the second is built in the prototype.** The first is a placeholder: a
-marked-out surface that says what will be there, with the photograph slot beside
-it as the interim, so that a case can still be worked from end to end. The second
-was built properly first, so that the rest of Phase A could be seen working.
+**Both are built.** The second was built first, so that the rest of Phase A could
+be seen working, with the first as a placeholder beside the photograph slot in the
+interim; the first was built on 2 October 2026, and the photograph slot stays
+beside it as the alternative.
 
 ### Exercise 1, the first drawing: free-form, or a photograph
 
@@ -399,9 +459,27 @@ has to protect.
 participant who drew on a large sheet adds a photograph instead. Exercise 1 is
 complete with the confirmation that the drawing exists and either a drawing on the
 canvas or a photograph. The Step 2 specification and `process.yaml` change to
-match: `sketch_first_canvas` is required only where no photograph is added. The
-canvas is still to be built; until it is, the prototype's placeholder and
-photograph slot stand.
+match: `sketch_first_canvas` is required only where no photograph is added.
+
+**Built 2 October 2026** (`prototype/src/views/Sketch.js`). The sheet is white on
+the 24px dot raster, as wide as its container and growing past whatever is on it,
+scrolling inside its own container at phone width. The marks are the four page 13
+names, read from the field's definition in the page's words, each drawn as a small
+glyph. A tap or click on the sheet writes a label there; choosing a mark's button
+and then tapping or clicking places that mark, and the button stays chosen for the
+next; "Draw a connector" joins any two things with two taps or clicks. Anything
+drags with mouse, touch, or pen, moves with the arrow keys, and is removed with its
+button or the Delete key; the last change can be undone. The sheet and every thing
+on it take keyboard focus, with a visible ring. A selected thing recolours while the
+rest drops back to grey. Nothing is validated and nothing is read from the case.
+The drawing is stored as compact JSON (marks, labels, connectors, with pixel
+coordinates) through the ordinary field mechanism, null once empty, and nothing
+caps a label or the drawing: a build sets no threshold of its own, the sheet grows
+past what is on it, and the account splits the case across documents whatever its
+size (two caps set on 2 October 2026 were removed the same day after review). The
+read-through draws the drawing from the stored marks, labels, and
+connectors, or shows the photograph, and the file of the whole phase (section 1)
+draws the same things from the same geometry.
 
 ### Exercise 10, the second drawing: structured, and built now
 
@@ -546,8 +624,10 @@ string is approved, the dotted underline that marks the string provisional stays
 
 ## 10. Technology
 
-**The prototype** has no backend, no database, no accounts, and no network calls
-at runtime.
+**The prototype**, run locally, has no backend, no database, no accounts, and no
+network calls at runtime. Run as the artifact, the same code reaches the
+artifact's own database and save prompt through the capabilities the host serves,
+and nothing else (section 4, "State").
 
 Plain ES modules, vendored into the prototype folder so nothing is fetched from a
 content delivery network. React with htm is a reasonable choice, because it gives
@@ -567,8 +647,9 @@ pipeline and shares nothing with it.
 artifact, built from the prototype and the step specifications. The case is kept
 in the artifact's own database where the student can save there, which needs the
 student signed in to claude.ai, and in the browser otherwise, with file save and
-open in both cases (section 4). The platform is hosted properly, on a website of
-its own, once the platform is complete, and students log in to the hosted version
+open in both cases (section 4; built 2 October 2026). The platform is hosted
+properly, on a website of its own, once the platform is complete, and students log
+in to the hosted version
 in a way chosen when the hosted version is built. Neither the browser's storage
 nor the artifact's database carries over to that website; a saved case file does.
 

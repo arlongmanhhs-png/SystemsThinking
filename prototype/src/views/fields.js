@@ -7,6 +7,7 @@ import { newId } from '../engine/store.js';
 import { Prov } from './text.js';
 import { Graph } from './Graph.js';
 import { Arrangement } from './Arrangement.js';
+import { Sketch } from './Sketch.js';
 
 const arr = (x) => (Array.isArray(x) ? x : []);
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -151,18 +152,6 @@ function ImageField({ f, value, onChange }) {
   </div>`;
 }
 
-// Step 2, Exercise 1. A placeholder in this prototype: a marked-out surface saying
-// what will be there (design/platform-phase-a.md, section 7).
-function Sketch() {
-  return html`<div class="sketch-placeholder" role="img" aria-label="Placeholder for the first drawing">
-    <div class="sketch-placeholder__inner">
-      <div class="es-overline">The first drawing</div>
-      <p><${Prov}>A free canvas goes here: marks, short labels, and connectors, with marks for money, for conflict, for a blockage, and a question mark for what is not known. No bands, no tray, no structure, and nothing checked. The free canvas comes in a later version.</${Prov}></p>
-      <p><${Prov}>Until then, draw on paper and add a photograph.</${Prov}></p>
-    </div>
-  </div>`;
-}
-
 export function Derived({ value, label }) {
   const empty = value == null || value === '';
   return html`<div class=${`field__derived ${empty ? 'is-empty' : ''}`} aria-label=${label}>${empty ? ' ' : String(value)}</div>`;
@@ -183,7 +172,8 @@ export function Field({ f, value, onChange, state, ctx, step, highlight }) {
     case 'confirm': return html`<div class=${`field ${highlight ? 'is-highlight' : ''}`}><${Confirm} f=${f} value=${value} onChange=${onChange} /></div>`;
     case 'image': body = html`<${ImageField} f=${f} value=${value} onChange=${onChange} />`; break;
     case 'span': body = html`<${Span} value=${value} onChange=${onChange} />`; break;
-    case 'sketch': return html`<${Sketch} />`;
+    // Step 2, Exercise 1: the first drawing, a free-form canvas (Sketch.js).
+    case 'sketch': return html`<${Sketch} f=${f} value=${value} onChange=${onChange} />`;
     case 'series': body = html`<${Graph} f=${f} value=${value} onChange=${onChange} state=${state} ctx=${ctx} step=${step} />`; break;
     case 'arrangement': return html`<${Arrangement} value=${value} onChange=${onChange} state=${state} />`;
     case 'ref':

@@ -61,7 +61,8 @@ ok(!/problem_(thing|who|direction|agreed)/.test(s1Returns), 'returns into Step 1
 // ---- Step 2: two layers, reasons, speaks-for line
 const t = blank(); Object.assign(t.values[1], s.values[1]);
 Object.assign(t.values[2], {
-  sketch_first_done: true, inside: [{ id: 'i', label: 'x' }], outside: [{ id: 'o', label: 'EU', mark: 'O', reason: 'r' }],
+  sketch_first_done: true, sketch_first_canvas: { marks: [{ id: 'mk1', mark: 'money', x: 120, y: 90 }], labels: [], connectors: [] },
+  inside: [{ id: 'i', label: 'x' }], outside: [{ id: 'o', label: 'EU', mark: 'O', reason: 'r' }],
   layers: [{ id: 'L1', name: 'National', reason: 'widest' }, { id: 'L2', name: 'City', reason: '' }],
   actor_types: [{ id: 'T1', label: 'authority' }],
   actors: [{ id: 'a1', name: 'Ministry', layer: 'L1', type: 'T1', admits: ['1'] }, { id: 'a2', name: 'Tenants', layer: 'L2', type: 'T1', admits: ['2'] }],
@@ -79,6 +80,19 @@ ok(b2.some((x) => /who speaks for each group/i.test(x)), 'spoken_for_by is requi
 t.values[2].layers[1].reason = 'narrowest'; t.values[2].two_layers_because = 'nothing between the ministry and the city'; t.values[2].spoken_for_by = 'nobody';
 b2 = validateStep(t, 2).blocking.map((b) => b.text);
 ok(b2.length === 0, `Step 2 complete with two layers (${JSON.stringify(b2)})`);
+// B12 (2 October 2026): Exercise 1 is complete with the confirmation and either a
+// drawing on the canvas or a photograph.
+const ex1 = () => validateStep(t, 2).blocking.filter((b) => b.exercise === 1).map((b) => b.text);
+delete t.values[2].sketch_first_canvas;
+ok(ex1().some((x) => /the first drawing, on the canvas or as a photograph/.test(x)), 'Exercise 1 with neither a drawing nor a photograph is not complete');
+t.values[2].sketch_first_image = { src: 'data:image/jpeg;base64,AAAA', name: 'sheet.jpg' };
+ok(ex1().length === 0, 'Exercise 1 is complete with a photograph alone');
+delete t.values[2].sketch_first_image;
+t.values[2].sketch_first_canvas = { marks: [], labels: [{ id: 'lb1', text: 'Tenants', x: 100, y: 100 }], connectors: [] };
+ok(ex1().length === 0, 'Exercise 1 is complete with a drawing alone');
+t.values[2].sketch_first_canvas = { marks: [], labels: [], connectors: [] };
+ok(ex1().length === 1, 'an empty drawing does not count');
+t.values[2].sketch_first_canvas = { marks: [{ id: 'mk1', mark: 'money', x: 120, y: 90 }], labels: [], connectors: [] };
 t.values[2].layers.push({ id: 'L3', name: 'District', reason: 'r' });
 ok(!validateStep(t, 2).blocking.some((b) => /no third scope/.test(b.text)), 'with three layers the two-layer line is not asked for');
 ok(!BUILT[2].exercises.find((e) => e.number === 5).fields[0].columns.some((c) => c.key === 'spoken_for_by'), 'the actor table has no speaks-for column');
@@ -110,5 +124,15 @@ u.values[2].actors = Array.from({ length: 16 }, (_, i) => ({ id: 'x' + i, name: 
 const w16 = validateStep(u, 2);
 ok(!w16.blocking.some((b) => /actors/i.test(b.text) && /15|fifteen/.test(b.text)) && w16.warnings.some((w) => w.id === 'past_fifteen'), 'sixteen actors warn past fifteen and do not block');
 ok(BUILT[2].exercises.find((e) => e.number === 5).fields[0].max === undefined, 'the actor table has no hard cap');
+
+// ---- A damaged file (found in review, 2 October 2026): members of the wrong type
+// are brought back to shape rather than crashing a step screen.
+const { hydrate } = await import(base + 'engine/store.js');
+const h = hydrate({ version: 1, meta: 'Damaged', values: { 1: { situation: 'Kept' }, 2: 'x', 3: null }, revisions: null, marks: 'none', returns: 7, pending: null, ticks: [], confirmations: { 1: ['2026-10-01T10:00:00Z'] }, dismissed: 'd', read: null });
+ok(Array.isArray(h.revisions) && Array.isArray(h.marks) && Array.isArray(h.returns), 'a damaged file: the lists are arrays');
+ok(['ticks', 'pending', 'dismissed', 'read', 'edited', 'meta'].every((k) => h[k] && typeof h[k] === 'object' && !Array.isArray(h[k])), 'a damaged file: the maps are objects');
+ok(h.values[1].situation === 'Kept' && typeof h.values[2] === 'object' && typeof h.values[3] === 'object' && typeof h.values.A === 'object', 'a damaged file: each step\'s values are an object, and what was there is kept');
+ok(h.confirmations[1].length === 1 && typeof h.meta.started === 'string', 'a damaged file: what was well formed stays, and the start date is filled in');
+ok(JSON.stringify(hydrate({ version: 1, values: {} }).values) === JSON.stringify({ 1: {}, 2: {}, 3: {}, A: {} }), 'an empty file: every step has its values object');
 console.log(fails ? `${fails} FAILED` : 'all passed (with the verification additions)');
 process.exitCode = fails ? 1 : 0;

@@ -12,6 +12,12 @@ import { filled, fieldValue, makeCtx } from './ctx.js';
 
 const arr = (x) => (Array.isArray(x) ? x : []);
 
+// The first drawing (Step 2, Exercise 1) has content once a mark or a label is on
+// it. Presence is all that is ever checked: nothing reads what is drawn.
+export function sketchHasContent(v) {
+  return !!v && typeof v === 'object' && arr(v.marks).length + arr(v.labels).length > 0;
+}
+
 function isRequired(f, ctx) {
   if (typeof f.required === 'function') return !!f.required(ctx);
   return !!f.required;
@@ -112,6 +118,9 @@ export function fieldProblems(state, stepNo, f, ctx) {
       break;
     }
     case 'sketch':
+      // Required only where no photograph is added (decided 2 October 2026): the
+      // definition's required(ctx) says so, and presence is all that is checked.
+      if (req && !sketchHasContent(v)) out.push({ key: f.key, text: 'the first drawing, on the canvas or as a photograph' });
       break;
     default:
       if (req && !filled(v)) out.push({ key: f.key, text: fieldName(f) });
@@ -177,6 +186,7 @@ export function exerciseHasContent(state, stepNo, ex) {
     const v = vals[f.key];
     if (f.kind === 'series') return arr(v && v.points).length > 0;
     if (f.kind === 'arrangement') return !!(v && v.placed && Object.keys(v.placed).length);
+    if (f.kind === 'sketch') return sketchHasContent(v);
     if (f.kind === 'table') return arr(v).some((r) => Object.entries(r).some(([k, x]) => k !== 'id' && filled(x)));
     return filled(v);
   });
