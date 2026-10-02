@@ -72,7 +72,7 @@ const stored = (page) => page.evaluate(() => JSON.parse(localStorage.getItem('sy
 
 (async () => {
   await new Promise((r) => server.listen(0, r));
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 
   // B27: the reason beside each outside row is labelled as page 13 prints it.
   let { page, errors } = await open(browser, state(undefined), '#/step/2/ex/2');

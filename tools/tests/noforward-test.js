@@ -43,7 +43,7 @@ async function open(browser, st, hash) {
 
 (async () => {
   await new Promise((r) => server.listen(0, r));
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 
   for (const passages of ['no preference', 'old preference']) {
     // 1. Size "no", Exercise 6 not written: the warning links back to Exercise 2 only.

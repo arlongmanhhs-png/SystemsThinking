@@ -41,7 +41,7 @@ async function open(browser, st, hash) {
 }
 (async () => {
   await new Promise((r) => server.listen(0, r));
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
   for (const passages of ['no preference', 'old preference']) {
     const st = { version: 1, meta: { case: 't', started: '2026-10-01T10:00:00Z' }, values: { 1: {}, 2: {}, 3: {}, A: {} },
       ticks: {}, confirmations: { 1: ['2026-10-01T10:00:00Z'] }, pending: {}, revisions: [], marks: [], returns: [], dismissed: {}, read: {}, edited: {},
